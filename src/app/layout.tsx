@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
+import SiteHeader from "@/components/site-header";
+import { ViewTransitions } from 'next-view-transitions';
+import QueryProvider from "@/contexts/query-provider";
+
+// declare global {
+//   interface Window {
+//     kakao: any;
+//   }
+// } 카카오 오류 시
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ViewTransitions>
+      <html lang="en">
+        <body className={inter.className}>
+          <QueryProvider>
+            <SiteHeader />
+            {children}
+          </QueryProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
