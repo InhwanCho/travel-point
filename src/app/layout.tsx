@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import SiteHeader from "@/components/site-header";
 import { ViewTransitions } from 'next-view-transitions';
 import QueryProvider from "@/contexts/query-provider";
+import { cn } from "@/lib/utils";
 
 // declare global {
 //   interface Window {
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={cn('min-h-dvh font-sans antialiased', inter.className)}>
           <QueryProvider>
             <SiteHeader />
             {children}

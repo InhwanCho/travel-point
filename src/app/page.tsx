@@ -1,10 +1,32 @@
+import PageLayout from "@/components/layout/page-layout";
+import MainHero from "@/components/section/main-hero";
+import RegionRecommendation from "@/components/section/region-recommendation";
+import RegionSelection from "@/components/section/region-selection";
+import { Separator } from "@/components/ui/separator";
+import TrendingDestinations from "@/components/section/trending-destinations";
+import ThemeRecommendation from "@/components/theme-recommendation";
+
 import TouristAttractionsComponent from "@/components/touristAttractionsComponent";
+import FestivalRecommendation from "@/components/section/festival-recommendation";
 
 
 export default function Home() {
   return (
-    <main className="h-[3000px]">      
+    <main className="">
+      <MainHero />
+      <PageLayout>
+        <RegionRecommendation />
+        <RegionSelection />
+        <Separator className="my-10 md:my-20"/>
+        <TrendingDestinations/>
+        <Separator className="my-10 md:my-20"/>
+        <ThemeRecommendation />
+        <Separator className="my-10 md:mt-80"/>
+        <FestivalRecommendation />
+      </PageLayout>      
+            
       {/* <TouristAttractionsComponent /> */}
+      
     </main>
   );
 }

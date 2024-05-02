@@ -6,7 +6,6 @@ import Image from 'next/image';
 import React, { Suspense } from 'react';
 
 
-
 function TouristAttractionsComponent() {
   const params = {
     areaCode: '4',
