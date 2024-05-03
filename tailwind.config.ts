@@ -12,13 +12,12 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "xsm" : "450px",
-        "2xl": "1400px",
-      },
+      padding: "2rem",      
     },
     extend: {
+      screens: {
+        xsm: "450px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

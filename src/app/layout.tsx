@@ -5,6 +5,7 @@ import SiteHeader from "@/components/site-header";
 import { ViewTransitions } from 'next-view-transitions';
 import QueryProvider from "@/contexts/query-provider";
 import { cn } from "@/lib/utils";
+import SiteFooter from "@/components/site-footer";
 
 // declare global {
 //   interface Window {
@@ -30,8 +31,9 @@ export default function RootLayout({
         <body className={cn('min-h-dvh font-sans antialiased', inter.className)}>
           <QueryProvider>
             <SiteHeader />
-            {children}
+            {children}            
           </QueryProvider>
+          <SiteFooter/>
         </body>
       </html>
     </ViewTransitions>

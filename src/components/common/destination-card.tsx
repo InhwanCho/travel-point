@@ -15,7 +15,7 @@ export default function DestinationCard({ className, location, title, descriptio
   return (
     <div className={`${cn('flex-1', className)}`} {...props}>
       <div className='relative'>
-        <Image width={240} height={200} src={'/img/sample.avif'} alt='sample img' className='rounded-sm' />
+        <Image width={300} height={220} src={'/img/sample.avif'} alt='sample img' className='rounded-sm' />
         {isFestival ? <p className="absolute bottom-0 left-0 bg-slate-800/90 text-white text-xs p-1 rounded-tr-md rounded-bl-sm">
           진행중
         </p> : null}

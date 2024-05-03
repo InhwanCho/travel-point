@@ -5,7 +5,7 @@ import DestinationCard from '../common/destination-card';
 
 export default function FestivalRecommendation() {
   return (
-    <section className='h-[600px]'>
+    <section className=''>
       <Title>이런 축제 어때요?</Title>
       <CardLayout className='gap-6'>
         {[0, 0, 0, 0].map((item, i) => (
