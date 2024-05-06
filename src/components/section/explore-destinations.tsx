@@ -53,7 +53,7 @@ export default function ExploreDestinations() {
       <Separator />
       <section className='p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12'>
         <Suspense fallback='loading...'>
-          {[...Array(15)].map((item, i) => (
+          {[...Array(20)].map((item, i) => (
             <React.Fragment key={i}>
               <DestinationCard
                 className="col-span-1 first:ml-0"
@@ -62,13 +62,14 @@ export default function ExploreDestinations() {
                 description='정답게 이야기를 나눌 수 있는...'
               />
               {/* 경계선 */}
-              <Separator className={`${(i + 1) % divideNumber === 0 ? `col-span-${divideNumber} last:hidden` : 'hidden'}`} />
+              <Separator className={`${(i + 1) % divideNumber === 0 ? `last:hidden` : 'hidden'}`} style={{ gridColumn: `span ${divideNumber} / span ${divideNumber}`, display: (i + 1) % divideNumber === 0 ? 'block' : 'none' }} />
+
             </React.Fragment>
           ))}
         </Suspense>
       </section>
       <div className='flex justify-center pb-8 mt-5'>
-        <DestinationPagination/>
+        <DestinationPagination />
       </div>
     </section>
   );

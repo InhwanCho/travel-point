@@ -14,10 +14,10 @@ export default function DestinationHeader() {
             <span>(352명)</span>
           </div>
           <nav className='flex gap-3'>
-            <button className='rounded-full border text-sm px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
+            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
+            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
+            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
+            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
           </nav>
         </div>
         <div className='pt-2'>

@@ -20,7 +20,7 @@ export default function RegionArticle({ region }: { region: string }) {
         </nav>
       </header>
       <CardLayout className='gap-6' isTwo>
-        {[0, 0].map((item, i) => (
+        {[...Array(2)].map((item, i) => (
           <DestinationCard key={i} location='강원특별자치도 춘천시' title='대관령 삼양목장' description='정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는' />
         ))}
       </CardLayout>

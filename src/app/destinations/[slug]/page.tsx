@@ -18,7 +18,7 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
       <PageLayout>
         <DestinationHeader />
         <DestinationBody/>
-        <div>hi</div>
+        
       </PageLayout>
     </main>
   );

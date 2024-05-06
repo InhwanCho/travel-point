@@ -2,6 +2,7 @@ import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import ExploreDestinations from '@/components/section/explore-destinations';
 import RegionSelection from '@/components/section/region-selection';
+import TrendingDestinations from '@/components/section/trending-destinations';
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
 
@@ -12,7 +13,9 @@ export default function RegionsPage() {
       <RegionSelection title='여행지 지역 탐색'/>
       <Separator className='my-20'/>
       <PageLayout>
-        <ExploreDestinations/>
+        <ExploreDestinations />
+        <Separator className='my-20'/>
+        <TrendingDestinations />
       </PageLayout>
     </main>
   );
