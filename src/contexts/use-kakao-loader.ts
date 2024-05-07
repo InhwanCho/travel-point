@@ -8,7 +8,7 @@ export default function useKakaoLoader() {
      * 
      * @참고 https://apis.map.kakao.com/web/guide/
      */
-    appkey: "79b121df9d14d1474ebf4f62b7f3e495",
+    appkey: process.env.NEXT_PUBLIC_KAKAO_MAP_KEY!,
     libraries: ["clusterer", "drawing", "services"],
   });
 }

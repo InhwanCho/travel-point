@@ -1,7 +1,11 @@
 import React from 'react';
 import { Separator } from '../ui/separator';
 
-export default function DestinationHeader() {
+interface DestinationHeaderProps {
+  slug: string
+}
+
+export default function DestinationHeader({ slug }: DestinationHeaderProps) {
   const hashtags = ['걷기좋은길', '봄여행', '공원'];
   return (
     <header className='py-8'>
@@ -9,7 +13,7 @@ export default function DestinationHeader() {
       <div className='max-w-[900px] mx-auto'>
         <div className='flex justify-between'>
           <div className='flex gap-2 items-end'>
-            <h2 className='text-xl font-bold'>부산트릭아이뮤지엄</h2>
+            <h2 className='text-xl font-bold'>{slug}</h2>
             <span className='pl-1'>⭐⭐⭐⭐⭐</span>
             <span>(352명)</span>
           </div>

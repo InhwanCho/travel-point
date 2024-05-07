@@ -10,7 +10,7 @@ interface NearbyProps {
 
 export default function Nearby({ className }: NearbyProps) {
   return (
-    <section className={cn('py-6', className)}>
+    <section className={cn('py-8', className)}>
       <Title className='border-b border-slate-700/70'>주변 여행지</Title>
       <CardLayout className='gap-6'>
         {[...Array(4)].map((item, i) => (

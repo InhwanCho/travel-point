@@ -4,8 +4,8 @@ import React from 'react';
 export default function CommentItem() {
   const isImage = true;
   return (
-    <div className='flex items-center pl-2 border-b py-2'>
-      <div className='min-w-[35px] flex items-center justify-center'>
+    <div className='flex items-start pl-2 border-b py-2'>
+      <div className='min-w-[35px] flex justify-center pt-1.5'>
         <div className='bg-red-100 size-8 rounded-full'></div>
       </div>
       <div className='pl-4'>
@@ -18,8 +18,7 @@ export default function CommentItem() {
         <div className='py-2'>
           <Image width={420} height={300} src={'/img/sample.avif'} alt='sample img' className='max-h-[180px]' />
         </div>}
-      </div>
-      
+      </div>    
     </div>
   );
 }

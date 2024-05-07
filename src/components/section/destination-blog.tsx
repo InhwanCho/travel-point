@@ -1,23 +1,62 @@
-import React from 'react';
+'use client';
+import React, { Suspense, useEffect, useState } from 'react';
 import Title from '../common/title';
+import { BlogData, BlogPost } from '@/types/naver-blog-types';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DestinationBlog() {
+  const [blogData, setBlogData] = useState<BlogData | null>(null);
+  function formatDate(dateStr: string) {
+    return `${dateStr.slice(0, 4)}. ${dateStr.slice(4, 6)}. ${dateStr.slice(6)}`;
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Use search parameters directly in the API request URL
+        const query = '부산 트릭아이 뮤지엄'; // Example search query
+        const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data: BlogData = await response.json();
+        setBlogData(data);
+      } catch (error) {
+        console.error('Failed to fetch blog data:', error);
+      }
+    };
+
+    fetchData(); // Call the fetch function
+  }, []);
+  if (!blogData) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className=''>
-      <Title className='justify-start px-4'>부산 트릭아이 뮤지엄 블로그 리뷰</Title>
+    <div className='py-8'>
+      <Title className='justify-between pl-2' naverImg>부산 트릭아이 뮤지엄 블로그 리뷰</Title>      
       <div className='border rounded-sm'>
-        {[...Array(4)].map((item, i, arr) => (
-          <div className='flex flex-col p-2.5' key={i}>
+        {blogData.items.map((item: BlogPost, index: number) => (
+          <div className='flex flex-col p-2.5' key={index}>
             <div className='flex'>
-              <h3 className='truncate max-w-[400px] text-blue-700/90'>부산 아이와 가볼만한곳 트릭아이뮤지엄 실내데이트 주차 부산 아이와 가볼만한곳 트릭아이뮤지엄 실내데이트 주차</h3>
-              <time className='ml-6 flex text-sm items-center text-slate-600'><span className='mr-1.5'>|</span> 2024. 02. 02</time>
+              <a dangerouslySetInnerHTML={{ __html: item.title }} target='_blank' href={`${item.link}`} className='truncate max-w-[400px] text-blue-700/90'></a>
+              <time className='ml-6 flex text-sm items-center text-slate-600'>
+                <span className='mr-1.5'>|</span>{formatDate(item.postdate)}
+              </time>
             </div>
-            <p className='pt-1 text-sm two-line-truncate'>부산 트릭아이뮤지엄 남자친구와 남포동 실내데이트로 부산 트릭아이뮤지엄에 다녀왔습니다. 사진찍으며 추억을 남기기 좋은 아이와 가볼만한곳으로 ...부산 트릭아이뮤지엄 남자친구와 남포동 실내데이트로 부산 트릭아이뮤지엄에 다녀왔습니다. 사진찍으며 추억을 남기기 좋은 아이와 가볼만한곳으로 ...</p>
-            <p className='mt-2 text-sm text-slate-600'>홍시의 일상 블로그</p>
-            {i === arr.length - 1 ? null : <div className='w-full border-b pt-2'></div>}
+            <p className='pt-1 text-sm two-line-truncate' dangerouslySetInnerHTML={{ __html: item.description }} />
+            <Link target='_blank' href={`https://${item.bloggerlink}`} className='mt-2 text-sm text-slate-600'>
+              {item.bloggername}
+            </Link>
+            {index < blogData.items.length - 1 && <div className='w-full border-b pt-2'></div>}
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+

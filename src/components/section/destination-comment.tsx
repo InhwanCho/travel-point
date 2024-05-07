@@ -52,7 +52,7 @@ export default function DestinationComment() {
         <div className='border-t-2 flex flex-col'>
           {[...Array(2)].map((item, i) => (<CommentItem key={i} />))}
           <div>
-            <p className='flex justify-center items-center py-2'>댓글 더보기
+            <p className='flex justify-center items-center py-4'>댓글 더보기
               <Plus className='size-4 ml-2' />
             </p>
           </div>

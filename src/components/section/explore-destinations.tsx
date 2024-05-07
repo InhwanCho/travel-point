@@ -59,7 +59,7 @@ export default function ExploreDestinations() {
                 className="col-span-1 first:ml-0"
                 location='강원특별자치도 춘천시'
                 title='대관령 삼양목장'
-                description='정답게 이야기를 나눌 수 있는...'
+                description='정답게 이야기를 나눌 수 있는 정답게 이야기를 나눌 수 있는 정답게 이야기를 나눌 수 있는 정답게 이야기를 나눌 수 있는'
               />
               {/* 경계선 */}
               <Separator className={`${(i + 1) % divideNumber === 0 ? `last:hidden` : 'hidden'}`} style={{ gridColumn: `span ${divideNumber} / span ${divideNumber}`, display: (i + 1) % divideNumber === 0 ? 'block' : 'none' }} />
