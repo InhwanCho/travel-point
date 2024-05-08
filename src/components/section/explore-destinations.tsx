@@ -53,7 +53,7 @@ export default function ExploreDestinations() {
       <Separator />
       <section className='p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12'>
         <Suspense fallback='loading...'>
-          {[...Array(20)].map((item, i) => (
+          {[...Array(15)].map((item, i) => (
             <React.Fragment key={i}>
               <DestinationCard
                 className="col-span-1 first:ml-0"

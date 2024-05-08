@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { Camera, CircleHelp, Plus } from 'lucide-react';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
-import CommentItem from '../common/comment-item';
-import Title from '../common/title';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import CommentItem from '@/components/common/comment-item';
+import Title from '@/components/common/title';
 
 
 export default function DestinationComment() {

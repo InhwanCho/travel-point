@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import KakaoMap from '../common/map';
+import KakaoMap from '@/components/common/map';
 import DestinationInfo from './destination-info';
 import RecentDestinations from './recent-destinations';
 import DestinationDescription from './destination-description';
@@ -8,7 +8,7 @@ import DestinationDescription from './destination-description';
 import Nearby from './nearby';
 import DestinationComment from './destination-comment';
 import DestinationBlog from './destination-blog';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
 
 interface DestinationBodyProps {
   slug: string

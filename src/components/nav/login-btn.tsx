@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { PopoverClose } from '@radix-ui/react-popover';
 import { X } from 'lucide-react';
+import { Link } from 'next-view-transitions';
 
 export default function LoginBtn() {
   const session = true;
@@ -23,7 +24,7 @@ export default function LoginBtn() {
               <div className='bg-red-100 size-16 rounded-full'></div>
               <p>안녕하세요, 인환님.</p>
               <div className='flex justify-evenly w-full'>
-                <Button variant='outline' className='rounded-full'>마이 페이지</Button>
+                <Link href={`/mypage/${'abcd'}`}><Button variant='outline' className='rounded-full'>마이 페이지</Button></Link>
                 <Button variant='outline' className='rounded-full'>로그 아웃</Button>
               </div>
             </div>

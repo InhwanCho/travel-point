@@ -91,7 +91,7 @@
     bottom: 0;
     left: 0px;
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.45s ease;
     @apply bg-slate-700/60;
   }
   .underline-link:hover::before {
@@ -102,6 +102,7 @@
     text-decoration-thickness: 2px;
     @apply text-slate-700 underline-offset-[3px] underline font-semibold decoration-slate-600
   }
+  
 
 
   /* 2라인넘어가면 truncate으로 만들기 */
@@ -117,3 +118,4 @@
 textarea {
   resize: none;
 }
+
