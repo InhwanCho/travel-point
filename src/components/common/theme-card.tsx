@@ -62,7 +62,7 @@ export default function ThemeCard({ isSecondCard = false }: ThemeCardProps) {
               <button
                 key={index}
                 onClick={() => handlePageClick(index)}
-                className={`size-5 text-sm transition-all font-semibold rounded-full text-slate-600 ${currentPage === index ? 'bg-slate-800/95 text-slate-100' : ''}`}
+                className={`size-5 text-sm transition-all font-semibold rounded-full ${currentPage === index ? 'bg-slate-800/95 text-slate-100' : 'text-slate-600'}`}
               >
                 {index + 1}
               </button>

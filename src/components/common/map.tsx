@@ -35,7 +35,9 @@ export default function KakaoMap({ latitude = 35.8753, longitude = 128.62767, cl
         isPanto={true}
       >
         <ZoomControl position={"BOTTOMRIGHT"} />
-        <MapMarker title='맵 타이틀' position={state} />
+        <MapMarker title='맵 타이틀' position={state} >
+          <div className="text-slate-600">hi</div>
+        </MapMarker>
       </Map>
       <div className="absolute inset-x-0 top-0 bg-white z-10 text-center font-semibold">여행지 주변 지도</div>
       <button onClick={resetCenter} className="border bg-white p-1 absolute top-0 right-0 z-20">
@@ -44,3 +46,7 @@ export default function KakaoMap({ latitude = 35.8753, longitude = 128.62767, cl
     </div>
   );
 }
+function handleWheel(this: Window, ev: WheelEvent) {
+  throw new Error("Function not implemented.");
+}
+

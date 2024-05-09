@@ -7,11 +7,11 @@ import QueryProvider from "@/contexts/query-provider";
 import { cn } from "@/lib/utils";
 import SiteFooter from "@/components/site-footer";
 
-// declare global {
-//   interface Window {
-//     kakao: any;
-//   }
-// } 카카오 오류 시
+declare global {
+  interface Window {
+    kakao: any;
+  }
+} 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,13 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" className="scroll-smooth scroll-pt-20">
         <body className={cn('min-h-dvh font-sans antialiased', inter.className)}>
           <QueryProvider>
             <SiteHeader />
-            {children}            
+            {children}
           </QueryProvider>
-          <SiteFooter/>
+          <SiteFooter />
         </body>
       </html>
     </ViewTransitions>

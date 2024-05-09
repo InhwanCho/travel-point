@@ -15,6 +15,7 @@ const config = {
       padding: "2rem",      
     },
     extend: {
+      scrollBehavior: ["smooth", "auto"],
       screens: {
         xsm: "450px",
       },

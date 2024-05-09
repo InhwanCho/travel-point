@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/ui/button";
+import { Link } from "next-view-transitions";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -34,19 +35,29 @@ const PaginationItem = React.forwardRef<
 ));
 PaginationItem.displayName = "PaginationItem";
 
-type PaginationLinkProps = {
-  isActive?: boolean
-} & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+// type PaginationLinkProps = {
+//   href: string,
+//   isActive?: boolean
+// } & Pick<ButtonProps, "size"> &
+//   React.ComponentProps<"a">
+
+interface PaginationLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  isActive?: boolean;
+  size?: "icon" | "default" | "sm" | "lg" | null | undefined ; // 예시
+  disabled?: boolean;  // 'disabled' 속성 추가
+  href:string
+}
 
 const PaginationLink = ({
   className,
   isActive,
   size = "icon",
+  href,
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? "page" : undefined}
+    href={href}
     className={cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
@@ -61,13 +72,21 @@ PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({
   className,
+  disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+}: React.ComponentProps<typeof PaginationLink>& { disabled: boolean }) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 pl-2.5", className)}
+    className={cn("gap-1 pr-2.5", className, { 'pointer-events-none opacity-50': disabled })}
     {...props}
+    onClick={(e) => {
+      if (disabled) {
+        e.preventDefault(); // 클릭 비활성화
+      } else {
+        props.onClick?.(e);
+      }
+    }}
   >
     <ChevronLeft className="h-4 w-4" />
     <span>Previous</span>
@@ -77,13 +96,21 @@ PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   className,
+  disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+}: React.ComponentProps<typeof PaginationLink>& { disabled: boolean }) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 pr-2.5", className)}
+    className={cn("gap-1 pr-2.5", className, { 'pointer-events-none opacity-50': disabled })}
     {...props}
+    onClick={(e) => {
+      if (disabled) {
+        e.preventDefault(); // 클릭 비활성화
+      } else {
+        props.onClick?.(e);
+      }
+    }}
   >
     <span>Next</span>
     <ChevronRight className="h-4 w-4" />

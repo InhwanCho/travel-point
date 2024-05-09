@@ -16,7 +16,7 @@ export default function Home() {
       <MainHero />
       <PageLayout>
         <RegionRecommendation />
-        <RegionSelection title="다른 지역 여행지 구경가기"/>
+        <RegionSelection title="다른 지역 여행지 구경가기" />
         <Separator className="my-10 md:my-20" />
         <TrendingDestinations />
         <Separator className="my-10 md:my-20" />
