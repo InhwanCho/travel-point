@@ -102,8 +102,6 @@
     text-decoration-thickness: 2px;
     @apply text-slate-700 underline-offset-[3px] underline font-semibold decoration-slate-600
   }
-  
-
 
   /* 2라인넘어가면 truncate으로 만들기 */
   .two-line-truncate {
@@ -112,7 +110,8 @@
     -webkit-line-clamp: 2; /* number of lines to show */
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
+  }  
+  
 }
 /* textarea 태그 사이즈 조절 금지 */
 textarea {

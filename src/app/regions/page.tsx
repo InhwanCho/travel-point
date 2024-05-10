@@ -10,7 +10,7 @@ import { Link } from 'next-view-transitions';
 export default function RegionsPage() {
   return (
     <main>
-      <HeroSection title='매력적인 지역 여행지' subtitle='여러분을 기다리는 특별한 장소들' />
+      <HeroSection section='regions' title='매력적인 지역 여행지' subtitle='여러분을 기다리는 특별한 장소들' />
       <RegionSelection title='여행지 지역 탐색' />
       <Separator className='my-20' />
       <PageLayout>

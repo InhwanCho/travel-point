@@ -1,16 +1,20 @@
+'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { PopoverClose } from '@radix-ui/react-popover';
 import { X } from 'lucide-react';
-import { Link } from 'next-view-transitions';
+
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginBtn() {
-  const session = true;
+  const session = false;
+  const router = useRouter();
+  const openModal = () => { router.push('/auth'); };
   return (
     <>
       {session ?
-
         <Popover>
           <PopoverTrigger>
             <div className='bg-red-100 size-8 rounded-full'></div>
@@ -32,9 +36,12 @@ export default function LoginBtn() {
         </Popover>
 
 
-        : <Button>
-          <span>Login</span>
-        </Button>}
+        :
+        // <Button onClick={openModal}>Login</Button>
+        <Link href='/auth'>로그인</Link>
+
+
+      }
     </>
 
   );

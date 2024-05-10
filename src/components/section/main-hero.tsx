@@ -5,14 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SwiperCore from 'swiper';
+import { heroImages } from '@/data/data';
 
 export default function MainHero() {
-  const heroImages = [
-    { image: '/img/해운대.png', bgColor: '#8EB2D6', title: '부산 해운대' },
-    { image: '/img/해운대.png', bgColor: '#A2D2FF', title: '부산 광안리' },
-    { image: '/img/해운대.png', bgColor: '#FBC4AB', title: '부산 송정 해수욕장' }
-  ];
-  
   const [swiperState, setSwiperState] = useState({
     bgColor: heroImages[0].bgColor,
     title: heroImages[0].title,
@@ -46,7 +41,7 @@ export default function MainHero() {
       >
         <ChevronLeft className='size-4 md:size-5 text-slate-200' strokeWidth={3} />
       </button>
-      <span className='text-slate-200 p-2 rounded-md shadow text-sm md:text-base'>{`${swiperState.currentIndex} / ${heroImages.length}`}</span>
+      <span className='text-slate-200 p-2 rounded-md shadow text-sm'>{`${swiperState.currentIndex} / ${heroImages.length}`}</span>
       <button
         onClick={() => swiperInstance?.slideNext()}
         aria-label="Next slide"
@@ -64,11 +59,13 @@ export default function MainHero() {
       style={{ backgroundColor: swiperState.bgColor }}
       className='relative flex justify-center items-center w-full transition-colors'
     >
+      <Image src={heroImages[swiperState.currentIndex - 1].image} alt={`backgound blur image`} width={1200} height={450}
+        className='w-full inset-x-0 h-[450px] absolute blur-[20px] xl:block hidden' />
       <Swiper
         onSwiper={setSwiperInstance}
         keyboard={true}
         watchOverflow={true}
-        className='relative max-w-[1200px] w-full h-auto max-h-[450px]'
+        className='relative max-w-[1200px] w-full h-auto max-h-[450px] object-fill'
         onSlideChange={handleSlideChange}
       >
         {heroImages.map((item, i) => (

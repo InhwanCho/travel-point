@@ -18,6 +18,7 @@ const config = {
       scrollBehavior: ["smooth", "auto"],
       screens: {
         xsm: "450px",
+        xl: "1200px"
       },
       colors: {
         border: "hsl(var(--border))",

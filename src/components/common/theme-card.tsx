@@ -13,11 +13,16 @@ import 'swiper/css/pagination';
 import { Keyboard, Pagination } from 'swiper/modules';
 import SwiperCore from "swiper";
 
+
 interface ThemeCardProps {
+  themeImages: {
+    title: string;
+    image: string;
+  }
   isSecondCard?: boolean;
 }
 
-export default function ThemeCard({ isSecondCard = false }: ThemeCardProps) {
+export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCardProps) {
   const router = useRouter();
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -76,7 +81,7 @@ export default function ThemeCard({ isSecondCard = false }: ThemeCardProps) {
             <span className='flex items-center text-sm'>더보기 <ChevronRight className='size-[15px] ml-[3px]' strokeWidth={1} /></span>
           </button>
         </div>
-        <Image width={420} height={300} src={'/img/sample.avif'} alt='sample img' className='md:h-[280px] w-full max-h-[300px] sm:block hidden' />
+        <Image width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden' />
         <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] p-4'>
           <Swiper
             onSwiper={setSwiper}

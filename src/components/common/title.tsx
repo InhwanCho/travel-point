@@ -13,7 +13,7 @@ export default function Title({ children, className, naverImg, navBtn}: TitlePro
   return (
     <header className={cn('flex justify-center mb-8 relative', className)}>
       <h2 className='font-bold pb-1 text-lg sm:text-xl'>{children}</h2>
-      {naverImg && <Image src="/assets/naver_blog.svg" width={80} height={20} alt="naver blog icon" />}
+      {naverImg && <Image src="/assets/svg/naver_blog.svg" width={80} height={20} alt="naver blog icon" />}
       {navBtn}
     </header>
   );

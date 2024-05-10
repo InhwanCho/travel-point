@@ -1,3 +1,4 @@
+
 import PageLayout from "@/components/layout/page-layout";
 import MainHero from "@/components/section/main-hero";
 import RegionRecommendation from "@/components/section/region-recommendation";
@@ -10,12 +11,14 @@ import TouristAttractionsComponent from "@/components/touristAttractionsComponen
 import FestivalRecommendation from "@/components/section/festival-recommendation";
 
 
+
 export default function Home() {
+  
   return (
     <main className="">
       {/* 히어로 섹션 */}
       <MainHero />
-      <PageLayout>
+      <PageLayout>        
         {/* 지역 섹션 */}
         <RegionRecommendation />
         <RegionSelection title="다른 지역 여행지 구경가기" />

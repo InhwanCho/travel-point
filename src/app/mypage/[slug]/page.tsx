@@ -30,7 +30,7 @@ export default function MyPage({ params }: MypageProps) {
 
   return (
     <main>
-      <HeroSection title='마이페이지' subtitle={`${params.slug}님 환영합니다.`} />
+      <HeroSection section='mypage' title='마이페이지' subtitle={`${params.slug}님 환영합니다.`} />
       <PageLayout>
         <div className='flex flex-col justify-center items-center my-16'>
           <div className='bg-red-100 size-32 rounded-full'></div>

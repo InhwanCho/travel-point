@@ -3,9 +3,9 @@ import React from 'react';
 
 export default function SiteFooter() {
   return (
-    < footer className="bg-white" >
-      <div className="mx-auto px-4 pb-6 pt-16 sm:px-6 lg:px-8 lg:pt-24">
-        <div className="mt-12 border-t border-gray-100 pt-6">
+    < footer className="bg-gray-50/40 shadow" >
+      <div className="mx-auto px-4 pb-6 mt-28 sm:px-6 lg:px-8">
+        <div className="border-t border-gray-100 pt-6">
           <div className="text-center sm:flex sm:justify-between sm:text-left max-w-screen-lg mx-auto">
             <p className="text-xs text-gray-600 ">
               Copyright © {new Date().getFullYear()}{' '}
@@ -17,10 +17,8 @@ export default function SiteFooter() {
               <Github />
               <Github />
               <Github />
-              <Github />
-              
+              <Github />            
             </div>
-
           </div>
         </div>
       </div>

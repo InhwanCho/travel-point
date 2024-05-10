@@ -7,11 +7,6 @@ import QueryProvider from "@/contexts/query-provider";
 import { cn } from "@/lib/utils";
 import SiteFooter from "@/components/site-footer";
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-} 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,15 +17,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
+  
   return (
     <ViewTransitions>
       <html lang="ko" className="scroll-smooth scroll-pt-20">
         <body className={cn('min-h-dvh font-sans antialiased', inter.className)}>
           <QueryProvider>
             <SiteHeader />
+            {modal}
             {children}
           </QueryProvider>
           <SiteFooter />

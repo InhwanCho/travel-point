@@ -8,7 +8,7 @@ import React from 'react';
 export default function FestivalsPage() {
   return (
     <main>
-      <HeroSection title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연'/>
+      <HeroSection section='festivals' title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연'/>
       <RegionSelection title='축제 지역 탐색'/>
       <Separator className='my-20'/>
       <PageLayout>
