@@ -31,6 +31,11 @@ export const headerMenus = [
     path: "/festivals",
     subMenus: ["진행 중", "진행 예정"],
   },
+  {
+    name: "추천",
+    path: "/recommended",
+    subMenus: ["진행 중", "진행 예정"],
+  }
 ];
 
 export const REGIONS = [

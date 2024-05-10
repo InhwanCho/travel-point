@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className="scroll-smooth scroll-pt-20">
+      <html lang="ko" className="scroll-smooth scroll-pt-20">
         <body className={cn('min-h-dvh font-sans antialiased', inter.className)}>
           <QueryProvider>
             <SiteHeader />

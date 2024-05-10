@@ -13,15 +13,20 @@ import FestivalRecommendation from "@/components/section/festival-recommendation
 export default function Home() {
   return (
     <main className="">
+      {/* 히어로 섹션 */}
       <MainHero />
       <PageLayout>
+        {/* 지역 섹션 */}
         <RegionRecommendation />
         <RegionSelection title="다른 지역 여행지 구경가기" />
         <Separator className="my-10 md:my-20" />
+        {/* 추천 섹션 */}
         <TrendingDestinations />
         <Separator className="my-10 md:my-20" />
+        {/* 테마 섹션 */}
         <ThemeRecommendation />
         <Separator className="my-10 md:mt-20" />
+        {/* 축제 섹션 */}
         <FestivalRecommendation />
       </PageLayout>
 

@@ -13,33 +13,41 @@ import { Pagination, Keyboard } from "swiper/modules";
 import SwiperCore from "swiper";
 
 export default function FestivalRecommendation() {
-  const [swiper, setSwiper] = useState<SwiperCore | null>(null);
-  const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
+  const [swiperState, setSwiperState] = useState({
+    swiperInstance: null as SwiperCore | null,
+    isBeginning: true,
+    isEnd: false
+  });
 
   const handleSwiper = (newSwiper: SwiperCore) => {
-    setSwiper(newSwiper);
-    setIsBeginning(newSwiper.isBeginning);
-    setIsEnd(newSwiper.isEnd);
+    setSwiperState({
+      ...swiperState,
+      swiperInstance: newSwiper,
+      isBeginning: newSwiper.isBeginning,
+      isEnd: newSwiper.isEnd
+    });
   };
 
   const updateNavigationState = () => {
-    if (swiper) {
-      setIsBeginning(swiper.isBeginning);
-      setIsEnd(swiper.isEnd);
+    if (swiperState.swiperInstance) {
+      setSwiperState({
+        ...swiperState,
+        isBeginning: swiperState.swiperInstance.isBeginning,
+        isEnd: swiperState.swiperInstance.isEnd
+      });
     }
   };
 
   const goPrev = () => {
-    if (swiper && !isBeginning) {
-      swiper.slidePrev();
+    if (swiperState.swiperInstance && !swiperState.isBeginning) {
+      swiperState.swiperInstance.slidePrev();
       updateNavigationState();
     }
   };
 
   const goNext = () => {
-    if (swiper && !isEnd) {
-      swiper.slideNext();
+    if (swiperState.swiperInstance && !swiperState.isEnd) {
+      swiperState.swiperInstance.slideNext();
       updateNavigationState();
     }
   };
@@ -49,16 +57,16 @@ export default function FestivalRecommendation() {
       <button
         onClick={goPrev}
         aria-label="Previous slide"
-        disabled={isBeginning}
-        className='disabled:cursor-not-allowed'
+        disabled={swiperState.isBeginning}
+        className='disabled:cursor-not-allowed disabled:text-slate-300 hover:text-slate-700/80 disabled:hover:text-slate-300'
       >
         <ChevronLeft />
       </button>
       <button
         onClick={goNext}
         aria-label="Next slide"
-        disabled={isEnd}
-        className='disabled:cursor-not-allowed'
+        disabled={swiperState.isEnd}
+        className='disabled:cursor-not-allowed disabled:text-slate-300 hover:text-slate-700/80 disabled:hover:text-slate-300'
       >
         <ChevronRight />
       </button>
