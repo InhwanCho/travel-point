@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
 
 export default function LoginBtn() {
-  const session = true;
+  const session = false;
   const router = useRouter();
   const openModal = () => { router.push('/auth'); };
   return (
@@ -51,8 +51,8 @@ export default function LoginBtn() {
 
 
         :
-        // <Button onClick={openModal}>Login</Button>
-        <Link href='/auth'>로그인</Link>
+        <Button onClick={openModal}>Login</Button>
+        // <Link href='/auth'>로그인</Link>
 
 
       }
