@@ -3,7 +3,9 @@ import React from 'react';
 
 export default function RegisterPage() {
   return (
-    // <AuthPage/>
-    <div>123</div>
+    <>
+      <div>새로고침 전</div>
+      <AuthPage />
+    </>
   );
 }

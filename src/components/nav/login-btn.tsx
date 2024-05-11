@@ -7,9 +7,10 @@ import { X } from 'lucide-react';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
 
 export default function LoginBtn() {
-  const session = false;
+  const session = true;
   const router = useRouter();
   const openModal = () => { router.push('/auth'); };
   return (
@@ -29,7 +30,20 @@ export default function LoginBtn() {
               <p>안녕하세요, 인환님.</p>
               <div className='flex justify-evenly w-full'>
                 <Link href={`/mypage/${'abcd'}`}><Button variant='outline' className='rounded-full'>마이 페이지</Button></Link>
-                <Button variant='outline' className='rounded-full'>로그 아웃</Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline" className='rounded-full'>로그 아웃</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>정말로 로그아웃을 하겠습니까?</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>아니오</AlertDialogCancel>
+                      <AlertDialogAction className='bg-red-600/80 hover:bg-red-600'>예</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           </PopoverContent>

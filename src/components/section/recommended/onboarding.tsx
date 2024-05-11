@@ -1,29 +1,76 @@
 'use client';
+
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useState } from 'react';
 
-interface PreferenceSliderProps {
+function PreferenceRadioGroup({
+  label,
+  options,
+  value,
+  onChange,
+}: {
   label: string;
-  value: number;
-  onChange: (newValue: number) => void;
-}
-
-function PreferenceSlider({ label, value, onChange }: PreferenceSliderProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(parseInt(e.target.value, 10));
-  };
-
+  options: string[];
+  value: string;
+  onChange: (newValue: string) => void;
+}) {
   return (
     <div className="mb-6">
       <label className="block text-lg font-medium mb-2">{label}</label>
-      <input
-        type="range"
-        min="0"
-        max="5"
+      <RadioGroup
         value={value}
-        onChange={handleChange}
-        className="w-full slider"
-      />
-      <p className="mt-2 text-sm text-gray-700">{label} Preference: {value}/5</p>
+        onValueChange={(newValue) => onChange(newValue)}
+        className="space-y-2"
+      >
+        {options.map((option) => (
+          <div key={option} className="flex items-center space-x-2">
+            <RadioGroupItem value={option} id={option} />
+            <Label htmlFor={option}>{option}</Label>
+          </div>
+        ))}
+      </RadioGroup>
+    </div>
+  );
+}
+
+function StepProgress({ step }: { step: number }) {
+  const steps = ['취향 설정', '추가 설문', '결과 확인'];
+  return (
+    <div className="mb-8">
+      <h2 className="sr-only">단계</h2>
+      <ol className="flex items-center gap-4 text-xs font-medium text-gray-500">
+        {steps.map((title, index) => (
+          <li key={title} className="flex items-center gap-2">
+            {index < step ? (
+              <span className="rounded bg-green-50 p-1.5 text-green-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-3 w-3"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            ) : (
+              <span
+                className={`size-6 rounded ${index === step ? 'bg-blue-50 text-blue-600' : 'bg-gray-50 text-gray-600'
+                } text-center text-[10px]/6 font-bold`}
+              >
+                {index + 1}
+              </span>
+            )}
+            <span>{title}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
@@ -31,11 +78,11 @@ function PreferenceSlider({ label, value, onChange }: PreferenceSliderProps) {
 export default function TravelRecommendations() {
   const [step, setStep] = useState(1);
   const [preferences, setPreferences] = useState({
-    nature: 3,
-    relaxation: 3,
-    history: 3,
-    experience: 3,
-    activity: 3,
+    nature: '보통',
+    relaxation: '보통',
+    history: '보통',
+    experience: '보통',
+    activity: '보통',
   });
   const [survey, setSurvey] = useState({
     age: '20대',
@@ -43,7 +90,7 @@ export default function TravelRecommendations() {
     travelDuration: '당일치기',
   });
 
-  const handleSliderChange = (type: string, newValue: number) => {
+  const handleRadioGroupChange = (type: string, newValue: string) => {
     setPreferences((prev) => ({ ...prev, [type]: newValue }));
   };
 
@@ -59,117 +106,133 @@ export default function TravelRecommendations() {
     setStep(4);
   };
 
+  const toBeginningStep = () => {
+    setStep(1);
+  };
+
   const renderStep = () => {
     switch (step) {
     case 1:
       return (
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-8">Welcome to Travel Recommender!</h1>
-          <p className="text-lg mb-4">Discover the best destinations tailored just for you.</p>
+          <h1 className="text-4xl font-bold mb-8">여행 추천에 오신 것을 환영합니다!</h1>
+          <p className="text-lg mb-4">맞춤 여행지를 찾아보세요.</p>
           <div className="space-x-4">
-            <button onClick={goToNextStep} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                Get Started
-            </button>
-            <button onClick={skipToFinalStep} className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+            <Button onClick={goToNextStep} variant="primary">
+                시작하기
+            </Button>
+            <Button onClick={skipToFinalStep} variant="secondary">
                 무작위 여행지 추천
-            </button>
+            </Button>
           </div>
         </div>
       );
     case 2:
       return (
-        <div>
-          <h1 className="text-3xl font-bold mb-8 text-center">Personalize Your Preferences</h1>
-          <PreferenceSlider
-            label="자연"
-            value={preferences.nature}
-            onChange={(value) => handleSliderChange('nature', value)}
-          />
-          <PreferenceSlider
-            label="휴양"
-            value={preferences.relaxation}
-            onChange={(value) => handleSliderChange('relaxation', value)}
-          />
-          <PreferenceSlider
-            label="역사"
-            value={preferences.history}
-            onChange={(value) => handleSliderChange('history', value)}
-          />
-          <PreferenceSlider
-            label="체험"
-            value={preferences.experience}
-            onChange={(value) => handleSliderChange('experience', value)}
-          />
-          <PreferenceSlider
-            label="엑티비티"
-            value={preferences.activity}
-            onChange={(value) => handleSliderChange('activity', value)}
-          />
-          <button onClick={goToNextStep} className="px-6 py-3 mt-8 bg-green-600 text-white rounded-lg hover:bg-green-700">
-              Next
-          </button>
-        </div>
+        <>
+          <h1 className="text-3xl font-bold mb-8 text-center">취향 설정</h1>
+          <div className='grid grid-cols-5 space-x-8'>
+            <PreferenceRadioGroup
+              label="자연"
+              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              value={preferences.nature}
+              onChange={(value) => handleRadioGroupChange('nature', value)}
+            />
+            <PreferenceRadioGroup
+              label="휴양"
+              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              value={preferences.relaxation}
+              onChange={(value) => handleRadioGroupChange('relaxation', value)}
+            />
+            <PreferenceRadioGroup
+              label="역사"
+              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              value={preferences.history}
+              onChange={(value) => handleRadioGroupChange('history', value)}
+            />
+            <PreferenceRadioGroup
+              label="체험"
+              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              value={preferences.experience}
+              onChange={(value) => handleRadioGroupChange('experience', value)}
+            />
+            <PreferenceRadioGroup
+              label="액티비티"
+              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              value={preferences.activity}
+              onChange={(value) => handleRadioGroupChange('activity', value)}
+            />
+            <Button onClick={goToNextStep} variant="primary" className="mt-8">
+                다음
+            </Button>
+          </div></>
       );
     case 3:
       return (
         <div>
-          <h1 className="text-3xl font-bold mb-8 text-center">Additional Survey</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center">추가 설문</h1>
           <div className="mb-6">
-            <label className="block text-lg font-medium mb-2">나이</label>
-            <select
-              value={survey.age}
-              onChange={(e) => handleSurveyChange('age', e.target.value)}
-              className="w-full p-2 border rounded"
-            >
-              {['20대', '30대', '40대', '50대', '60대 이상'].map((age) => (
-                <option key={age} value={age}>{age}</option>
-              ))}
-            </select>
+            <label className="block text-lg font-medium mb-2">나이대</label>
+            <Select onValueChange={(value) => handleSurveyChange('age', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder={survey.age} />
+              </SelectTrigger>
+              <SelectContent>
+                {['20대', '30대', '40대', '50대', '60대 이상'].map((age) => (
+                  <SelectItem key={age} value={age}>{age}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">함께 가는 사람</label>
-            <select
-              value={survey.travelCompanion}
-              onChange={(e) => handleSurveyChange('travelCompanion', e.target.value)}
-              className="w-full p-2 border rounded"
-            >
-              {['혼자', '친구', '연인', '가족', '어르신', '아이'].map((companion) => (
-                <option key={companion} value={companion}>{companion}</option>
-              ))}
-            </select>
+            <Select onValueChange={(value) => handleSurveyChange('travelCompanion', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder={survey.travelCompanion} />
+              </SelectTrigger>
+              <SelectContent>
+                {['혼자', '친구', '연인', '가족', '어르신', '아이'].map((companion) => (
+                  <SelectItem key={companion} value={companion}>{companion}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">여행 기간</label>
-            <select
-              value={survey.travelDuration}
-              onChange={(e) => handleSurveyChange('travelDuration', e.target.value)}
-              className="w-full p-2 border rounded"
-            >
-              {['당일치기', '1박2일', '2박3일', '그 이상'].map((duration) => (
-                <option key={duration} value={duration}>{duration}</option>
-              ))}
-            </select>
+            <Select onValueChange={(value) => handleSurveyChange('travelDuration', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder={survey.travelDuration} />
+              </SelectTrigger>
+              <SelectContent>
+                {['당일치기', '1박2일', '2박3일', '그 이상'].map((duration) => (
+                  <SelectItem key={duration} value={duration}>{duration}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-          <button onClick={goToNextStep} className="px-6 py-3 mt-8 bg-green-600 text-white rounded-lg hover:bg-green-700">
-              Next
-          </button>
+          <Button onClick={goToNextStep} variant="primary" className="mt-8">
+              다음
+          </Button>
         </div>
       );
     case 4:
       return (
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-8">Survey Results</h1>
-          <p className="text-lg mb-4">Here are your personalized travel recommendations:</p>
+          <h1 className="text-3xl font-bold mb-8">결과 확인</h1>
+          <p className="text-lg mb-4">설문 결과에 따라 추천 여행지 리스트:</p>
           <ul className="list-disc list-inside text-left">
-            <li>자연 선호도: {preferences.nature}/5</li>
-            <li>휴양 선호도: {preferences.relaxation}/5</li>
-            <li>역사 선호도: {preferences.history}/5</li>
-            <li>체험 선호도: {preferences.experience}/5</li>
-            <li>엑티비티 선호도: {preferences.activity}/5</li>
+            <li>자연 선호도: {preferences.nature}</li>
+            <li>휴양 선호도: {preferences.relaxation}</li>
+            <li>역사 선호도: {preferences.history}</li>
+            <li>체험 선호도: {preferences.experience}</li>
+            <li>액티비티 선호도: {preferences.activity}</li>
             <li>나이대: {survey.age}</li>
             <li>함께 가는 사람: {survey.travelCompanion}</li>
             <li>여행 기간: {survey.travelDuration}</li>
           </ul>
+          <Button onClick={toBeginningStep} variant="primary" className="mt-8">
+              다시 처음으로
+          </Button>
         </div>
       );
     default:
@@ -178,7 +241,8 @@ export default function TravelRecommendations() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center pt-20 p-4">
+      <StepProgress step={step} />
       {renderStep()}
     </div>
   );
