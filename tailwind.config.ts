@@ -12,13 +12,13 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",      
+      padding: "2rem",
     },
     extend: {
       scrollBehavior: ["smooth", "auto"],
       screens: {
         xsm: "450px",
-        xl: "1200px"
+        xl: "1200px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -76,7 +76,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
 } satisfies Config;
 
 export default config;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from '../common/title';
+import Title from '../../common/title';
 import { cn } from '@/lib/utils';
 
 interface DestinationDescriptionProps {

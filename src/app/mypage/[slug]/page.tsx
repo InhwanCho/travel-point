@@ -7,6 +7,7 @@ import PageLayout from '@/components/layout/page-layout';
 import { Separator } from '@/components/ui/separator';
 import { Camera, X } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MypageFooter from '@/components/section/mypage/mypage-footer';
 
 interface MypageProps {
   params: { slug: string }
@@ -79,13 +80,8 @@ export default function MyPage({ params }: MypageProps) {
           </TabsContent>
         </Tabs>
         <Separator />
-        <div className='flex justify-between items-start pt-5 px-6'>
-          <div className='flex flex-col'>
-            <button className='font-semibold inline-flex'>회원 탈퇴</button>
-            <p className='text-xs'>탈퇴 후에는 복구가 불가능하니 유의해 주세요.</p>
-          </div>
-          <button className='font-semibold'>로그 아웃</button>
-        </div>
+        <MypageFooter/>
+        
       </PageLayout>
     </main>
   );

@@ -1,7 +1,7 @@
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
-import DestinationBody from '@/components/section/destination-body';
-import DestinationHeader from '@/components/section/destination-header';
+import DestinationBody from '@/components/section/destination/destination-body';
+import DestinationHeader from '@/components/section/destination/destination-header';
 import React from 'react';
 
 interface DestinationDetailPageProps {

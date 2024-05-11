@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Title from '../common/title';
+import Title from '../../common/title';
 import { BlogData, BlogPost } from '@/types/naver-blog-types';
 import Link from 'next/link';
 

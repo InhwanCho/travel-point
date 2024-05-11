@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@radix-ui/react-popover": "^1.0.7",
@@ -31,6 +32,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@tanstack/eslint-plugin-query": "^5.28.11",
     "@types/node": "^20",
     "@types/react": "^18",

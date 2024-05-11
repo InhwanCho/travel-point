@@ -2,7 +2,7 @@ import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import ExploreDestinations from '@/components/section/explore-destinations';
 import RegionSelection from '@/components/section/region-selection';
-import TrendingDestinations from '@/components/section/trending-destinations';
+import TrendingDestinations from '@/components/section/mainPage/trending-destinations';
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
 import { Link } from 'next-view-transitions';
