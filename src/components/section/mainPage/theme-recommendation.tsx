@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Title from '@/components/common/title';
-import ThemeCard from './common/theme-card';
+import ThemeCard from '../../common/theme-card';
 import { themeImages } from '@/data/data';
 
 export default function ThemeRecommendation() {  

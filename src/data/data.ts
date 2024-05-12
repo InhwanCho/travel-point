@@ -1,12 +1,24 @@
 export const heroImages = [
-  { image: '/assets/image/보령녹차밭.webp', bgColor: '#8EB2D6', title: '보령 녹차밭' },
-  { image: '/assets/image/부산용궁사.webp', bgColor: '#A2D2FF', title: '부산 용궁사' },
-  { image: '/assets/image/안동하회마을.webp', bgColor: '#8EB2D6', title: '안동 하회마을' }
+  {
+    image: "/assets/image/보령녹차밭.webp",
+    bgColor: "#8EB2D6",
+    title: "보령 녹차밭",
+  },
+  {
+    image: "/assets/image/부산용궁사.webp",
+    bgColor: "#A2D2FF",
+    title: "부산 용궁사",
+  },
+  {
+    image: "/assets/image/안동하회마을.webp",
+    bgColor: "#8EB2D6",
+    title: "안동 하회마을",
+  },
 ];
 
 export const themeImages = [
-  { title: '테마여행 역사 이미지', image:'/assets/image/테마역사.webp'},
-  { title: '테마여행 힐링 이미지', image:'/assets/image/테마힐링.webp'},
+  { title: "테마여행 역사 이미지", image: "/assets/image/테마역사.webp" },
+  { title: "테마여행 힐링 이미지", image: "/assets/image/테마힐링.webp" },
 ];
 
 export const REGIONS = [
@@ -27,3 +39,34 @@ export const REGIONS = [
   { name: "충북", path: "/regions/chungbuk" },
   { name: "광주", path: "/regions/gwangju" },
 ];
+
+export const pageColors = {
+  mainpage: {
+    bg: 'bg-white', 
+    ring: 'ring-0',
+  },
+  regions: {
+    bg: "bg-[#8EB2D6]",
+    ring: "ring-[#8EB2D6]/80",
+  },
+  themes: {
+    bg: "bg-[#E3CDA4]/80",
+    ring: "ring-[#E3CDA4]/70",
+  },
+  festivals: {
+    bg: "bg-teal-600/40",
+    ring: "ring-teal-600/30",
+  },
+  recommended: {
+    bg: "bg-blue-500/40",
+    ring: "ring-blue-500/30",
+  },
+  mypage: {
+    bg: "bg-[#8EC5D6]",
+    ring: "ring-0",
+  },
+  destination: {
+    bg: "bg-blue-200",
+    ring: "ring-0",
+  },
+} as const;

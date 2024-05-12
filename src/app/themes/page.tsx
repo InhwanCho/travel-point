@@ -19,7 +19,7 @@ export default function ThemesPage() {
   }, [region, activeRegion]);
   return (
     <main>
-      <HeroSection section='themes' title='테마로 떠나는 여행스토리' subtitle='개성 넘치는 테마 여행과 함께하세요' />
+      <HeroSection page='themes' title='테마로 떠나는 여행스토리' subtitle='개성 넘치는 테마 여행과 함께하세요' />
       <RegionSelection title='테마 여행 지역 탐색' page='themes' activeRegion={activeRegion} />
       <Separator className='my-20' />
       <PageLayout>

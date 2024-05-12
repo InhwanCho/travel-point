@@ -14,7 +14,7 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
   const decodedSlug = decodeURIComponent(params.slug);
   return (
     <main>
-      <HeroSection title='여행지' subtitle='즐거운 여정' />
+      <HeroSection page='destination' title='여행지' subtitle='즐거운 여정' />
       <PageLayout>
         <DestinationHeader slug={decodedSlug} />
         <DestinationBody slug={decodedSlug} />

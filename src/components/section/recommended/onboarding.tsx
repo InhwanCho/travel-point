@@ -18,12 +18,12 @@ function PreferenceRadioGroup({
   onChange: (newValue: string) => void;
 }) {
   return (
-    <div className="mb-6">
-      <label className="block text-lg font-medium mb-2">{label}</label>
+    <div className="mb-6 flex items-center space-x-3">
+      <label className="text-lg flex font-medium mb-2 items-center min-w-[70px]">{label}</label>
       <RadioGroup
         value={value}
         onValueChange={(newValue) => onChange(newValue)}
-        className="space-y-2"
+        className="space-y-2 flex items-center"
       >
         {options.map((option) => (
           <div key={option} className="flex items-center space-x-2">
@@ -131,7 +131,7 @@ export default function TravelRecommendations() {
       return (
         <>
           <h1 className="text-3xl font-bold mb-8 text-center">취향 설정</h1>
-          <div className='grid grid-cols-5 space-x-8'>
+          <div className='flex flex-col '>
             <PreferenceRadioGroup
               label="자연"
               options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}

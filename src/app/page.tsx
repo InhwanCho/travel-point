@@ -5,7 +5,7 @@ import RegionRecommendation from "@/components/section/mainPage/region-recommend
 import RegionSelection from "@/components/section/region-selection";
 import { Separator } from "@/components/ui/separator";
 import TrendingDestinations from "@/components/section/mainPage/trending-destinations";
-import ThemeRecommendation from "@/components/theme-recommendation";
+import ThemeRecommendation from "@/components/section/mainPage/theme-recommendation";
 
 import TouristAttractionsComponent from "@/components/touristAttractionsComponent";
 import FestivalRecommendation from "@/components/section/festival-recommendation";
