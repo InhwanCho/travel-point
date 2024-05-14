@@ -10,7 +10,7 @@ interface LinkButtonProps {
 
 export default function LinkButton({ children, className, href, ...props }: LinkButtonProps) {
   return (
-    <Link {...props} href={href} className={cn('rounded-full border px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all', className)}>
+    <Link {...props} href={href} className={cn('rounded-full border px-4 py-1 text-sm hover:ring-2 ring-offset-1 transition-all', className)}>
       {children}
     </Link>
   );

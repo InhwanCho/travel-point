@@ -1,5 +1,6 @@
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
+import { Share2, Home, Siren, Bookmark } from 'lucide-react';
 
 interface DestinationHeaderProps {
   slug: string
@@ -17,11 +18,11 @@ export default function DestinationHeader({ slug }: DestinationHeaderProps) {
             <span className='pl-1'>⭐⭐⭐⭐⭐</span>
             <span>(352명)</span>
           </div>
-          <nav className='flex gap-3'>
-            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
-            <button className='rounded-full border text-sm md:px-4 py-1 hover:ring-2 ring-slate-700/80 ring-offset-1 transition-all'>홈페이지</button>
+          <nav className='flex space-x-4'>
+            <div className='p-1.5 bg-slate-200/60 rounded-full'><Bookmark className='size-[18px]' /></div>
+            <div className='p-1.5 bg-slate-200/60 rounded-full'><Siren className='size-[18px]' /></div>
+            <div className='p-1.5 bg-slate-200/60 rounded-full'><Home className='size-[18px]' /></div>
+            <div className='p-1.5 bg-slate-200/60 rounded-full'><Share2 className='size-[18px]' /></div>
           </nav>
         </div>
         <div className='pt-2'>

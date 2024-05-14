@@ -7,7 +7,7 @@ export default function RecentDestinations() {
     { id: 2, title: '2024 한강 불빛 공연(드론 라이트 쇼)' }
   ];
   return (
-    <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 mt-5">
+    <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 ">
       <div className='border rounded-md shadow-md bg-white flex flex-col p-3 w-full'>
         <h3 className="text-lg font-semibold mb-3 text-gray-800">최근 본 여행지</h3>
         <div className='space-y-4'>

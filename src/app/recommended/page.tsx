@@ -10,23 +10,13 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 export default function RecommendedPage() {
-  const searchparams = useSearchParams();
-  const [activeRegion, setActiveRegion] = useState('all');
-  const region = searchparams.get('region');
-
-  useEffect(() => {
-    if (region) {
-      setActiveRegion(region as string);
-    }
-  }, [region, activeRegion]);
+  
   return (
     <main>
-      <HeroSection page='recommended' title='여행지 추천' subtitle='당신만의 완벽한 여행지를 발견하세요' />
-      <RegionSelection page='recommended' title='여행지 지역 선택' activeRegion={activeRegion} />
-      <CustomButton onClick={(text) => console.log(`Clicked text: ${text}`)}>123</CustomButton>
-      <Separator className='my-20' />
+      <HeroSection page='recommended' title='여행지 추천' subtitle='당신만의 완벽한 여행지를 발견하세요' />      
+      <Separator className='my-20' />      
       <PageLayout>
-        <Onboarding/>
+        <Onboarding />
       </PageLayout>
     </main>
   );

@@ -3,8 +3,13 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Chrome, Github } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
-export default function AuthPage() {
+interface AuthPageProps {
+  isModal?: boolean
+}
+
+export default function AuthPage({ isModal = true }: AuthPageProps) {
   const router = useRouter();
   const [isRegister, setIsRegister] = useState(false);
 
@@ -13,8 +18,9 @@ export default function AuthPage() {
   }, [router]);
 
   const modalRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
+    if (!isModal) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         backbtn();
@@ -34,7 +40,7 @@ export default function AuthPage() {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [backbtn]);
+  }, [backbtn, isModal]);
 
   const toggleForm = useCallback(() => {
     setIsRegister(!isRegister);
@@ -42,14 +48,14 @@ export default function AuthPage() {
 
   return (
     <>
-      <div className="fixed w-full h-full z-50 bg-gray-500 bg-opacity-70 overflow-auto">
-        <div className="sticky top-20 flex justify-center">
+      <div className={`w-full h-full ${isModal ? 'fixed z-50 bg-opacity-70 backdrop-blur-sm overflow-auto bg-gray-500' : 'py-20'} `}>
+        <div className={`${isModal ? 'sticky top-40' : ''} flex justify-center`}>
           <div
-            className="max-w-md w-full h-auto flex flex-col text-gray-900 space-y-8 bg-white rounded-lg p-8 shadow-lg"
+            className={`max-w-md w-full h-auto flex flex-col text-gray-900 space-y-8 bg-white rounded-lg p-8 ${isModal ? 'shadow-lg' : ''}`}
             ref={modalRef}
           >
-            <div className="relative">
-              <button className="absolute top-2 right-0" onClick={backbtn}>
+            <div className='relative'>
+              <button className={`${isModal ? 'absolute top-2 right-0':'hidden' }`} onClick={backbtn}>
                 <X className="size-5 text-gray-900" />
               </button>
               {isRegister ? (
@@ -246,6 +252,7 @@ export default function AuthPage() {
             </form>
           </div>
         </div>
+        {isModal? '' : <Separator className='my-20'/>}        
       </div>
     </>
   );

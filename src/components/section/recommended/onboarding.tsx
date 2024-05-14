@@ -3,8 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 import { useState } from 'react';
+import RegionSelection from '../region-selection';
 
 function PreferenceRadioGroup({
   label,
@@ -37,7 +38,7 @@ function PreferenceRadioGroup({
 }
 
 function StepProgress({ step }: { step: number }) {
-  const steps = ['취향 설정', '추가 설문', '결과 확인'];
+  const steps = ['시작하기', '지역 선택', '취향 설정', '추가 설문', '결과 확인'];
   return (
     <div className="mb-8">
       <h2 className="sr-only">단계</h2>
@@ -76,7 +77,7 @@ function StepProgress({ step }: { step: number }) {
 }
 
 export default function TravelRecommendations() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [preferences, setPreferences] = useState({
     nature: '보통',
     relaxation: '보통',
@@ -89,6 +90,7 @@ export default function TravelRecommendations() {
     travelCompanion: '혼자',
     travelDuration: '당일치기',
   });
+  const [activeRegion, setActiveRegion] = useState('');
 
   const handleRadioGroupChange = (type: string, newValue: string) => {
     setPreferences((prev) => ({ ...prev, [type]: newValue }));
@@ -96,6 +98,10 @@ export default function TravelRecommendations() {
 
   const handleSurveyChange = (key: string, value: string) => {
     setSurvey((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleRegionChange = (region: string) => {
+    setActiveRegion(region);
   };
 
   const goToNextStep = () => {
@@ -107,12 +113,59 @@ export default function TravelRecommendations() {
   };
 
   const toBeginningStep = () => {
-    setStep(1);
+    setStep(0);
   };
+
+  const renderResult = () => {
+    return (
+      <div>
+        <h2 className="text-xl font-bold mb-4">설문 결과</h2>
+        <ul className="space-y-2">
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">나이:</span>
+            <span>{survey.age}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">여행 동반자:</span>
+            <span>{survey.travelCompanion}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">여행 기간:</span>
+            <span>{survey.travelDuration}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선호하는 자연:</span>
+            <span>{preferences.nature}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선호하는 휴양:</span>
+            <span>{preferences.relaxation}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선호하는 역사:</span>
+            <span>{preferences.history}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선호하는 체험:</span>
+            <span>{preferences.experience}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선호하는 액티비티:</span>
+            <span>{preferences.activity}</span>
+          </li>
+          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
+            <span className="font-medium">선택한 지역:</span>
+            <span>{activeRegion}</span>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+  
 
   const renderStep = () => {
     switch (step) {
-    case 1:
+    case 0:
       return (
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-8">여행 추천에 오신 것을 환영합니다!</h1>
@@ -127,11 +180,28 @@ export default function TravelRecommendations() {
           </div>
         </div>
       );
+    case 1:
+      return (
+        <>
+          <h1 className="text-3xl font-bold mb-8 text-center">지역 선택</h1>
+          <RegionSelection
+            page="recommended"
+            title="여행지 지역 선택"
+            activeRegion={activeRegion}
+            onRegionChange={handleRegionChange}
+          />
+          <div className="flex justify-center mt-8">
+            <Button onClick={goToNextStep} variant="primary">
+                다음
+            </Button>
+          </div>
+        </>
+      );
     case 2:
       return (
         <>
           <h1 className="text-3xl font-bold mb-8 text-center">취향 설정</h1>
-          <div className='flex flex-col '>
+          <div className="flex flex-col">
             <PreferenceRadioGroup
               label="자연"
               options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
@@ -162,10 +232,13 @@ export default function TravelRecommendations() {
               value={preferences.activity}
               onChange={(value) => handleRadioGroupChange('activity', value)}
             />
-            <Button onClick={goToNextStep} variant="primary" className="mt-8">
-                다음
-            </Button>
-          </div></>
+            <div className="flex justify-center mt-8">
+              <Button onClick={goToNextStep} variant="primary">
+                  다음
+              </Button>
+            </div>
+          </div>
+        </>
       );
     case 3:
       return (
@@ -173,75 +246,69 @@ export default function TravelRecommendations() {
           <h1 className="text-3xl font-bold mb-8 text-center">추가 설문</h1>
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">나이대</label>
-            <Select onValueChange={(value) => handleSurveyChange('age', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder={survey.age} />
-              </SelectTrigger>
-              <SelectContent>
-                {['20대', '30대', '40대', '50대', '60대 이상'].map((age) => (
-                  <SelectItem key={age} value={age}>{age}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="space-x-4">
+              {['20대', '30대', '40대', '50대', '60대 이상'].map((age) => (
+                <button
+                  key={age}
+                  className={`text-sm ${survey.age === age ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  onClick={() => handleSurveyChange('age', age)}
+                >
+                  {age}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">함께 가는 사람</label>
-            <Select onValueChange={(value) => handleSurveyChange('travelCompanion', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder={survey.travelCompanion} />
-              </SelectTrigger>
-              <SelectContent>
-                {['혼자', '친구', '연인', '가족', '어르신', '아이'].map((companion) => (
-                  <SelectItem key={companion} value={companion}>{companion}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="space-x-4">
+              {['혼자', '친구', '연인', '가족'].map((companion) => (
+                <button
+                  key={companion}
+                  className={`text-sm ${survey.travelCompanion === companion ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  onClick={() => handleSurveyChange('travelCompanion', companion)}
+                >
+                  {companion}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">여행 기간</label>
-            <Select onValueChange={(value) => handleSurveyChange('travelDuration', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder={survey.travelDuration} />
-              </SelectTrigger>
-              <SelectContent>
-                {['당일치기', '1박2일', '2박3일', '그 이상'].map((duration) => (
-                  <SelectItem key={duration} value={duration}>{duration}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="space-x-4">
+              {['당일치기', '1박 2일', '2박 3일', '3박 4일 이상'].map((duration) => (
+                <button
+                  key={duration}
+                  className={`text-sm ${survey.travelDuration === duration ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  onClick={() => handleSurveyChange('travelDuration', duration)}
+                >
+                  {duration}
+                </button>
+              ))}
+            </div>
           </div>
-          <Button onClick={goToNextStep} variant="primary" className="mt-8">
-              다음
-          </Button>
-        </div>
-      );
-    case 4:
-      return (
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-8">결과 확인</h1>
-          <p className="text-lg mb-4">설문 결과에 따라 추천 여행지 리스트:</p>
-          <ul className="list-disc list-inside text-left">
-            <li>자연 선호도: {preferences.nature}</li>
-            <li>휴양 선호도: {preferences.relaxation}</li>
-            <li>역사 선호도: {preferences.history}</li>
-            <li>체험 선호도: {preferences.experience}</li>
-            <li>액티비티 선호도: {preferences.activity}</li>
-            <li>나이대: {survey.age}</li>
-            <li>함께 가는 사람: {survey.travelCompanion}</li>
-            <li>여행 기간: {survey.travelDuration}</li>
-          </ul>
-          <Button onClick={toBeginningStep} variant="primary" className="mt-8">
-              다시 처음으로
-          </Button>
+          <div className="flex justify-center mt-8">
+            <Button onClick={goToNextStep} variant="primary">
+                다음
+            </Button>
+          </div>
         </div>
       );
     default:
-      return null;
+      return (
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-8">여행 추천 결과</h1>
+          <p className="text-lg mb-4">여기에서 추천된 여행지를 확인하세요!</p>          
+          {renderResult()}
+          <Button onClick={toBeginningStep} variant="primary" className="mt-8">
+              다시 시작
+          </Button>
+        </div>
+      );
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-20 p-4">
+    <div className="max-w-3xl mx-auto p-6">
       <StepProgress step={step} />
       {renderStep()}
     </div>

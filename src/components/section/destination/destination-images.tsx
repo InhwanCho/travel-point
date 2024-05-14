@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/carousel"; 
 import { useEffect, useRef, useState } from "react"; 
 
+
+
 export default function CarouselPlugin() {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -22,7 +24,7 @@ export default function CarouselPlugin() {
   });
   
   const autoplay = useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 4500, stopOnInteraction: true })
   );
 
   useEffect(() => {

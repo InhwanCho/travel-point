@@ -28,7 +28,7 @@ const destinationDetails = [
 export default function DestinationBody({ slug }: DestinationBodyProps) {
 
   return (
-    <section className="w-full h-dvh mx-auto xl:flex-grow">
+    <section className="w-full h-full mx-auto xl:flex-grow">
       <div className="flex">
         <main className="flex p-5 flex-col sm:p-6 xl:p-0 w-full">
           <DestinationImages />          

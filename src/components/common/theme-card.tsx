@@ -98,7 +98,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCa
               },
             }}
           >
-            {[...Array(6)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <SwiperSlide key={i}>
                 <DestinationCard location='강원특별자치도 춘천시' title='대관령 삼양목장' description='정답게 이야기를 나눌 수 있는' />
               </SwiperSlide>

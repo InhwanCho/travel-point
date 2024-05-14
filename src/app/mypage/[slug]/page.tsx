@@ -5,7 +5,7 @@ import DestinationPagination from '@/components/common/destination-pagination';
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import { Separator } from '@/components/ui/separator';
-import { Camera, X } from 'lucide-react';
+import { Camera, X, Sticker } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MypageFooter from '@/components/section/mypage/mypage-footer';
 
@@ -40,6 +40,10 @@ export default function MyPage({ params }: MypageProps) {
               <Camera className='size-6' strokeWidth={1} />
               <span>사진 변경하기</span>
               <input id='inputImage' type="file" className='hidden' />
+            </label>
+            <label className='border w-40 h-10 flex justify-center items-center space-x-2'>
+              <Sticker className='size-6' strokeWidth={1} />
+              <span>캐릭터로 변경</span>
             </label>
           </div>
           <div>조인환</div>
@@ -80,8 +84,8 @@ export default function MyPage({ params }: MypageProps) {
           </TabsContent>
         </Tabs>
         <Separator />
-        <MypageFooter/>
-        
+        <MypageFooter />
+
       </PageLayout>
     </main>
   );
