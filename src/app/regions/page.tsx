@@ -11,11 +11,11 @@ import { useSearchParams } from 'next/navigation';
 export default function RegionsPage() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
-  const region = searchparams.get('region');
+  const region = searchparams.get('region') ?? 'all'; 
 
   useEffect(() => {
     if (region) {
-      setActiveRegion(region as string);
+      setActiveRegion(region);
     }
   }, [region, activeRegion]);
 
@@ -25,7 +25,7 @@ export default function RegionsPage() {
       <RegionSelection page='regions' title='여행지 지역 탐색' activeRegion={activeRegion} />
       <Separator className='my-20' />
       <PageLayout>
-        <ExploreDestinations />
+        {region === 'all' ? <ExploreDestinations page='regions'/> : <ExploreDestinations region={region} page='regions'/>}
         <Separator className='my-20' />
         <TrendingDestinations />
       </PageLayout>

@@ -1,5 +1,5 @@
 'use client';
-import { fontMono, fontSans, fontSpoqa } from '@/libs/fonts';
+import { fontMono, fontPretendard, fontSans, fontSpoqa } from '@/libs/fonts';
 
 export default function Fonts() {
   return (
@@ -9,6 +9,7 @@ export default function Fonts() {
           --font-spoqa: ${fontSpoqa.style.fontFamily};
           --font-mono: ${fontMono.style.fontFamily};
           --font-sans: ${fontSans.style.fontFamily};
+          --font-pretandard: ${fontPretendard.style.fontFamily};
         }
       `}</style>
     </>

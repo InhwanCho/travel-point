@@ -17,9 +17,10 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
-        spoqa: ['var(--font-spoqa)', ...fontFamily.sans],
-        mono: ['var(--font-mono)', ...fontFamily.mono],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+        spoqa: ["var(--font-spoqa)", ...fontFamily.sans],
+        mono: ["var(--font-mono)", ...fontFamily.sans],
+        pretendard: ["var(--font-pretandard)", ...fontFamily.sans],
       },
       scrollBehavior: ["smooth", "auto"],
       screens: {

@@ -36,41 +36,41 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     type: "article",
   },
-  // icons: {
-  //   icon: '/static/favicons/favicon.ico',
-  //   shortcut: '/static/favicons/favicon-32x32.png',
-  //   apple: '/static/favicons/apple-touch-icon.png',
-  //   other: [
-  //     {
-  //       rel: 'icon',
-  //       url: '/static/favicons/android-chrome-192x192.png',
-  //       sizes: '192x192',
-  //       type: 'image/png'
-  //     },
-  //     {
-  //       rel: 'icon',
-  //       url: '/static/favicons/android-chrome-512x512.png',
-  //       sizes: '512x512',
-  //       type: 'image/png'
-  //     },
-  //     {
-  //       rel: 'icon',
-  //       sizes: '16x16',
-  //       url: '/static/favicons/favicon-16x16.png',
-  //       type: 'image/png'
-  //     },
-  //     {
-  //       rel: 'apple-touch-icon',
-  //       url: '/static/favicons/apple-touch-icon.png',
-  //       sizes: '180x180',
-  //       type: 'image/png'
-  //     },
-  //     {
-  //       rel: 'manifest',
-  //       url: '/static/favicons/site.webmanifest'
-  //     }
-  //   ]
-  // },
+  icons: {
+    icon: '/assets/favicons/favicon.ico',
+    shortcut: '/assets/favicons/favicon-32x32.png',
+    apple: '/assets/favicons/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        url: '/assets/favicons/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png'
+      },
+      {
+        rel: 'icon',
+        url: '/assets/favicons/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png'
+      },
+      {
+        rel: 'icon',
+        sizes: '16x16',
+        url: '/assets/favicons/favicon-16x16.png',
+        type: 'image/png'
+      },
+      {
+        rel: 'apple-touch-icon',
+        url: '/assets/favicons/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png'
+      },
+      {
+        rel: 'manifest',
+        url: '/assets/favicons/site.webmanifest'
+      }
+    ]
+  },
   twitter: {
     card: 'summary_large_image',
     site: siteConfig.twitterHandle,
@@ -85,12 +85,17 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-  
+
   return (
     <ViewTransitions>
       <html lang="ko" className="scroll-smooth scroll-pt-20">
-        <body className={'min-h-dvh font-spoqa antialiased'}>
-          <Fonts/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
+        <link rel="manifest" href="/assets/favicons/site.webmanifest" />        
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />            
+        <body className={'min-h-dvh font-pretendard antialiased'}>
+          <Fonts />
           <QueryProvider>
             {modal}
             <SiteHeader />

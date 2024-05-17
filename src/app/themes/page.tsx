@@ -10,8 +10,8 @@ import React, { useEffect, useState } from 'react';
 export default function ThemesPage() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
-  const region = searchparams.get('region');
-
+  const region = searchparams.get('region') ?? 'all'; 
+  
   useEffect(() => {
     if (region) {
       setActiveRegion(region as string);

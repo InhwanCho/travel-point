@@ -6,7 +6,12 @@ import { ChevronRight } from 'lucide-react';
 import DestinationCard from '@/components/common/destination-card';
 import CardLayout from '@/components/layout/card-layout';
 
-export default function RegionArticle({ region }: { region: string }) {
+interface RegionArticleProps {
+  region: string;
+  count: string;
+}
+
+export default function RegionArticle({ region, count }: RegionArticleProps) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2; // 한 페이지에 표시할 아이템 수

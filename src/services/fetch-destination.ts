@@ -1,13 +1,16 @@
 // src/services/fetch-destination.ts
-interface fetchDestinationPrps {
-  params: {
-    location?: string;
-    count?: string;
-  };
+
+export interface FetchDestinationProps {
+  location?: string;
+  count?: string;
 }
 
-export async function fetchDestination({ params }: fetchDestinationPrps) {
-  const url = "https://pingulion.shop/destination/seoul";
+export async function fetchDestination({
+  location = "서울",
+  count = "10",
+}: FetchDestinationProps) {
+  
+  const url = `https://pingulion.shop/destination/${location}`;
   const username = process.env.NEXT_PUBLIC_API_USERNAME;
   const password = process.env.NEXT_PUBLIC_API_PASSWORD;
 
