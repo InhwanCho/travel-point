@@ -23,15 +23,15 @@ export default function DestinationComment() {
           </p>
         </div>
         <form className='flex w-full'>
-          <label className='size-20 float-left relative flex justify-center items-center flex-col border-y border-l bg-white' htmlFor='input-img'>
+          <label className='size-20 float-left relative flex justify-center items-center flex-col border-slate-300 border-y border-l bg-white' htmlFor='input-img'>
             <input id='input-img' type="file" className='hidden' />
             <Camera className='size-8' strokeWidth={1} />
             <p className='text-xs'>이미지 첨부</p>
           </label>
           <div className='flex-grow'>
-            <textarea name="opinion" className='bg-white w-full h-full border p-2 placeholder:text-sm text-sm focus:outline-none caret-slate-500' placeholder='댓글 또는 의견을 작성해주세요.'></textarea>
+            <textarea name="opinion" className='bg-white w-full h-full border border-slate-300 focus:border-slate-300 p-2 placeholder:text-sm text-sm caret-slate-500' placeholder='댓글 또는 의견을 작성해주세요.'></textarea>
           </div>
-          <div className='size-20 float-right flex justify-center items-center border-r border-y bg-[#333333]/90'>
+          <div className='size-20 float-right flex justify-center items-center bg-[#333333]/90'>
             <input type="submit" value='등록' className='text-slate-50' />
           </div>
         </form>
@@ -47,11 +47,12 @@ export default function DestinationComment() {
           <p className='text-xs'>0 / 1,000자</p>
         </div>
       </div>
+      
       <div className='py-4'>
         <p className='pl-3 font-medium pb-1'>댓글 2</p>
         <div className='border-t-2 flex flex-col'>
-          {[...Array(2)].map((item, i) => (<CommentItem key={i} />))}
-          <div>
+          {[...Array(3)].map((item, i) => (<CommentItem key={i} className=''/>))}
+          <div className='border-t'>
             <p className='flex justify-center items-center py-4'>댓글 더보기
               <Plus className='size-4 ml-2' />
             </p>

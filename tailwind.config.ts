@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 const config = {
   darkMode: ["class"],
@@ -15,6 +16,11 @@ const config = {
       padding: "2rem",
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+        spoqa: ['var(--font-spoqa)', ...fontFamily.sans],
+        mono: ['var(--font-mono)', ...fontFamily.mono],
+      },
       scrollBehavior: ["smooth", "auto"],
       screens: {
         xsm: "450px",

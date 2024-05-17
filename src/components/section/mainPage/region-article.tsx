@@ -35,7 +35,7 @@ export default function RegionArticle({ region }: { region: string }) {
         <h2 className='font-bold pb-1 text-lg sm:text-xl'>{region} 여행지 추천</h2>
         <nav className='justify-end flex pb-2'>
           <button className='items-center cursor-pointer inline-block'
-            onClick={() => { router.push(`/regions`); }}>
+            onClick={() => { router.push(`/regions?region=${region}`); }}>
             <span className='flex items-center text-sm'>더보기 <ChevronRight className='size-[15px] ml-[3px]' strokeWidth={1} /></span>
           </button>
         </nav>

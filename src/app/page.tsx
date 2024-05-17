@@ -6,8 +6,9 @@ import RegionSelection from "@/components/section/region-selection";
 import { Separator } from "@/components/ui/separator";
 import TrendingDestinations from "@/components/section/mainPage/trending-destinations";
 import ThemeRecommendation from "@/components/section/mainPage/theme-recommendation";
-import TouristAttractionsComponent from "@/components/touristAttractionsComponent";
 import FestivalRecommendation from "@/components/section/festival-recommendation";
+import Sample from "@/components/sample";
+
 
 export default function Home() {
 
@@ -30,7 +31,10 @@ export default function Home() {
         <FestivalRecommendation />
       </PageLayout>
 
+      {/* ui 테스트 섹션 */}
+      {/* <Sample/> */}
       {/* <TouristAttractionsComponent /> */}
+
 
     </main>
   );

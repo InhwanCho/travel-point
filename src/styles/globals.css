@@ -117,6 +117,11 @@
 textarea {
   resize: none;
 }
+textarea:focus {
+  outline: none;  
+  box-shadow: none;
+}
+
 
 .h-inherit{
   height: inherit;

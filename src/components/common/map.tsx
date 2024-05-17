@@ -2,7 +2,7 @@
 import { CustomOverlayMap, Map, MapInfoWindow, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
 import useKakaoLoader from "@/contexts/use-kakao-loader";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 
 interface KakaoMapProps {
   latitude: number;

@@ -2,7 +2,7 @@ import React from 'react';
 import DestinationCard from '../../common/destination-card';
 import CardLayout from '../../layout/card-layout';
 import Title from '../../common/title';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 
 interface NearbyProps {
   className?: string

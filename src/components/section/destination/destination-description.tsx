@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../../common/title';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 
 interface DestinationDescriptionProps {
   description: string;

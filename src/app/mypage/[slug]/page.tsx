@@ -8,6 +8,8 @@ import { Separator } from '@/components/ui/separator';
 import { Camera, X, Sticker } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MypageFooter from '@/components/section/mypage/mypage-footer';
+import Image from 'next/image';
+import EditCharacter from '@/components/section/mypage/edit-character';
 
 interface MypageProps {
   params: { slug: string }
@@ -34,17 +36,14 @@ export default function MyPage({ params }: MypageProps) {
       <HeroSection page='mypage' title='마이페이지' subtitle={`${params.slug}님 환영합니다.`} />
       <PageLayout>
         <div className='flex flex-col justify-center items-center my-16'>
-          <div className='bg-red-100 size-32 rounded-full'></div>
+          <Image src={'/assets/image/characters/m1.png'} alt='character image' width={128} height={128} className='rounded-full border'/>
           <div className='flex justify-center py-8 space-x-4'>
             <label className='border w-40 h-10 flex justify-center items-center space-x-2' htmlFor='inputImage'>
               <Camera className='size-6' strokeWidth={1} />
               <span>사진 변경하기</span>
               <input id='inputImage' type="file" className='hidden' />
             </label>
-            <label className='border w-40 h-10 flex justify-center items-center space-x-2'>
-              <Sticker className='size-6' strokeWidth={1} />
-              <span>캐릭터로 변경</span>
-            </label>
+            <EditCharacter/>
           </div>
           <div>조인환</div>
           <div>asdfsdf@naver.com</div>
