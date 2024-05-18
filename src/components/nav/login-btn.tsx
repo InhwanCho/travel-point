@@ -11,7 +11,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import Image from 'next/image';
 
 export default function LoginBtn() {
-  const session = true;
+  const session = false;
   const router = useRouter();
   const openModal = () => { router.push('/auth'); };
   return (

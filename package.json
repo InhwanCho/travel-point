@@ -31,11 +31,13 @@
     "next-view-transitions": "^0.1.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.4",
     "react-kakao-maps-sdk": "^1.1.26",
     "replicate": "^0.29.4",
     "swiper": "^11.1.1",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

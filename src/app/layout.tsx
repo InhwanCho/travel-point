@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_KR, Roboto } from "next/font/google";
 import "@/styles/globals.css";
 import SiteHeader from "@/components/site-header";
 import { ViewTransitions } from 'next-view-transitions';
@@ -10,6 +10,8 @@ import { siteConfig } from "@/config/site-config";
 import Fonts from "@/components/fonts";
 
 const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans_KR({ subsets: ['latin'] });
+const roboto = Roboto({ weight: ['300','400','500','700'],subsets:['latin'] },);
 
 export const metadata: Metadata = {
   title: { default: siteConfig.title, template: `%s | ${siteConfig.title}` },
@@ -92,9 +94,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
-        <link rel="manifest" href="/assets/favicons/site.webmanifest" />        
-        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />            
-        <body className={'min-h-dvh font-pretendard antialiased'}>
+        <link rel="manifest" href="/assets/favicons/site.webmanifest" />
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
+        <body className={cn('min-h-dvh antialiased', noto.className)}>
           <Fonts />
           <QueryProvider>
             {modal}

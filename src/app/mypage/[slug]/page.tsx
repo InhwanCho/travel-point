@@ -60,7 +60,7 @@ export default function MyPage({ params }: MypageProps) {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 md:px-12 py-2">
                   {paginatedData.map((item, index) => (
                     <div key={index} className="p-4 relative">
-                      <button className="absolute top-0 right-0 text-xl text-gray-500 hover:text-gray-700">×</button>
+                      <button className="absolute top-0 -right-1 text-xl text-gray-500 hover:text-gray-700">×</button>
                       <DestinationCard
                         location={item.location}
                         title={item.title}

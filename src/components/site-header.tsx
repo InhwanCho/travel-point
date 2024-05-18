@@ -1,15 +1,12 @@
-'use client';
 
 import MobileNav from '@/components/nav/mobile-nav';
 import MainNav from '@/components/nav/main-nav';
 import Logo from '@/components/nav/logo';
 import LoginBtn from '@/components/nav/login-btn';
 import SearchBtn from '@/components/nav/search-btn';
-import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function SiteHeader() {
-  const pathname = usePathname();
-  
+    
   return (
     <header className="bg-white/70 backdrop-blur-sm shadow-sm sticky top-0 z-10">
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">

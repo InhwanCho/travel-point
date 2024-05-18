@@ -2,6 +2,7 @@
 import { fontMono, fontPretendard, fontSans, fontSpoqa } from '@/libs/fonts';
 
 export default function Fonts() {
+  
   return (
     <>
       <style jsx global>{`

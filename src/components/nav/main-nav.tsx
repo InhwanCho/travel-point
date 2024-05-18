@@ -1,3 +1,4 @@
+'use client';
 import { headerMenus } from '@/config/site-config';
 import React from 'react';
 import { Link } from 'next-view-transitions';
