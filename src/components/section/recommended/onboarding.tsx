@@ -3,9 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-
+import { Check } from 'lucide-react';
 import { useState } from 'react';
-import RegionSelection from '../region-selection';
+import RegionSelection, { getStyles } from '@/components/section/region-selection';
 
 function PreferenceRadioGroup({
   label,
@@ -23,13 +23,27 @@ function PreferenceRadioGroup({
       <label className="text-lg flex font-medium mb-2 items-center min-w-[70px]">{label}</label>
       <RadioGroup
         value={value}
-        onValueChange={(newValue) => onChange(newValue)}
-        className="space-y-2 flex items-center"
+        onValueChange={onChange}
+        className="flex space-x-4"
       >
         {options.map((option) => (
-          <div key={option} className="flex items-center space-x-2">
-            <RadioGroupItem value={option} id={option} />
-            <Label htmlFor={option}>{option}</Label>
+          <div key={option} className="relative">
+            <RadioGroupItem
+              value={option}
+              id={`${label}-${option}`}
+              className="hidden peer"
+            />
+            <Label
+              htmlFor={`${label}-${option}`}
+              className="flex flex-col items-center cursor-pointer peer-checked:bg-blue-500/30 peer-checked:text-white rounded-full p-2 transition relative"
+            >
+              <span className={`w-8 h-8 border border-gray-400 rounded-full flex items-center justify-center ${value === option ? 'bg-blue-500/80' : 'bg-white'}`}>
+                {value === option && (
+                  <span className="absolute text-white text-xl"><Check strokeWidth={3} className='size-5' /></span>
+                )}
+              </span>
+              <span className="mt-1 text-sm">{option}</span>
+            </Label>
           </div>
         ))}
       </RadioGroup>
@@ -42,7 +56,7 @@ function StepProgress({ step }: { step: number }) {
   return (
     <div className="mb-8">
       <h2 className="sr-only">단계</h2>
-      <ol className="flex items-center gap-4 text-xs font-medium text-gray-500">
+      <ol className="flex items-center justify-center gap-4 text-xs font-medium text-gray-500">
         {steps.map((title, index) => (
           <li key={title} className="flex items-center gap-2">
             {index < step ? (
@@ -62,13 +76,13 @@ function StepProgress({ step }: { step: number }) {
               </span>
             ) : (
               <span
-                className={`size-6 rounded ${index === step ? 'bg-blue-50 text-blue-600' : 'bg-gray-50 text-gray-600'
-                } text-center text-[10px]/6 font-bold`}
+                className={`w-6 h-6 rounded-full flex items-center justify-center ${index === step ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'
+                } text-center text-xs font-bold`}
               >
                 {index + 1}
               </span>
             )}
-            <span>{title}</span>
+            <span className={`${index === step ? 'text-blue-600' : 'text-gray-600'} text-sm`}>{title}</span>
           </li>
         ))}
       </ol>
@@ -106,6 +120,10 @@ export default function TravelRecommendations() {
 
   const goToNextStep = () => {
     setStep(step + 1);
+  };
+
+  const goToPreviousStep = () => {
+    setStep(step - 1);
   };
 
   const skipToFinalStep = () => {
@@ -161,7 +179,6 @@ export default function TravelRecommendations() {
       </div>
     );
   };
-  
 
   const renderStep = () => {
     switch (step) {
@@ -172,10 +189,10 @@ export default function TravelRecommendations() {
           <p className="text-lg mb-4">맞춤 여행지를 찾아보세요.</p>
           <div className="space-x-4">
             <Button onClick={goToNextStep} variant="primary">
-                시작하기
+                  시작하기
             </Button>
             <Button onClick={skipToFinalStep} variant="secondary">
-                무작위 여행지 추천
+                  무작위 여행지 추천
             </Button>
           </div>
         </div>
@@ -190,7 +207,10 @@ export default function TravelRecommendations() {
             activeRegion={activeRegion}
             onRegionChange={handleRegionChange}
           />
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center gap-4 mt-8">
+            <Button onClick={goToPreviousStep} variant="secondary">
+                이전
+            </Button>
             <Button onClick={goToNextStep} variant="primary">
                 다음
             </Button>
@@ -204,35 +224,38 @@ export default function TravelRecommendations() {
           <div className="flex flex-col">
             <PreferenceRadioGroup
               label="자연"
-              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              options={['해당 없음', '약간 선호', '보통', '선호', '매우 선호']}
               value={preferences.nature}
               onChange={(value) => handleRadioGroupChange('nature', value)}
             />
             <PreferenceRadioGroup
               label="휴양"
-              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              options={['해당 없음', '약간 선호', '보통', '선호', '매우 선호']}
               value={preferences.relaxation}
               onChange={(value) => handleRadioGroupChange('relaxation', value)}
             />
             <PreferenceRadioGroup
               label="역사"
-              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              options={['해당 없음', '약간 선호', '보통', '선호', '매우 선호']}
               value={preferences.history}
               onChange={(value) => handleRadioGroupChange('history', value)}
             />
             <PreferenceRadioGroup
               label="체험"
-              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              options={['해당 없음', '약간 선호', '보통', '선호', '매우 선호']}
               value={preferences.experience}
               onChange={(value) => handleRadioGroupChange('experience', value)}
             />
             <PreferenceRadioGroup
               label="액티비티"
-              options={['매우 낮음', '낮음', '보통', '높음', '매우 높음']}
+              options={['해당 없음', '약간 선호', '보통', '선호', '매우 선호']}
               value={preferences.activity}
               onChange={(value) => handleRadioGroupChange('activity', value)}
             />
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center gap-4 mt-8">
+              <Button onClick={goToPreviousStep} variant="secondary">
+                  이전
+              </Button>
               <Button onClick={goToNextStep} variant="primary">
                   다음
               </Button>
@@ -250,7 +273,7 @@ export default function TravelRecommendations() {
               {['20대', '30대', '40대', '50대', '60대 이상'].map((age) => (
                 <button
                   key={age}
-                  className={`text-sm ${survey.age === age ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  className={`text-sm ${getStyles('recommended', survey.age === age)} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                   onClick={() => handleSurveyChange('age', age)}
                 >
                   {age}
@@ -261,10 +284,10 @@ export default function TravelRecommendations() {
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">함께 가는 사람</label>
             <div className="space-x-4">
-              {['혼자', '친구', '연인', '가족'].map((companion) => (
+              {['혼자', '친구', '연인', '가족', '아이', '반려동물'].map((companion) => (
                 <button
                   key={companion}
-                  className={`text-sm ${survey.travelCompanion === companion ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  className={`text-sm ${getStyles('recommended', survey.travelCompanion === companion)} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                   onClick={() => handleSurveyChange('travelCompanion', companion)}
                 >
                   {companion}
@@ -278,7 +301,7 @@ export default function TravelRecommendations() {
               {['당일치기', '1박 2일', '2박 3일', '3박 4일 이상'].map((duration) => (
                 <button
                   key={duration}
-                  className={`text-sm ${survey.travelDuration === duration ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-full px-4 py-2`}
+                  className={`text-sm ${getStyles('recommended', survey.travelDuration === duration)} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                   onClick={() => handleSurveyChange('travelDuration', duration)}
                 >
                   {duration}
@@ -286,7 +309,10 @@ export default function TravelRecommendations() {
               ))}
             </div>
           </div>
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center gap-4 mt-8">
+            <Button onClick={goToPreviousStep} variant="secondary">
+                이전
+            </Button>
             <Button onClick={goToNextStep} variant="primary">
                 다음
             </Button>
@@ -297,7 +323,7 @@ export default function TravelRecommendations() {
       return (
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-8">여행 추천 결과</h1>
-          <p className="text-lg mb-4">여기에서 추천된 여행지를 확인하세요!</p>          
+          <p className="text-lg mb-4">여기에서 추천된 여행지를 확인하세요!</p>
           {renderResult()}
           <Button onClick={toBeginningStep} variant="primary" className="mt-8">
               다시 시작

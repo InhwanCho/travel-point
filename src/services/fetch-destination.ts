@@ -1,4 +1,5 @@
 // src/services/fetch-destination.ts
+import { DestinationType } from "@/types/att-area-types";
 
 export interface FetchDestinationProps {
   location?: string;
@@ -6,11 +7,10 @@ export interface FetchDestinationProps {
 }
 
 export async function fetchDestination({
-  location = "서울",
+  location ,
   count = "10",
-}: FetchDestinationProps) {
-  
-  const url = `https://pingulion.shop/destination/${location}`;
+}: FetchDestinationProps): Promise<DestinationType[]> {
+  const url = `https://pingulion.shop/destination/seoul?${location ? "areaCode=" + location : ""}${count ? "&limit=" + count : ""}`;
   const username = process.env.NEXT_PUBLIC_API_USERNAME;
   const password = process.env.NEXT_PUBLIC_API_PASSWORD;
 

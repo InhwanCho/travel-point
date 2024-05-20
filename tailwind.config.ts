@@ -10,18 +10,12 @@ const config = {
     "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
-  theme: {
+  theme: {    
     container: {
       center: true,
       padding: "2rem",
     },
     extend: {
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        spoqa: ["var(--font-spoqa)", ...fontFamily.sans],
-        mono: ["var(--font-mono)", ...fontFamily.sans],
-        pretendard: ["var(--font-pretandard)", ...fontFamily.sans],
-      },
       scrollBehavior: ["smooth", "auto"],
       screens: {
         xsm: "450px",

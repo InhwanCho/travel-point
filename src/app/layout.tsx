@@ -8,10 +8,14 @@ import { cn } from "@/libs/utils";
 import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/config/site-config";
 import Fonts from "@/components/fonts";
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ["latin"] });
-const noto = Noto_Sans_KR({ subsets: ['latin'] });
-const roboto = Roboto({ weight: ['300','400','500','700'],subsets:['latin'] },);
+// const inter = Inter({ subsets: ["latin"] });
+// const noto = Noto_Sans_KR({ subsets: ['latin'] });
+// const roboto = Roboto({ weight: ['300','400','500','700'],subsets:['latin'] },);
+const pretendard = localFont({
+  src: '../assets/fonts/PretendardVariable.woff2'
+});
 
 export const metadata: Metadata = {
   title: { default: siteConfig.title, template: `%s | ${siteConfig.title}` },
@@ -96,8 +100,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
         <link rel="manifest" href="/assets/favicons/site.webmanifest" />
         <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-        <body className={cn('min-h-dvh antialiased', noto.className)}>
-          <Fonts />
+        <body className={cn('min-h-dvh antialiased', pretendard.className)}>
+          {/* <Fonts /> */}
           <QueryProvider>
             {modal}
             <SiteHeader />

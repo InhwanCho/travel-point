@@ -36,3 +36,13 @@ export interface FetchTouristAttractionsByAreaParams {
   pageNo?: string;
   numOfRows?: string;
 }
+
+export interface DestinationType {
+  locationNumber: string;
+  title: string;
+  firstimage: string;
+  destinationDescription: string;
+  contentId: string;
+  contentTypeId: string;
+  areaCode: string;
+}

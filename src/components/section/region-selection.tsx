@@ -12,7 +12,7 @@ interface RegionSelectionProps {
   onRegionChange?: (region: string) => void;
 }
 
-function getStyles(page: PageName, active: boolean) {
+export function getStyles(page: PageName, active: boolean) {
   const { bg, ring } = pageColors[page];
   if (!bg || !ring) return '';
   
