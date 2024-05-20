@@ -3,7 +3,8 @@ import MobileNav from '@/components/nav/mobile-nav';
 import MainNav from '@/components/nav/main-nav';
 import Logo from '@/components/nav/logo';
 import LoginBtn from '@/components/nav/login-btn';
-import SearchBtn from '@/components/nav/search-btn';
+import KBarButton from './nav/kbar-btn';
+
 
 export default function SiteHeader() {
     
@@ -16,7 +17,7 @@ export default function SiteHeader() {
           <div className="flex items-center gap-4">
             <div className="flex gap-3 items-center">
               {/* TODO: search, login 나중에 손보기 */}
-              <SearchBtn />
+              <KBarButton />
               <LoginBtn />
               <MobileNav />
             </div>

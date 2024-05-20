@@ -1,13 +1,7 @@
-'use client';
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import Onboarding from '@/components/section/recommended/onboarding';
-import RegionSelection from '@/components/section/region-selection';
-import CustomButton from '@/components/ui/custom-button';
-
 import { Separator } from '@/components/ui/separator';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
 
 export default function RecommendedPage() {
   

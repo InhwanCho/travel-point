@@ -7,7 +7,7 @@ import { themeImages } from '@/data/data';
 export default function ThemeRecommendation() {  
   return (
     <section className='relative'>
-      <Title className='pb-6'>당신만의 여행 취향 찾기</Title>
+      <Title className='pb-6'>특별한 테마 여행 찾기</Title>
       <div className='grid md:grid-cols-2 gap-8 grid-cols-1'>
         <ThemeCard themeImages={themeImages[0]}/>
         <ThemeCard themeImages={themeImages[1]} isSecondCard/>

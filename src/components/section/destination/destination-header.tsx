@@ -14,14 +14,13 @@ export default function DestinationHeader({ slug }: DestinationHeaderProps) {
       <div className='max-w-[900px] mx-auto'>
         <div className='flex justify-between'>
           <div className='flex gap-2 items-end'>
-            <h2 className='text-xl font-bold'>{slug}</h2>
+            <h2 className='sm:text-xl font-bold'>{slug}</h2>
             <span className='pl-1'>⭐⭐⭐⭐⭐</span>
-            <span>(352명)</span>
+            <span className='text-sm'>(352명)</span>
           </div>
-          <nav className='flex space-x-4'>
+          <nav className='flex space-x-2 sm:space-x-4'>
             <div className='p-1.5 bg-slate-200/60 rounded-full'><Bookmark className='size-[18px]' /></div>
-            <div className='p-1.5 bg-slate-200/60 rounded-full'><Siren className='size-[18px]' /></div>
-            <div className='p-1.5 bg-slate-200/60 rounded-full'><Home className='size-[18px]' /></div>
+            <div className='p-1.5 bg-slate-200/60 rounded-full'><Siren className='size-[18px]' /></div>            
             <div className='p-1.5 bg-slate-200/60 rounded-full'><Share2 className='size-[18px]' /></div>
           </nav>
         </div>

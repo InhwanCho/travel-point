@@ -7,8 +7,8 @@ import QueryProvider from "@/contexts/query-provider";
 import { cn } from "@/libs/utils";
 import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/config/site-config";
-import Fonts from "@/components/fonts";
 import localFont from 'next/font/local';
+import KbarLayout from "@/components/kbar/kbar-layout";
 
 // const inter = Inter({ subsets: ["latin"] });
 // const noto = Noto_Sans_KR({ subsets: ['latin'] });
@@ -95,19 +95,22 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="ko" className="scroll-smooth scroll-pt-20">
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
-        <link rel="manifest" href="/assets/favicons/site.webmanifest" />
-        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-        <body className={cn('min-h-dvh antialiased', pretendard.className)}>
-          {/* <Fonts /> */}
-          <QueryProvider>
-            {modal}
-            <SiteHeader />
-            {children}
-          </QueryProvider>
-          <SiteFooter />
+        <head>
+          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
+          <link rel="manifest" href="/assets/favicons/site.webmanifest" />
+          <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
+        </head>
+        <body className={cn('min-h-dvh antialiased', pretendard.className)}>          
+          <KbarLayout >
+            <QueryProvider>
+              {modal}
+              <SiteHeader />
+              {children}
+              <SiteFooter />
+            </QueryProvider>
+          </KbarLayout>
         </body>
       </html>
     </ViewTransitions>

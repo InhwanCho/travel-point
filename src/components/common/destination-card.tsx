@@ -38,7 +38,7 @@ export default function DestinationCard({ className, imageSrc, location, title, 
         </p> : null}
       </div>
       <p className='mt-4 text-xs sm:text-sm'>{location}</p>
-      <h3 className='text-base font-semibold sm:text-lg pt-1 pb-px sm:py-1'>{title}</h3>
+      <h3 className='text-base font-semibold pt-1 pb-px sm:py-1'>{title}</h3>
       <p className='text-sm two-line-truncate'>{description}</p>
       {isFestival ? <p>{date}</p> : null}
     </div>

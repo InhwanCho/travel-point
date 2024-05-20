@@ -26,8 +26,8 @@ export default function RegionsPage() {
       <Separator className='my-20' />
       <PageLayout>
         {region === 'all' ? <ExploreDestinations page='regions'/> : <ExploreDestinations region={region} page='regions'/>}
-        <Separator className='my-20' />
-        <TrendingDestinations />
+        {/* <Separator className='my-20' /> */}
+        {/* <TrendingDestinations /> */}
       </PageLayout>
     </main>
   );

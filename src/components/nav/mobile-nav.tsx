@@ -7,6 +7,7 @@ import { Menu } from 'lucide-react';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/navigation';
 import { headerMenus } from '@/config/site-config';
+import KBarButton from './kbar-btn';
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function MobileNav() {
                 <span className="underline-link hover:font-semibold transition-all">{menu.name}</span>
               </MobileLink>
             ))}
+            <KBarButton isMobile/>
           </nav>
         </SheetContent>
       </Sheet>
@@ -47,7 +49,7 @@ interface MobileLinkProps extends LinkProps {
   className?: string;
 }
 
-function MobileLink({
+export function MobileLink({
   href,
   onOpenChange,
   children,
