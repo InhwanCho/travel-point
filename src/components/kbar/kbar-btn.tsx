@@ -2,9 +2,7 @@
 
 import { useKBar } from 'kbar';
 import { Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/libs/utils';
-import { MobileLink } from './mobile-nav';
 
 interface KBarButtonProps {
   isMobile?: boolean
@@ -20,7 +18,6 @@ export default function KBarButton({ isMobile = false }: KBarButtonProps) {
           <span className="sr-only">Mobile search button</span>
           <span className="underline-link hover:font-semibold transition-all flex items-center"><Search className="size-4 mr-1.5" />검색</span>
         </button>
-
         :
         <>
           <button

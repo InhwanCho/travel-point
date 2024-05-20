@@ -5,9 +5,9 @@ import ExploreDestinations from '@/components/section/explore-destinations';
 import RegionSelection from '@/components/section/region-selection';
 import { Separator } from '@/components/ui/separator';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
-export default function ThemesPage() {
+function ThemesContent() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
   const region = searchparams.get('region') ?? 'all'; 
@@ -18,13 +18,23 @@ export default function ThemesPage() {
     }
   }, [region, activeRegion]);
   return (
-    <main>
+    <>
       <HeroSection page='themes' title='테마로 떠나는 여행스토리' subtitle='개성 넘치는 테마 여행과 함께하세요' />
       <RegionSelection title='테마 여행 지역 탐색' page='themes' activeRegion={activeRegion} />
       <Separator className='my-20' />
-      <PageLayout>
+      {/* <PageLayout>
         <ExploreDestinations />
-      </PageLayout>
+      </PageLayout> */}
+    </>
+  );
+}
+
+export default function ThemesPage() {
+  return (
+    <main>
+      <Suspense fallback={<div>loading ...</div>}>
+        <ThemesContent/>
+      </Suspense>
     </main>
   );
 }

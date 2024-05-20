@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useCallback, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -7,12 +6,12 @@ import { Separator } from '@/components/ui/separator';
 import AuthForm from '@/components/section/auth/auth-form';
 
 interface AuthPageProps {
-  isModal?: boolean
+  isModal?: boolean;
 }
 
-export default function AuthPage({ isModal = true }: AuthPageProps) {
+const AuthPage: React.FC<AuthPageProps> = ({ isModal = true }) => {
   const router = useRouter();
-  
+
   const backbtn = useCallback(() => {
     router.back();
   }, [router]);
@@ -20,7 +19,6 @@ export default function AuthPage({ isModal = true }: AuthPageProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isModal) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         backbtn();
@@ -43,23 +41,23 @@ export default function AuthPage({ isModal = true }: AuthPageProps) {
   }, [backbtn, isModal]);
 
   return (
-    <>
-      <div className={`w-full h-full ${isModal ? 'fixed z-50 bg-opacity-70 backdrop-blur-sm overflow-auto bg-gray-500' : 'py-20'} `}>
-        <div className={`${isModal ? 'sticky top-40' : ''} flex justify-center`}>
-          <div
-            className={`max-w-md w-full h-auto flex flex-col text-gray-900 space-y-8 bg-white rounded-lg p-8 ${isModal ? 'shadow-lg' : ''}`}
-            ref={modalRef}
-          >
-            <div className='relative'>
-              <button className={`${isModal ? 'absolute top-2 right-0' : 'hidden'}`} onClick={backbtn}>
-                <X className="size-5 text-gray-900" />
-              </button>
-              <AuthForm />
-            </div>
+    <div className={`w-full h-full ${isModal ? 'fixed z-50 bg-opacity-70 backdrop-blur-sm overflow-auto bg-gray-500' : 'py-20'} `}>
+      <div className={`${isModal ? 'sticky top-40' : ''} flex justify-center`}>
+        <div
+          className={`max-w-md w-full h-auto flex flex-col text-gray-900 space-y-8 bg-white rounded-lg p-8 ${isModal ? 'shadow-lg' : ''}`}
+          ref={modalRef}
+        >
+          <div className='relative'>
+            <button className={`${isModal ? 'absolute top-2 right-0' : 'hidden'}`} onClick={backbtn}>
+              <X className="size-5 text-gray-900" />
+            </button>
+            <AuthForm />
           </div>
         </div>
-        {isModal ? '' : <Separator className='my-20' />}
       </div>
-    </>
+      {isModal ? '' : <Separator className='my-20' />}
+    </div>
   );
-}
+};
+
+export default AuthPage;

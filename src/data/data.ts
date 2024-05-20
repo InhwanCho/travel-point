@@ -22,22 +22,22 @@ export const themeImages = [
 ];
 
 export const REGIONS = [
-  { name: "서울", path: "/regions/seoul" },
-  { name: "경기", path: "/regions/gyeonggi" },
-  { name: "인천", path: "/regions/incheon" },
-  { name: "강원", path: "/regions/gangwon" },
-  { name: "경북", path: "/regions/gyeongbuk" },
-  { name: "경남", path: "/regions/gyeongnam" },
-  { name: "대구", path: "/regions/daegu" },
-  { name: "부산", path: "/regions/busan" },
-  { name: "울산", path: "/regions/ulsan" },
-  { name: "전남", path: "/regions/jeonnam" },
-  { name: "전북", path: "/regions/jeonbuk" },
-  { name: "제주", path: "/regions/jeju" },
-  { name: "대전", path: "/regions/daejeon" },
-  { name: "충남", path: "/regions/chungnam" },
-  { name: "충북", path: "/regions/chungbuk" },
-  { name: "광주", path: "/regions/gwangju" },
+  { name: "서울", path: "seoul" },
+  { name: "경기", path: "gyeonggi" },
+  { name: "인천", path: "incheon" },
+  { name: "강원", path: "gangwon" },
+  { name: "경북", path: "gyeongbuk" },
+  { name: "경남", path: "gyeongnam" },
+  { name: "대구", path: "daegu" },
+  { name: "부산", path: "busan" },
+  { name: "울산", path: "ulsan" },
+  { name: "전남", path: "jeonnam" },
+  { name: "전북", path: "jeonbuk" },
+  { name: "제주", path: "jeju" },
+  { name: "대전", path: "daejeon" },
+  { name: "충남", path: "chungnam" },
+  { name: "충북", path: "chungbuk" },
+  { name: "광주", path: "gwangju" },
 ];
 
 export const pageColors = {

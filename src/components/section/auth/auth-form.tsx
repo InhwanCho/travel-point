@@ -1,9 +1,10 @@
-
-import React from 'react';
+// auth-form.tsx
+'use client';
+import { UseFormRegister } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import { Separator } from '@/components/ui/separator';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
 
 interface IFormInput {
   email: string;
@@ -12,11 +13,19 @@ interface IFormInput {
   confirmPassword?: string;
 }
 
+interface InputFieldProps {
+  label: string;
+  id: string;
+  name: string;
+  type: string;
+  autoComplete: string;
+  register: UseFormRegister<any>;
+  required: boolean;
+}
 
 const AuthForm = () => {
   const { isRegister, toggleForm } = useAuthStore();
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
-  
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const url = isRegister ?
@@ -93,7 +102,7 @@ const AuthForm = () => {
   );
 };
 
-const InputField = ({ label, id, name, type, autoComplete, register, required }) => (
+const InputField: React.FC<InputFieldProps> = ({ label, id, name, type, autoComplete, register, required }) => (
   <div>
     <label className="block text-sm font-medium text-gray-700" htmlFor={id}>
       {label}
@@ -157,8 +166,14 @@ const OauthOptions = () => (
   </>
 );
 
-const SocialLoginButton = ({ provider }: { provider: 'Naver' | 'Google' }) => {  
-  const currentUrl = encodeURIComponent(window.location.href); 
+const SocialLoginButton = ({ provider }: { provider: 'Naver' | 'Google' }) => {
+  const [currentUrl, setCurrentUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(encodeURIComponent(window.location.href));
+    }
+  }, []);
 
   const oauthUrl =
     provider === 'Naver'

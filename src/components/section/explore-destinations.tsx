@@ -7,6 +7,7 @@ import DestinationPagination from '../common/destination-pagination';
 
 import { DestinationType } from '@/types/att-area-types';
 import { useFetchDestination } from '@/hooks/use-fetch-destination';
+import { REGIONS } from '@/data/data';
 
 export default function ExploreDestinations({ region, page }: { region?: string, page?: string }) {
   const [divideNumber, setDivideNumber] = useState(5);
@@ -39,9 +40,10 @@ export default function ExploreDestinations({ region, page }: { region?: string,
       return 2;
     }
   }
+  const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
 
-  const { data, isLoading, isError } = useFetchDestination({ location: '2', count: (itemsPerPage*10).toString() });
-  
+  const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: (itemsPerPage * 5).toString() });
+
   if (isLoading) {
     return (
       <section id="mainSection">
@@ -87,7 +89,7 @@ export default function ExploreDestinations({ region, page }: { region?: string,
               <DestinationCard
                 className="col-span-1 first:ml-0"
                 imageSrc={destination.firstimage}
-                location={destination.locationNumber}
+                location={destination.location}
                 title={destination.title}
                 description={destination.destinationDescription}
               />

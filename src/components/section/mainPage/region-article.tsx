@@ -7,6 +7,7 @@ import { useFetchDestination } from '@/hooks/use-fetch-destination';
 import DestinationCard from '@/components/common/destination-card';
 import CardLayout from '@/components/layout/card-layout';
 import { DestinationType } from '@/types/att-area-types';
+import { REGIONS } from '@/data/data';
 
 interface RegionArticleProps {
   region: string;
@@ -14,13 +15,14 @@ interface RegionArticleProps {
 }
 
 
-export default function RegionArticle({ region, count }: RegionArticleProps) {
+export default function RegionArticle({ region, count}: RegionArticleProps) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2; // 한 페이지에 표시할 아이템 수
 
+  const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
   // 데이터 fetch 훅을 호출합니다.
-  const { data, isLoading, isError } = useFetchDestination({ location: '1', count: '10' });
+  const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: count });
 
   // 다음 페이지로 이동
   const handleNextPage = () => {
@@ -53,7 +55,7 @@ export default function RegionArticle({ region, count }: RegionArticleProps) {
           <div>No data available.</div>
         ) : (
           data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
-            <DestinationCard key={i} imageSrc={item.firstimage} location={item.locationNumber} title={item.title} description={item.destinationDescription} />
+            <DestinationCard key={i} imageSrc={item.firstimage} location={item.location} title={item.title} description={item.destinationDescription} />
           ))
         )}
       </CardLayout>

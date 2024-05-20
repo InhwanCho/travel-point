@@ -5,9 +5,9 @@ import ExploreDestinations from '@/components/section/explore-destinations';
 import RegionSelection from '@/components/section/region-selection';
 import { Separator } from '@/components/ui/separator';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
-export default function FestivalsPage() {
+function FestivalsContent() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
   const region = searchparams.get('region');
@@ -18,13 +18,23 @@ export default function FestivalsPage() {
     }
   }, [region, activeRegion]);
   return (
-    <main>
+    <>
       <HeroSection page='festivals' title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연' />
       <RegionSelection title='축제 지역 탐색' page='festivals' activeRegion={activeRegion}/>
       <Separator className='my-20' />
-      <PageLayout>
+      {/* <PageLayout>
         <ExploreDestinations />
-      </PageLayout>
+      </PageLayout> */}
+    </>
+  );
+}
+
+export default function FestivalsPage() {
+  return (
+    <main>
+      <Suspense fallback={<div>loading ...</div>}>
+        <FestivalsContent/>
+      </Suspense>
     </main>
   );
 }

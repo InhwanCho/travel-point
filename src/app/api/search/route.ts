@@ -1,4 +1,3 @@
-// /api/search/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 // 비동기 작업을 별도의 함수로 분리

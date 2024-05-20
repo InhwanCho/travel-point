@@ -38,7 +38,7 @@ export interface FetchTouristAttractionsByAreaParams {
 }
 
 export interface DestinationType {
-  locationNumber: string;
+  location: string;
   title: string;
   firstimage: string;
   destinationDescription: string;

@@ -37,7 +37,7 @@ export default function DestinationCard({ className, imageSrc, location, title, 
           D-1
         </p> : null}
       </div>
-      <p className='mt-4 text-xs sm:text-sm'>{location}</p>
+      <p className='mt-4 text-xs sm:text-sm'>{location && location.split(' ').slice(0,2).join(' ')}</p>
       <h3 className='text-base font-semibold pt-1 pb-px sm:py-1'>{title}</h3>
       <p className='text-sm two-line-truncate'>{description}</p>
       {isFestival ? <p>{date}</p> : null}
