@@ -11,6 +11,7 @@ interface DestinationDetailPageProps {
 }
 export const dynamic = 'force-dynamic';
 
+
 export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
   const decodedSlug = decodeURIComponent(params.slug);
   return (
