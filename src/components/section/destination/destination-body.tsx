@@ -9,7 +9,6 @@ import DestinationBlog from '@/components/section/destination/destination-blog';
 import { Separator } from '@/components/ui/separator';
 import DestinationImages from '@/components/section/destination/destination-images';
 
-
 interface DestinationBodyProps {
   slug: string
 }
