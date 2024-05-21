@@ -26,7 +26,7 @@ const destinationDetails = [
 
 
 export default function DestinationBody({ slug }: DestinationBodyProps) {
-
+  
   return (
     <section className="w-full h-full mx-auto xl:flex-grow">
       <div className="flex">
@@ -38,7 +38,7 @@ export default function DestinationBody({ slug }: DestinationBodyProps) {
           <Nearby />
           <Separator />
           <DestinationComment />
-          <DestinationBlog />
+          <DestinationBlog params={{slug:slug}}/>
         </main>
         <RecentDestinations />
       </div>
