@@ -1,3 +1,4 @@
+// @/app/api/search/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 // 비동기 작업을 별도의 함수로 분리
@@ -30,9 +31,11 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get("query");
 
     if (!query) {
-      return new NextResponse(null, {
+      return new NextResponse(JSON.stringify({ error: "Query parameter is missing." }), {
         status: 400,
-        statusText: "Bad Request: Query parameter is missing.",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
     }
 

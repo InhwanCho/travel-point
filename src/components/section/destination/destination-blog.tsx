@@ -1,11 +1,15 @@
-
 import { BlogData, BlogPost } from '@/types/naver-blog-types';
 import Title from '@/components/common/title';
 import Link from 'next/link';
 
+// 페이지를 동적으로 렌더링하도록 설정
+export const dynamic = 'force-dynamic';
+
 async function fetchBlogData(slug: string): Promise<BlogData | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search?query=${encodeURIComponent(slug)}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search?query=${encodeURIComponent(slug)}`, {
+      cache: 'force-cache',
+    });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -22,7 +26,6 @@ function formatDate(dateStr: string) {
 }
 
 export default async function DestinationBlogPage({ params }: { params: { slug: string } }) {
-  console.log(params.slug);
   const blogData = await fetchBlogData(params.slug);
 
   if (!blogData) {
