@@ -9,7 +9,6 @@ async function fetchFromNaverAPI(query: string) {
   if (!clientId || !clientSecret) {
     throw new Error("API credentials are not defined in environment variables.");
   }
-
   const url = `https://openapi.naver.com/v1/search/blog?query=${encodeURIComponent(query)}&display=4&start=1&sort=sim`;
   const headers = {
     "X-Naver-Client-Id": clientId,
