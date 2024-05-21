@@ -7,7 +7,6 @@ export interface BlogPost {
   postdate: string;
 }
 
-
 export interface BlogData {
   lastBuildDate: string;
   total: number;
