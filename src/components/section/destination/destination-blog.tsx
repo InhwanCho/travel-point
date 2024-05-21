@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import Title from '@/components/common/title';
 import { BlogData, BlogPost } from '@/types/naver-blog-types';
@@ -16,7 +17,7 @@ export default function DestinationBlog() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query = '부산 트릭아이 뮤지엄'; //임시 query
+        const query = '부산 트릭아이 뮤지엄'; // 임시 query
         const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
 
         if (!response.ok) {
@@ -60,7 +61,7 @@ export default function DestinationBlog() {
             <Link href={item.bloggerlink} target='_blank' className='mt-2 text-sm text-slate-600'>
               {item.bloggername}
             </Link>
-            {blogData &&index < blogData.items.length - 1 && <div className='w-full border-b pt-2'></div>}
+            {blogData && index < blogData.items.length - 1 && <div className='w-full border-b pt-2'></div>}
           </div>
         ))}
       </div>
