@@ -6,8 +6,8 @@ import { ChevronRight } from 'lucide-react';
 import { useFetchDestination } from '@/hooks/use-fetch-destination';
 import DestinationCard from '@/components/common/destination-card';
 import CardLayout from '@/components/layout/card-layout';
-import { DestinationType } from '@/types/att-area-types';
 import { REGIONS } from '@/data/data';
+import { DestinationType } from '@/types/destination-types';
 
 interface RegionArticleProps {
   region: string;

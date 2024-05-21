@@ -4,10 +4,9 @@ import Title from '@/components/common/title';
 import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
 import DestinationPagination from '../common/destination-pagination';
-
-import { DestinationType } from '@/types/att-area-types';
 import { useFetchDestination } from '@/hooks/use-fetch-destination';
 import { REGIONS } from '@/data/data';
+import { DestinationType } from '@/types/destination-types';
 
 export default function ExploreDestinations({ region, page }: { region?: string, page?: string }) {
   const [divideNumber, setDivideNumber] = useState(5);
