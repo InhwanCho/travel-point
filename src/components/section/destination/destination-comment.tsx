@@ -26,10 +26,10 @@ export default function DestinationComment() {
           <label className='size-20 float-left relative flex justify-center items-center flex-col border-slate-300 border-y border-l bg-white' htmlFor='input-img'>
             <input id='input-img' type="file" className='hidden' />
             <Camera className='size-8' strokeWidth={1} />
-            <p className='text-xs'>이미지 첨부</p>
+            <p className='text-[12px] sm:text-xs'>이미지 첨부</p>
           </label>
           <div className='flex-grow'>
-            <textarea name="opinion" className='bg-white w-full h-full border border-slate-300 focus:border-slate-300 p-2 placeholder:text-sm text-sm caret-slate-500' placeholder='댓글 또는 의견을 작성해주세요.'></textarea>
+            <textarea name="opinion" className='bg-white w-full h-full border border-slate-300 focus:border-slate-300 p-2 placeholder:text-[10px] sm:placeholder:text-sm text-sm caret-slate-500' placeholder='댓글 또는 후기를 작성해주세요.'></textarea>
           </div>
           <div className='size-20 float-right flex justify-center items-center bg-[#333333]/90'>
             <input type="submit" value='등록' className='text-slate-50' />
@@ -40,7 +40,7 @@ export default function DestinationComment() {
             <HoverCard>
               <HoverCardTrigger><CircleHelp className='size-4 ml-2' /></HoverCardTrigger>
               <HoverCardContent>
-                댓글에도 이미지를 첨부할 수 있습니다.댓글을 작성하시고, ‘이미지 첨부’ Button을 클릭하여내 컴퓨터에 저장되어 있는 10MB 이하의 이미지 파일(.jpg, .jpeg, .gif, .png)을 찾아 첨부 해 주세요.
+                댓글에도 이미지를 첨부할 수 있습니다. 댓글을 작성하시고, ‘이미지 첨부’ Button을 클릭하여내 컴퓨터에 저장되어 있는 10MB 이하의 이미지 파일(.jpg, .jpeg, .gif, .png)을 찾아 첨부 해 주세요.
               </HoverCardContent>
             </HoverCard>
           </p>

@@ -15,7 +15,7 @@ export default function Home() {
       {/* 히어로 섹션 */}
       <MainHero />
       <PageLayout>
-        {/* 지역 섹션 */}
+        {/* 지역 섹션 */}        
         <RegionRecommendation />
         <RegionSelection title="다른 지역 여행지 구경가기" page="mainpage" />
         <Separator className="my-10 md:my-20" />

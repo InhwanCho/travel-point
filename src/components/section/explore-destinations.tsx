@@ -42,7 +42,7 @@ export default function ExploreDestinations({ region, page }: { region?: string,
   const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
 
   const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: (itemsPerPage * 5).toString() });
-
+  
   if (isLoading) {
     return (
       <section id="mainSection">
@@ -85,8 +85,9 @@ export default function ExploreDestinations({ region, page }: { region?: string,
         <Suspense fallback="loading...">
           {paginatedDestinations.map((destination, i) => (
             <React.Fragment key={i}>
-              <DestinationCard
+              <DestinationCard              
                 className="col-span-1 first:ml-0"
+                contentId={destination.contentId}
                 imageSrc={destination.firstimage}
                 location={destination.location}
                 title={destination.title}

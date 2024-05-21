@@ -111,7 +111,9 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }  
-  
+  .mini-icon{
+    @apply p-1.5 bg-slate-200/60 rounded-full hover:cursor-pointer
+  }
 }
 /* textarea 태그 사이즈 조절 금지 */
 textarea {

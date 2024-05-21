@@ -1,15 +1,46 @@
+'use client';
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
-import { Share2, Home, Siren, Bookmark } from 'lucide-react';
+import StarRating from '@/components/common/star-rating';
+import { Siren, Bookmark } from 'lucide-react';
+import { GoCopy } from 'react-icons/go';
+import { ToastProvider } from '@/components/ui/toast';
+import { useToast } from '@/components/ui/use-toast';
 
 interface DestinationHeaderProps {
   title: string;
-  location:string;
+  location: string;
 }
 
+const rating = 3.7;
 const hashtags = ['걷기좋은길', '봄여행', '공원'];
-export default function DestinationHeader({ title,location }: DestinationHeaderProps) {
-  
+
+export default function DestinationHeader({ title, location }: DestinationHeaderProps) {
+  return (
+    <ToastProvider>
+      <HeaderContent title={title} location={location} />
+    </ToastProvider>
+  );
+}
+
+function HeaderContent({ title, location }: DestinationHeaderProps) {
+  const { toast } = useToast();
+
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: 'URL 복사되었습니다',
+        description: 'URL이 클립보드에 복사되었습니다.',
+      });
+    } catch (err) {
+      toast({
+        title: '복사 실패',
+        description: 'URL 복사에 실패했습니다.',
+      });
+    }
+  };
+
   return (
     <header className='py-8'>
       <Separator className='my-4' />
@@ -17,13 +48,14 @@ export default function DestinationHeader({ title,location }: DestinationHeaderP
         <div className='flex justify-between'>
           <div className='flex gap-2 items-end'>
             <h2 className='sm:text-xl font-bold'>{title}</h2>
-            <span className='pl-1'>⭐⭐⭐⭐⭐</span>
-            <span className='text-sm'>(352명)</span>
+            <StarRating className='ml-1.5' rating={rating} numPeoPle={323} />
           </div>
           <nav className='flex space-x-2 sm:space-x-4'>
-            <div className='p-1.5 bg-slate-200/60 rounded-full'><Bookmark className='size-[18px]' /></div>
-            <div className='p-1.5 bg-slate-200/60 rounded-full'><Siren className='size-[18px]' /></div>            
-            <div className='p-1.5 bg-slate-200/60 rounded-full'><Share2 className='size-[18px]' /></div>
+            <div className='mini-icon'><Bookmark className='size-[18px]' /></div>
+            <div className='mini-icon'><Siren className='size-[18px]' /></div>
+            <div className='mini-icon' onClick={handleCopyClick}>
+              <GoCopy className='size-[18px]' />
+            </div>
           </nav>
         </div>
         <div className='pt-2'>

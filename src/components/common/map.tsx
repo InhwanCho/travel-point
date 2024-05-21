@@ -28,7 +28,7 @@ export default function KakaoMap({ latitude, longitude, className }: KakaoMapPro
   return (
     <div className={cn('relative', className)}>
       <Map
-        className="w-full h-[420px] lg:h-[460px]"
+        className="w-full aspect-[16/11]"
         id="map"
         level={3} // 지도의 확대 레벨
         center={state}
@@ -38,7 +38,7 @@ export default function KakaoMap({ latitude, longitude, className }: KakaoMapPro
         <MapMarker title='맵 타이틀' position={state} />
       </Map>
       <div className="absolute inset-x-0 top-0 bg-white z-10 py-1.5 text-center font-semibold">여행지 주변 지도</div>
-      <button onClick={resetCenter} className="border bg-white p-1 absolute top-1.5 right-0 z-20">
+      <button onClick={resetCenter} className="border bg-white p-1 absolute top-1.5 right-0 z-20 hidden sm:block">
         <p className="text-xs">여행지로 중심 이동하기</p>
       </button>
     </div>

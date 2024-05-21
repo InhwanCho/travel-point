@@ -1,14 +1,20 @@
 import Image from 'next/image';
 import React from 'react';
-import { Siren, Star } from 'lucide-react';
+import { IoMdHeartEmpty } from "react-icons/io";
+import { PiSirenFill } from "react-icons/pi";
+import { IoMdHeart } from "react-icons/io";
+
 import { Separator } from '../ui/separator';
 import { cn } from '@/libs/utils';
+import StarRating from './star-rating';
 
-interface CommentItemProps{
-  className?:string
+interface CommentItemProps {
+  className?: string
 }
 
-export default function CommentItem({className}:CommentItemProps) {
+export default function CommentItem({ className }: CommentItemProps) {
+  const rating = 3.5;
+
   const isImage = true;
   return (
     <li className={`${cn('border-t relative list-none', className)}`}>
@@ -16,17 +22,19 @@ export default function CommentItem({className}:CommentItemProps) {
         <Image src={'/assets/image/characters/m1.png'} alt='character image' width={50} height={50} />
       </div>
       <div className='w-full py-2 pl-[56px]'>
-        <div className='flex justify-between '>
-          <div>
-            <div className='flex gap-x-3 text-sm text-slate-600'>
+        <div className='flex justify-between'>
+          <div className='flex flex-col sm:flex-row gap-x-3 text-sm text-slate-600'>
+            <div className='flex sm:items-start gap-x-3'>
               <p>g@whdlsghks</p>
               <p>2024.04.29</p>
-              <span className='pl-1'>⭐⭐⭐⭐⭐</span>
             </div>
+            <span className='sm:pl-1 flex items-center'>
+              <StarRating rating={rating}/>
+            </span>
           </div>
           <div className='flex gap-3 pr-1.5'>
-            <Siren className='size-4' />
-            <Star className='size-4' />
+            <PiSirenFill className='size-4' />
+            <IoMdHeartEmpty className='size-4 mr-1' />
           </div>
         </div>
         <div className='pt-2'>

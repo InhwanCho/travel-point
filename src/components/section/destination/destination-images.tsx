@@ -68,8 +68,9 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
                 src={src}
                 alt={`Image ${index}`}
                 width={800}
-                height={500}
-                className="object-cover w-full h-full"
+                height={550}
+                className="object-cover w-full aspect-[16/11]"
+                priority
               />
             </CarouselItem>
           ))}
@@ -89,8 +90,8 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
               src={src}
               alt={`Thumbnail ${index}`}
               width={100}
-              height={66}
-              className="object-cover"
+              height={68}
+              className="object-cover aspect-[16/11]"
             />
           </div>
         ))}

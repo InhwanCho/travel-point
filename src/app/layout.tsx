@@ -9,6 +9,7 @@ import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/config/site-config";
 import localFont from 'next/font/local';
 import KbarLayout from "@/components/kbar/kbar-layout";
+import { Toaster } from "@/components/ui/toaster";
 
 // const inter = Inter({ subsets: ["latin"] });
 // const noto = Noto_Sans_KR({ subsets: ['latin'] });
@@ -109,6 +110,7 @@ export default function RootLayout({
               <SiteHeader />
               {children}
               <SiteFooter />
+              <Toaster />
             </QueryProvider>
           </KbarLayout>
         </body>

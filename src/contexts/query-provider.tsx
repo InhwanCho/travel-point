@@ -8,7 +8,7 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         // reretching time setting
-        staleTime: 60 * 1000,
+        staleTime: 600 * 1000,
       },
     },
   });

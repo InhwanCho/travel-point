@@ -21,8 +21,9 @@ export default function DestinationBody({ data }: DestinationBodyProps) {
     { label: '홈페이지', value: data.homepage },
     { label: '주소', value: data.location },
     { label: '문의 및 안내', value: data.tel },
-    { label: '행사장소', value: data.location },
+    // { label: '행사장소', value: data.location },
     { label: '시간', value: data.use_time },
+    { label: '주차', value: data.parking},
     // { label: '이용요금', value: data.?? },
     // { label: '행사내용', value: data.destinationDescription },
   ].filter(detail => detail.value); 
@@ -33,7 +34,7 @@ export default function DestinationBody({ data }: DestinationBodyProps) {
           <DestinationImages images={filteredImages} />
           <DestinationDescription description={data.destinationDescription} />
           <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />
-          <DestinationInfo details={destinationDetails} />
+          <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId}/>
           <Nearby />
           <Separator />
           <DestinationComment />
