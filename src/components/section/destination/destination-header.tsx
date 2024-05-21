@@ -3,18 +3,20 @@ import { Separator } from '@/components/ui/separator';
 import { Share2, Home, Siren, Bookmark } from 'lucide-react';
 
 interface DestinationHeaderProps {
-  slug: string
+  title: string;
+  location:string;
 }
 
-export default function DestinationHeader({ slug }: DestinationHeaderProps) {
-  const hashtags = ['걷기좋은길', '봄여행', '공원'];
+const hashtags = ['걷기좋은길', '봄여행', '공원'];
+export default function DestinationHeader({ title,location }: DestinationHeaderProps) {
+  
   return (
     <header className='py-8'>
       <Separator className='my-4' />
       <div className='max-w-[900px] mx-auto'>
         <div className='flex justify-between'>
           <div className='flex gap-2 items-end'>
-            <h2 className='sm:text-xl font-bold'>{slug}</h2>
+            <h2 className='sm:text-xl font-bold'>{title}</h2>
             <span className='pl-1'>⭐⭐⭐⭐⭐</span>
             <span className='text-sm'>(352명)</span>
           </div>
@@ -25,7 +27,7 @@ export default function DestinationHeader({ slug }: DestinationHeaderProps) {
           </nav>
         </div>
         <div className='pt-2'>
-          <p className='text-sm'>경기도 고양시 일산서구 한류월드로 300 (대화동)</p>
+          <p className='text-sm'>{location}</p>
         </div>
       </div>
       <Separator className='my-4' />

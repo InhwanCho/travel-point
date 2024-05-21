@@ -9,8 +9,8 @@ interface KakaoMapProps {
   longitude: number;
   className?: string
 }
-// latitude={35.8753} longitude={128.62767}
-export default function KakaoMap({ latitude = 35.8753, longitude = 128.62767, className }: KakaoMapProps) {
+
+export default function KakaoMap({ latitude, longitude, className }: KakaoMapProps) {
   useKakaoLoader();
   const [state, setState] = useState({ lat: latitude, lng: longitude });
   const [isOpen, setIsOpen] = useState(false);

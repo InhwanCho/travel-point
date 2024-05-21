@@ -31,7 +31,7 @@ export default function Home() {
 
       {/* ui 테스트 섹션 */}
       
-      {/* <TouristAttractionsComponent /> */}
+      
 
 
     </main>

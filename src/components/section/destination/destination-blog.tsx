@@ -1,3 +1,5 @@
+'use client';
+import { useState, useEffect } from 'react';
 import { BlogData, BlogPost } from '@/types/naver-blog-types';
 import Title from '@/components/common/title';
 import Link from 'next/link';
@@ -5,9 +7,13 @@ import Link from 'next/link';
 // 페이지를 동적으로 렌더링하도록 설정
 export const dynamic = 'force-dynamic';
 
-async function fetchBlogData(slug: string): Promise<BlogData | null> {
+interface DestinationBlogPageProps{
+  title: string;
+}
+
+async function fetchBlogData(title: string): Promise<BlogData | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search?query=${encodeURIComponent(slug)}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search?query=${encodeURIComponent(title)}`, {
       cache: 'force-cache',
     });
     if (!response.ok) {
@@ -25,8 +31,24 @@ function formatDate(dateStr: string) {
   return `${dateStr.slice(0, 4)}. ${dateStr.slice(4, 6)}. ${dateStr.slice(6)}`;
 }
 
-export default async function DestinationBlogPage({ params }: { params: { slug: string } }) {
-  const blogData = await fetchBlogData(params.slug);
+export default function DestinationBlogPage({ title }: DestinationBlogPageProps) {
+  
+  const [blogData, setBlogData] = useState<BlogData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await fetchBlogData(title);
+      setBlogData(data);
+      setLoading(false);
+    }
+
+    getData();
+  }, [title]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   if (!blogData) {
     return <p>Failed to load blog data</p>;
@@ -34,7 +56,7 @@ export default async function DestinationBlogPage({ params }: { params: { slug: 
 
   return (
     <div className='py-8'>
-      <Title className='justify-between pl-2' naverImg>{params.slug} 블로그 리뷰</Title>
+      <Title className='justify-between pl-2' naverImg>{title} 블로그 리뷰</Title>
       <div className='border rounded-sm'>
         {blogData.items.map((item: BlogPost, index: number) => (
           <div className='flex flex-col p-2.5' key={index}>

@@ -1,8 +1,8 @@
 'use client';
 
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay"; 
-import Image from 'next/image'; 
+import Autoplay from "embla-carousel-autoplay";
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -10,58 +10,59 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel"; 
-import { useEffect, useRef, useState } from "react"; 
+} from "@/components/ui/carousel";
+import { useEffect, useRef, useState } from "react";
 
+interface DestinationCarouselProps {
+  images: string[];
+}
 
-
-export default function CarouselPlugin() {
+export default function DestinationCarousel({ images }: DestinationCarouselProps) {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
     dragFree: true,
   });
-  
+
   const autoplay = useRef(
-    Autoplay({ delay: 4500, stopOnInteraction: true })
+    Autoplay({ delay: 5000, stopOnInteraction: true })
   );
 
   useEffect(() => {
     if (!api) return;
 
     const onSelect = () => {
-      const selected = api.selectedScrollSnap(); 
-      setSelectedIndex(selected); 
+      const selected = api.selectedScrollSnap();
+      setSelectedIndex(selected);
       if (emblaThumbsApi) {
-        emblaThumbsApi.scrollTo(selected); 
+        emblaThumbsApi.scrollTo(selected);
       }
     };
 
     api.on('select', onSelect);
     return () => {
-      api.off('select', onSelect); 
+      api.off('select', onSelect);
     };
   }, [api, emblaThumbsApi]);
 
-  
   const onThumbClick = (index: number) => {
     if (api) {
-      api.scrollTo(index); 
+      api.scrollTo(index);
     }
   };
 
   return (
     <div>
       <Carousel
-        setApi={setApi} 
-        plugins={[autoplay.current]} 
+        setApi={setApi}
+        plugins={[autoplay.current]}
         className="w-full"
-        onMouseEnter={autoplay.current.stop} 
-        onMouseLeave={autoplay.current.reset} 
+        onMouseEnter={autoplay.current.stop}
+        onMouseLeave={autoplay.current.reset}
       >
         <CarouselContent className="flex">
-          {Array.from({ length: 5 }, (_, index) => `/img/sample.avif`).map((src, index) => (
+          {images.map((src, index) => (
             <CarouselItem key={index} className="relative w-full">
               <Image
                 src={src}
@@ -74,11 +75,11 @@ export default function CarouselPlugin() {
           ))}
         </CarouselContent>
         <CarouselPrevious />
-        <CarouselNext /> 
+        <CarouselNext />
       </Carousel>
 
       <div ref={emblaThumbsRef} className="hidden md:flex justify-center space-x-4 mt-4">
-        {Array.from({ length: 5 }, (_, index) => `/img/sample.avif`).map((src, index) => (
+        {images.map((src, index) => (
           <div
             key={index}
             onClick={() => onThumbClick(index)}
