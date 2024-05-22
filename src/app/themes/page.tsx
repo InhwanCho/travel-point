@@ -18,13 +18,19 @@ function ThemesContent() {
   const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
 
   const selectedTheme = useThemeStore((state) => state.selectedTheme);
-  const { data, isLoading, isError } = useFetchThemeDestinationByCat({ areaName: regionPath, count: '20', page: '1', theme: selectedTheme });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data, isLoading, isError } = useFetchThemeDestinationByCat({ areaName: regionPath, count: '10', page: currentPage.toString(), theme: selectedTheme });
 
   useEffect(() => {
     if (region) {
       setActiveRegion(region as keyof typeof themeCategories);
     }
   }, [region, activeRegion]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -37,6 +43,9 @@ function ThemesContent() {
           page='themes'
           isLoading={isLoading}
           isError={isError}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          totalPages={10}
         />
       </PageLayout>
     </>

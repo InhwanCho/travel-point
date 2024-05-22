@@ -27,48 +27,55 @@ export default function RegionSelection({ page, title, activeRegion, onRegionCha
       <ul className="flex flex-wrap justify-center gap-4">
         {page === 'mainpage' ? (
           REGIONS.map((item, index) => (
-            <LinkButton href={`/regions?region=${item.name}`} key={index} className="hover:ring-slate-500/80 ">
-              {item.name}
-            </LinkButton>
+            <li key={index}>
+              <LinkButton href={`/regions?region=${item.name}`} className="hover:ring-slate-500/80">
+                {item.name}
+              </LinkButton>
+            </li>
           ))
-        ) :
-          page === 'recommended' ?
-            (<>
+        ) : page === 'recommended' ? (
+          <>
+            <li>
               <button
                 className={`text-sm ${getStyles(page, activeRegion === 'all')} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                 onClick={() => onRegionChange && onRegionChange('all')}
               >
-                전체
+          전체
               </button>
-              {REGIONS.map((item, index) => (
+            </li>
+            {REGIONS.map((item, index) => (
+              <li key={index}>
                 <button
-                  key={index}
                   className={`text-sm ${getStyles(page, item.name === activeRegion)} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                   onClick={() => onRegionChange && onRegionChange(item.name)}
                 >
                   {item.name}
                 </button>
-              ))}
-            </>)
-            : (
-              <>
+              </li>
+            ))}
+          </>
+        ) : (
+          <>
+            <li>
+              <LinkButton
+                href={`/${page}?region=all`}
+                className={`${getStyles(page, activeRegion === 'all')}`}
+              >
+          전체
+              </LinkButton>
+            </li>
+            {REGIONS.map((item, index) => (
+              <li key={index}>
                 <LinkButton
-                  href={`/${page}?region=all`}
-                  className={`${getStyles(page, activeRegion === 'all')}`}
+                  href={`/${page}?region=${item.name}`}
+                  className={`${getStyles(page, item.name === activeRegion)}`}
                 >
-                  전체
+                  {item.name}
                 </LinkButton>
-                {REGIONS.map((item, index) => (
-                  <LinkButton
-                    href={`/${page}?region=${item.name}`}
-                    key={index}
-                    className={`${getStyles(page, item.name === activeRegion)}`}
-                  >
-                    {item.name}
-                  </LinkButton>
-                ))}
-              </>
-            )}
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </nav>
   );

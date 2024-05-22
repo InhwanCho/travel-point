@@ -4,15 +4,16 @@ import { Camera, CircleHelp, Plus } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import CommentItem from '@/components/common/comment-item';
 import Title from '@/components/common/title';
-
+import StarSetting from '@/components/common/star-setting';
 
 export default function DestinationComment() {
 
   return (
     <>
-      <Title className='pt-8'>여행 톡</Title>
+      <Title className='pt-8'>여행 후기</Title>
       <div className="bg-slate-100/90 relative rounded p-4 mt-8">
-        <div className="flex justify-end items-center pb-2">
+        <div className="flex justify-between items-center pb-2">
+          <StarSetting/>
           <p className="flex items-center text-sm text-slate-600">댓글 작성 시 유의사항
             <HoverCard>
               <HoverCardTrigger><CircleHelp className='size-4 ml-2' /></HoverCardTrigger>
@@ -47,11 +48,11 @@ export default function DestinationComment() {
           <p className='text-xs'>0 / 1,000자</p>
         </div>
       </div>
-      
+
       <div className='py-4'>
         <p className='pl-3 font-medium pb-1'>댓글 2</p>
         <div className='border-t-2 flex flex-col'>
-          {[...Array(3)].map((item, i) => (<CommentItem key={i} className=''/>))}
+          {[...Array(2)].map((item, i) => (<CommentItem key={i} className='' />))}
           <div className='border-t'>
             <p className='flex justify-center items-center py-4'>댓글 더보기
               <Plus className='size-4 ml-2' />

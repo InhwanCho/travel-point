@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 import { IoMdHeartEmpty } from "react-icons/io";
 import { PiSirenFill } from "react-icons/pi";
-import { IoMdHeart } from "react-icons/io";
 
 import { Separator } from '../ui/separator';
 import { cn } from '@/libs/utils';
@@ -13,7 +12,7 @@ interface CommentItemProps {
 }
 
 export default function CommentItem({ className }: CommentItemProps) {
-  const rating = 3.5;
+  const rating = 4;
 
   const isImage = true;
   return (
@@ -29,24 +28,26 @@ export default function CommentItem({ className }: CommentItemProps) {
               <p>2024.04.29</p>
             </div>
             <span className='sm:pl-1 flex items-center'>
-              <StarRating rating={rating}/>
+              <StarRating rating={rating} />
             </span>
           </div>
-          <div className='flex gap-3 pr-1.5'>
+          <div className='flex gap-4 pr-1.5'>
             <PiSirenFill className='size-4' />
-            <IoMdHeartEmpty className='size-4 mr-1' />
+            <span className='flex items-start'>
+              <IoMdHeartEmpty className='size-4' />
+              <span className='text-xs pl-0.5 mr-1'>(12)</span>
+            </span>
+
           </div>
         </div>
         <div className='pt-2'>
           <p className='text-sm'>간단히 산책하기도 좋고 특히 겹벚꽃 폈을때 넘 이뻐서 사진 찍으러도 많이들 가시더라구요 ㅎㅎ 저도 앞전에 보고 왔는데 이뻤어요!간단히 산책하기도 좋고 특히 겹벚꽃 폈을때 넘 이뻐서 사진 찍으러도 많이들 가시더라구요 ㅎㅎ 저도 앞전에 보고 왔는데 이뻤어요!</p>
           {isImage &&
             <div className='py-2'>
-              <Image width={420} height={300} src={'/img/sample.avif'} alt='sample img' className='max-h-[240px]' />
+              <Image width={420} height={240} src={'/img/sample.avif'} alt='sample img' className='max-h-[240px]' />
             </div>}
         </div>
       </div>
-
-
     </li>
   );
 }

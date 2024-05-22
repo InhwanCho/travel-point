@@ -3,7 +3,6 @@ import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import ExploreDestinations from '@/components/section/explore-destinations';
 import RegionSelection from '@/components/section/region-selection';
-import TrendingDestinations from '@/components/section/mainPage/trending-destinations';
 import { Separator } from '@/components/ui/separator';
 import React, { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -14,7 +13,8 @@ function RegionsContent() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
   const region = searchparams.get('region') ?? 'all'; 
-  const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
+  const regionPath = region === 'all' ? '' : REGIONS.find((r) => r.name === region)?.path || '';
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (region) {
@@ -22,7 +22,11 @@ function RegionsContent() {
     }
   }, [region, activeRegion]);
 
-  const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: '50' });
+  const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: '10', page: currentPage.toString() });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -35,9 +39,10 @@ function RegionsContent() {
           page='regions' 
           isLoading={isLoading} 
           isError={isError} 
-        />
-        {/* <Separator className='my-20' /> */}
-        {/* <TrendingDestinations /> */}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          totalPages={10}
+        />        
       </PageLayout>
     </>
   );

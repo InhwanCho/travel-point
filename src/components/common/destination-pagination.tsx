@@ -1,4 +1,3 @@
-// DestinationPagination.tsx
 import {
   Pagination,
   PaginationContent,
@@ -15,45 +14,107 @@ interface DestinationPaginationProps {
 }
 
 export default function DestinationPagination({ currentPage, totalPages, onPageChange }: DestinationPaginationProps) {
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const showLeftEllipsis = currentPage > 3;
+    const showRightEllipsis = currentPage < totalPages - 2;
+
+    if (totalPages <= 3) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        pageNumbers.push(1, 2, 3, 4);
+      } else if (currentPage >= totalPages - 2) {
+        pageNumbers.push(totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pageNumbers.push(currentPage - 1, currentPage, currentPage + 1);
+      }
+    }
+
+    return (
+      <>
+        {showLeftEllipsis && (
+          <>
+            <PaginationItem>
+              <PaginationLink
+                href="#mainSection"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPageChange(1);
+                }}
+              >
+                1
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <span className="px-3 py-1">...</span>
+            </PaginationItem>
+          </>
+        )}
+        {pageNumbers.map(number => (
+          <PaginationItem key={number}>
+            <PaginationLink
+              href="#mainSection"
+              isActive={number === currentPage}
+              onClick={(e) => {
+                e.preventDefault();
+                if (number !== currentPage) {
+                  onPageChange(number);
+                }
+              }}
+              className={number === currentPage ? 'text-gray-500 cursor-not-allowed' : ''}
+            >
+              {number}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        {showRightEllipsis && (
+          <>
+            <PaginationItem>
+              <span className="px-3 py-1">...</span>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink
+                href="#mainSection"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPageChange(totalPages);
+                }}
+              >
+                {totalPages}
+              </PaginationLink>
+            </PaginationItem>
+          </>
+        )}
+      </>
+    );
+  };
+
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             href="#mainSection"
-            onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(Math.max(currentPage - 1, 1));
+            }}
             disabled={currentPage === 1}
           />
         </PaginationItem>
 
-        {[...Array(totalPages)].map((_, i) => {
-          const page = i + 1;
-          return (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href="#mainSection"
-                isActive={page === currentPage}
-                onClick={(e) => {
-                  // 현재 페이지를 클릭했을 때 아무런 동작도 하지 않도록 합니다.
-                  if (page !== currentPage) {
-                    onPageChange(page);
-                  } else {
-                    e.preventDefault();
-                  }
-                }}
-                // 현재 페이지에 대해 다른 스타일을 적용할 수도 있습니다.
-                className={page === currentPage ? 'text-gray-500 cursor-not-allowed' : ''}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          );
-        })}
+        {renderPageNumbers()}
 
         <PaginationItem>
           <PaginationNext
             href="#mainSection"
-            onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(Math.min(currentPage + 1, totalPages));
+            }}
             disabled={currentPage === totalPages}
           />
         </PaginationItem>
