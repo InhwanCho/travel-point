@@ -35,9 +35,8 @@ export default function CommentItem({ className }: CommentItemProps) {
             <PiSirenFill className='size-4' />
             <span className='flex items-start'>
               <IoMdHeartEmpty className='size-4' />
-              <span className='text-xs pl-0.5 mr-1'>(12)</span>
+              <span className='text-xs mx-1'>(12)</span>
             </span>
-
           </div>
         </div>
         <div className='pt-2'>
