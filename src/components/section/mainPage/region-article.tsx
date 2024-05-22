@@ -55,7 +55,7 @@ export default function RegionArticle({ region, count}: RegionArticleProps) {
           <div>No data available.</div>
         ) : (
           data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
-            <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstimage} location={item.location} title={item.title} description={item.destinationDescription} />
+            <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
           ))
         )}
       </CardLayout>

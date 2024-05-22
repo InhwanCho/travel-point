@@ -1,7 +1,7 @@
 export interface DestinationType {
   location: string;
   title: string;
-  firstimage: string;
+  firstImage: string;
   destinationDescription: string;
   contentId: string;
   contentTypeId: string;

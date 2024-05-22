@@ -62,7 +62,7 @@ export default function DestinationBlogPage({ title }: DestinationBlogPageProps)
           <div className='flex flex-col p-2.5' key={index}>
             <div className='flex'>
               <a dangerouslySetInnerHTML={{ __html: item.title }} target='_blank' href={item.link} className='truncate max-w-[400px] text-blue-700/90'></a>
-              <time className='ml-6 flex text-sm items-center text-slate-600'>
+              <time className='ml-6 flex text-[10px] sm:text-sm items-center text-slate-600'>
                 <span className='mr-1.5'>|</span>{formatDate(item.postdate)}
               </time>
             </div>

@@ -88,7 +88,7 @@ export default function ExploreDestinations({ region, page }: { region?: string,
               <DestinationCard              
                 className="col-span-1 first:ml-0"
                 contentId={destination.contentId}
-                imageSrc={destination.firstimage}
+                imageSrc={destination.firstImage}
                 location={destination.location}
                 title={destination.title}
                 description={destination.destinationDescription}

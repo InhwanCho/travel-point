@@ -1,3 +1,4 @@
+
 import { cn } from '@/libs/utils';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
@@ -27,7 +28,7 @@ export default function DestinationCard({ className, imageSrc, location, title, 
       </div>
     );
   }
-
+  
   return (
     <div className={`${cn('flex-1', className)}`} {...props}>
       <Link href={`/destinations/${contentId}`}>

@@ -70,3 +70,4 @@ export const pageColors = {
     ring: "ring-0",
   },
 } as const;
+

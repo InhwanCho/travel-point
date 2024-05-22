@@ -12,7 +12,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Keyboard, Pagination } from 'swiper/modules';
 import SwiperCore from "swiper";
-
+import { useFetchThemeDestinationByCat } from '@/hooks/use-fetch-destination';
+import { themeCategories } from '@/types/destination-fetch-props';
 
 interface ThemeCardProps {
   themeImages: {
@@ -20,23 +21,19 @@ interface ThemeCardProps {
     image: string;
   }
   isSecondCard?: boolean;
+  theme: keyof typeof themeCategories;
 }
 
-export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCardProps) {
+export default function ThemeCard({ themeImages, isSecondCard = false, theme }: ThemeCardProps) {
+  const { data, isLoading, isError } = useFetchThemeDestinationByCat({ count: '8', page: '1', theme });
   const router = useRouter();
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
   useEffect(() => {
     if (swiper) {
-      // 'slidesPerView'가 'undefined'일 경우 기본값 1을 사용
       const slidesPerView = typeof swiper.params.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
-
-      // 총 페이지 수 계산
       setTotalPages(Math.ceil(swiper.slides.length / slidesPerView));
-
-      // 슬라이드 변경 시 현재 페이지 계산
       swiper.on('slideChange', () => {
         setCurrentPage(Math.floor(swiper.realIndex / slidesPerView));
       });
@@ -44,13 +41,13 @@ export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCa
   }, [swiper]);
 
   const handlePageClick = (index: number) => {
-    // 'slidesPerView'가 'undefined'일 경우 기본값 1을 사용
     const slidesPerView = typeof swiper?.params.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
-
-    // 페이지 이동
     swiper?.slideTo(index * slidesPerView);
   };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading data</div>;
+  
   return (
     <>
       {isSecondCard && (
@@ -61,7 +58,6 @@ export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCa
       )}
       <div className='relative mb-[260px] md:mb-[200px]'>
         <div className='absolute -top-7 right-0 flex items-center'>
-          {/* 페이지네이션 버튼 */}
           <div className="flex gap-1.5 mr-6">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
@@ -73,7 +69,6 @@ export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCa
               </button>
             ))}
           </div>
-          {/* "더보기" 버튼 */}
           <button
             className='items-center cursor-pointer inline-block'
             onClick={() => router.push(`/themes`)}
@@ -98,9 +93,14 @@ export default function ThemeCard({ themeImages, isSecondCard = false }: ThemeCa
               },
             }}
           >
-            {[...Array(8)].map((_, i) => (
-              <SwiperSlide key={i}>
-                <DestinationCard location='강원특별자치도 춘천시' title='대관령 삼양목장' description='정답게 이야기를 나눌 수 있는' />
+            {data && data.map((item, index) => (
+              <SwiperSlide key={index}>
+                <DestinationCard
+                  imageSrc={item.firstImage}
+                  location={item.location}
+                  title={item.title}
+                  description={item.destinationDescription}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
