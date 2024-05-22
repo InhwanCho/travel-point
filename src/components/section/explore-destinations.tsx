@@ -1,57 +1,82 @@
 'use client';
+
 import React, { Suspense, useEffect, useState } from 'react';
 import Title from '@/components/common/title';
 import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
 import DestinationPagination from '../common/destination-pagination';
-import { useFetchDestination } from '@/hooks/use-fetch-destination';
-import { REGIONS } from '@/data/data';
 import { DestinationType } from '@/types/destination-types';
+import { Theme, useThemeStore } from '@/store/themeStore';
+import { themeCategories } from '@/types/destination-fetch-props';
 
-export default function ExploreDestinations({ region, page }: { region?: string, page?: string }) {
+interface ExploreDestinationsProps {
+  data: DestinationType[];
+  region?: string;
+  page: string;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+export default function ExploreDestinations({ data, region, page, isLoading, isError }: ExploreDestinationsProps) {
   const [divideNumber, setDivideNumber] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  // Zustand 상태 가져오기
+  const selectedTheme = useThemeStore((state) => state.selectedTheme);
+  const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
+
   useEffect(() => {
-    setDivideNumber(calculateDivideNumber(window.innerWidth));
-
+    // 윈도우 크기 변경 시 divideNumber 업데이트
     const handleResize = () => {
-      const newWidth = window.innerWidth;
-      setDivideNumber(calculateDivideNumber(newWidth));
+      setDivideNumber(calculateDivideNumber(window.innerWidth));
     };
 
+    handleResize(); // 초기 설정
     window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  function calculateDivideNumber(width: number) {
-    if (width >= 768) {
-      return 5;
-    } else if (width >= 640) {
-      return 4;
-    } else if (width >= 450) {
-      return 3;
-    } else {
-      return 2;
-    }
-  }
-  const regionPath = REGIONS.find((r) => r.name === region)?.path || '';
+  useEffect(() => {
+    setSelectedTheme('all');
+  }, [setSelectedTheme]);
 
-  const { data, isLoading, isError } = useFetchDestination({ areaName: regionPath, count: (itemsPerPage * 5).toString() });
-  
+  // 화면 크기에 따라 나눌 개수 계산
+  const calculateDivideNumber = (width: number) => {
+    if (width >= 768) return 5;
+    if (width >= 640) return 4;
+    if (width >= 450) return 3;
+    return 2;
+  };
+
+  const handleThemeChange = (theme: Theme) => {
+    setSelectedTheme(theme);
+  };
+
+  // 로딩 섹션
   if (isLoading) {
     return (
       <section id="mainSection">
-        <Title>{region ? region + ' 지역의' : ''} 이런 여행지 어때요?</Title>
+        <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
         <Separator />
-        <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1">
-          <div>전체</div>
-          <Separator orientation="vertical" />
-          <div>후기순</div>
+        <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1 list-none">
+          {page === 'themes' ? (
+            <>
+              <li>전체</li>
+              {Object.keys(themeCategories).filter(theme => theme !== 'all').map((theme, index) => (
+                <React.Fragment key={index}>
+                  <Separator orientation="vertical" />
+                  <li>{theme}</li>
+                </React.Fragment>
+              ))}
+            </>
+          ) : (
+            <>
+              <li>전체</li>
+              <Separator orientation="vertical" />
+              <li>후기순</li>
+            </>
+          )}
         </div>
         <Separator />
         <section className="p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12">
@@ -68,24 +93,43 @@ export default function ExploreDestinations({ region, page }: { region?: string,
   }
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedDestinations = (data as DestinationType[]).slice(startIndex, startIndex + itemsPerPage);
-  const totalPages = Math.ceil((data as DestinationType[]).length / itemsPerPage);
+  const paginatedDestinations = data.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   return (
     <section id="mainSection">
-      <Title>{region ? region + ' 지역의' : ''} 이런 여행지 어때요?</Title>
+      {/* 타이틀 */}
+      <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
       <Separator />
-      <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1">
-        <div>전체</div>
-        <Separator orientation="vertical" />
-        <div>후기순</div>
+
+      {/* 필터 섹션 */}
+      <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1 list-none">
+        {page === 'themes' ? (
+          <>
+            <li onClick={() => handleThemeChange('all')} className={`cursor-pointer ${selectedTheme === 'all' ? 'font-semibold' : ''}`}>전체</li>
+            {Object.keys(themeCategories).filter(theme => theme !== 'all').map((theme, index) => (
+              <React.Fragment key={index}>
+                <Separator orientation="vertical" />
+                <li onClick={() => handleThemeChange(theme as Theme)} className={`cursor-pointer ${selectedTheme === theme ? 'font-semibold' : ''}`}>{theme}</li>
+              </React.Fragment>
+            ))}
+          </>
+        ) : (
+          <>
+            <li>전체</li>
+            <Separator orientation="vertical" />
+            <li>후기순</li>
+          </>
+        )}
       </div>
       <Separator />
+
+      {/* 메인 여행지 섹션 */}
       <section className="p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12">
         <Suspense fallback="loading...">
           {paginatedDestinations.map((destination, i) => (
             <React.Fragment key={i}>
-              <DestinationCard              
+              <DestinationCard
                 className="col-span-1 first:ml-0"
                 contentId={destination.contentId}
                 imageSrc={destination.firstImage}
@@ -95,9 +139,7 @@ export default function ExploreDestinations({ region, page }: { region?: string,
               />
               <Separator
                 className={`${(i + 1) % divideNumber === 0 ? 'block' : 'hidden'}`}
-                style={{
-                  gridColumn: `span ${divideNumber} / span ${divideNumber}`,
-                }}
+                style={{ gridColumn: `span ${divideNumber} / span ${divideNumber}` }}
               />
             </React.Fragment>
           ))}

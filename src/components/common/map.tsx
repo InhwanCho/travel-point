@@ -1,5 +1,5 @@
 'use client';
-import { CustomOverlayMap, Map, MapInfoWindow, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
+import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
 import useKakaoLoader from "@/contexts/use-kakao-loader";
 import { useState } from "react";
 import { cn } from "@/libs/utils";
@@ -23,7 +23,6 @@ export default function KakaoMap({ latitude, longitude, className }: KakaoMapPro
       setState(prevState => ({ lat: prevState.lat, lng: prevState.lng + 0.00000001 }));
     }, 10);
   };
-
 
   return (
     <div className={cn('relative', className)}>

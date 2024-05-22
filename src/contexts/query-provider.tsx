@@ -8,7 +8,7 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         // reretching time setting
-        staleTime: 600 * 1000,
+        staleTime: 24 * 60 * 60 * 1000, // 24 hours
       },
     },
   });
@@ -28,7 +28,7 @@ function getQueryClient() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
 
-  const queryClient = getQueryClient(); // 실험버전 스트림용?
+  const queryClient = getQueryClient(); 
   // const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider client={queryClient}>

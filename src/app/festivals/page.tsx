@@ -19,7 +19,7 @@ function FestivalsContent() {
   }, [region, activeRegion]);
   return (
     <>
-      <HeroSection page='festivals' title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연' />
+      
       <RegionSelection title='축제 지역 탐색' page='festivals' activeRegion={activeRegion}/>
       <Separator className='my-20' />
       {/* <PageLayout>
@@ -32,6 +32,7 @@ function FestivalsContent() {
 export default function FestivalsPage() {
   return (
     <main>
+      <HeroSection page='festivals' title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연' />
       <Suspense fallback={<div>loading ...</div>}>
         <FestivalsContent/>
       </Suspense>

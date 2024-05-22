@@ -14,7 +14,7 @@ interface DestinationBlogPageProps{
 async function fetchBlogData(title: string): Promise<BlogData | null> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search?query=${encodeURIComponent(title)}`, {
-      cache: 'force-cache',
+      cache: 'no-store',
     });
     if (!response.ok) {
       throw new Error('Network response was not ok');
