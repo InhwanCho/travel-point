@@ -27,6 +27,7 @@ export async function fetchFromApi(endpoint: string, params: Record<string, stri
     headers: {
       Authorization: "Basic " + btoa(`${username}:${password}`),
     },
+    
   });
 
   if (!response.ok) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from "@/libs/utils";
-import { Link } from "next-view-transitions";
+import Link from 'next/link';
+
 
 interface LinkButtonProps {
   children: React.ReactNode;

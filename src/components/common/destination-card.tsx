@@ -1,6 +1,7 @@
 import { cn } from '@/libs/utils';
-import { Link } from 'next-view-transitions';
+
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { MdError } from "react-icons/md";
 
@@ -101,7 +102,7 @@ export default function DestinationCard({
 
   return (
     <div className={`${cn('flex-1', className)}`} {...props}>
-      <Link href={`/destinations/${contentId}`}>
+      <Link href={`/destinations/${contentId}?title=${title}&location=${location}`}>
         <div className='relative'>
           {isSmallSize ?
             <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' />

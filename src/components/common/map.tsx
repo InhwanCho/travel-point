@@ -12,15 +12,15 @@ interface KakaoMapProps {
 
 export default function KakaoMap({ latitude, longitude, className }: KakaoMapProps) {
   useKakaoLoader();
-  const [state, setState] = useState({ lat: latitude, lng: longitude });
+  const [state, setState] = useState({ lat: latitude, lng: longitude-0.000085 });
   const [isOpen, setIsOpen] = useState(false);
 
   const resetCenter = () => {
     // 기존 위치로 재설정
-    setState({ lat: latitude, lng: longitude });
+    setState({ lat: latitude, lng: longitude-0.000085 });
     // 약간의 지연 후에 위치를 미세 조정하여 매번 반응하도록 함
     setTimeout(() => {
-      setState(prevState => ({ lat: prevState.lat, lng: prevState.lng + 0.00000001 }));
+      setState(prevState => ({ lat: prevState.lat, lng: prevState.lng - 0.000000001 }));
     }, 10);
   };
 

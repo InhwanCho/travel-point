@@ -4,6 +4,7 @@ import PageLayout from '@/components/layout/page-layout';
 import DestinationBody from '@/components/section/destination/destination-body';
 import DestinationHeader from '@/components/section/destination/destination-header';
 import { useFetchDestinationById } from '@/hooks/use-fetch-destination';
+import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
 interface DestinationDetailPageProps {
@@ -12,18 +13,34 @@ interface DestinationDetailPageProps {
   };
 }
 
-export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {  
-  const { data, error, isLoading } = useFetchDestinationById(params.slug);
-  
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading destination</div>;
-  if (!data ) return <div>No data found</div>;
+export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
+  const { data, isError, isLoading } = useFetchDestinationById(params.slug);
+  const searchParams = useSearchParams();
+  const title = searchParams.get('title');
+  const location = searchParams.get('location');
+
   return (
     <main>
-      <HeroSection page='destination' title='여행지' subtitle='즐거운 여정' />      
-      <PageLayout>                
-        <DestinationHeader title={data.title} location={data.location}/>
-        <DestinationBody data={data} />
+      <HeroSection page='destination' title='여행지' subtitle='즐거운 여정' />
+      <PageLayout>
+        {isLoading ? (
+          <>
+            <DestinationHeader title={title || 'Loading...'} location={location || 'Loading...'} />
+            <DestinationBody isLoading />
+          </>
+        ) : isError ? (
+          <>
+            <DestinationHeader title={title || 'Loading...'} location={location || 'Loading...'} />
+            <DestinationBody isError />
+          </>
+        ) : (
+          data && (
+            <>
+              <DestinationHeader title={data.title} location={data.location} />
+              <DestinationBody data={data} />
+            </>
+          )
+        )}
       </PageLayout>
     </main>
   );

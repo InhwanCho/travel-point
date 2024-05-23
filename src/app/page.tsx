@@ -8,7 +8,6 @@ import TrendingDestinations from "@/components/section/mainPage/trending-destina
 import ThemeRecommendation from "@/components/section/mainPage/theme-recommendation";
 import FestivalRecommendation from "@/components/section/mainPage/festival-recommendation";
 
-
 export default function Home() {
 
   return (
