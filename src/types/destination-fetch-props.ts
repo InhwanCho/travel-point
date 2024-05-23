@@ -19,3 +19,4 @@ export interface fetchThemeDestinationByCatProps {
   page: string;
   theme: keyof typeof themeCategories;
 }
+

@@ -11,8 +11,11 @@ import 'swiper/css/pagination';
 import '@/styles/custom-swiper.css';
 import { Pagination, Keyboard } from "swiper/modules";
 import SwiperCore from "swiper";
+import { useFetchFestival } from '@/hooks/use-fetch-destination';
 
-export default function FestivalRecommendation() {
+export default function FestivalRecommendation({ count }: { count: string }) {
+  const itemsPerPage = 4;
+  const { data, isLoading, isError } = useFetchFestival({ count: count, page: '1' });
   const [swiperState, setSwiperState] = useState({
     swiperInstance: null as SwiperCore | null,
     isBeginning: true,
@@ -80,7 +83,7 @@ export default function FestivalRecommendation() {
         onSwiper={handleSwiper}
         onSlideChange={updateNavigationState}
         slidesPerView={4}
-        slidesPerGroup={4} 
+        slidesPerGroup={4}
         spaceBetween={30}
         loop={false}
         keyboard={true}
@@ -107,11 +110,23 @@ export default function FestivalRecommendation() {
           },
         }}
       >
-        {[...Array(16)].map((_, i) => (
-          <SwiperSlide key={i}>
-            <DestinationCard isFestival location='강원특별자치도 춘천시' title={`대관령 삼양목장 ${i + 1}`} description='정답게 이야기를 나눌 수 있는' />
-          </SwiperSlide>
-        ))}
+        {isLoading ?
+          [...Array(itemsPerPage)].map((_, i) =>
+            <SwiperSlide key={i}>
+              <DestinationCard isLoading />
+            </SwiperSlide>
+          ) : isError ?
+            [...Array(itemsPerPage)].map((_, i) =>
+              <SwiperSlide key={i}>
+                <DestinationCard isError />
+              </SwiperSlide>
+            ) :
+            data && data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <DestinationCard isFestival location={item.location} title={item.title} description={item.description} imageSrc={item.firstimage} />
+              </SwiperSlide>
+            ))
+        }
       </Swiper>
     </section>
   );

@@ -6,7 +6,8 @@ import RegionSelection from "@/components/section/region-selection";
 import { Separator } from "@/components/ui/separator";
 import TrendingDestinations from "@/components/section/mainPage/trending-destinations";
 import ThemeRecommendation from "@/components/section/mainPage/theme-recommendation";
-import FestivalRecommendation from "@/components/section/festival-recommendation";
+import FestivalRecommendation from "@/components/section/mainPage/festival-recommendation";
+
 
 export default function Home() {
 
@@ -26,7 +27,7 @@ export default function Home() {
         <ThemeRecommendation />
         <Separator className="my-10 md:mt-20" />
         {/* 축제 섹션 */}
-        <FestivalRecommendation />
+        <FestivalRecommendation count="16"/>
       </PageLayout>
 
       {/* ui 테스트 섹션 */}
