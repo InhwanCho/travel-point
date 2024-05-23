@@ -25,6 +25,7 @@ export default function MyPage({ params }: MypageProps) {
       <HeroSection page='mypage' title='마이페이지' subtitle={`${params.slug}님 환영합니다.`} />
       <PageLayout>
         <UserProfile params={params} />
+        {/* 나중에 탭 별로 변경해야됨 */}
         <MypageTabSection 
           data={data} 
           paginatedData={paginatedData} 

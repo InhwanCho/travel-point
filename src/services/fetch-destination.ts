@@ -9,7 +9,6 @@ import {
   DestinationType,
   FestivalType,
 } from "@/types/destination-types";
-
 import { fetchFromApi } from "@/services/fetch-api";
 
 export async function fetchDestination({
