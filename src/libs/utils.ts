@@ -16,3 +16,12 @@ export function calculateStarRating(rating: number) {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   return { fullStars, hasHalfStar, emptyStars };
 }
+
+// 기본 데이터 생성 함수 - 임시
+export function generateData() {
+  return [...Array(16)].map((_, i) => ({
+    location: '강원특별자치도 춘천시',
+    title: `대관령 삼양목장 ${i}`,
+    description: '정답게 이야기를 나눌 수 있는',
+  }));
+}
