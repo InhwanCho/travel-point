@@ -5,11 +5,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { PopoverClose } from '@radix-ui/react-popover';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
 
 export default function LoginBtn() {
-  const session = false;
+  const token = true;
   const router = useRouter();
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export default function LoginBtn() {
 
   return (
     <>
-      {session ? (
+      {token ? (
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger className='focus-visible:outline-none'>
             <Image src={'/assets/image/characters/m1.png'} alt='character image' width={42} height={42} className='bg-white rounded-full border outline-none' />

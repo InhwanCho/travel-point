@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Title from '@/components/common/title';
 import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
@@ -20,6 +20,19 @@ interface ExploreDestinationsProps {
   totalPages: number;
 }
 
+// 브라우저 창 크기에 따라 카드 나누는 수를 계산하는 함수
+function calculateDivideNumber(width: number): number {
+  if (width >= 768) return 5;
+  if (width >= 640) return 4;
+  if (width >= 450) return 3;
+  return 2;
+}
+
+// 필터 - 테마 변경함수
+function handleThemeChange(theme: Theme, setSelectedTheme: (theme: Theme) => void) {
+  setSelectedTheme(theme);
+}
+
 export default function ExploreDestinations({
   data,
   region,
@@ -37,6 +50,7 @@ export default function ExploreDestinations({
   const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
 
   useEffect(() => {
+    // 창 크기 변경 시 divideNumber를 업데이트하는 함수
     const handleResize = () => {
       setDivideNumber(calculateDivideNumber(window.innerWidth));
     };
@@ -47,57 +61,9 @@ export default function ExploreDestinations({
   }, []);
 
   useEffect(() => {
+    // 컴포넌트 마운트 시 테마를 'all'로 설정
     setSelectedTheme('all');
   }, [setSelectedTheme]);
-
-  const calculateDivideNumber = (width: number) => {
-    if (width >= 768) return 5;
-    if (width >= 640) return 4;
-    if (width >= 450) return 3;
-    return 2;
-  };
-
-  const handleThemeChange = (theme: Theme) => {
-    setSelectedTheme(theme);
-  };
-
-  if (isLoading) {
-    return (
-      <section id="mainSection">
-        <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
-        <Separator />
-        <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1 list-none">
-          {page === 'themes' ? (
-            <>
-              <li>전체</li>
-              {Object.keys(themeCategories).filter((theme) => theme !== 'all').map((theme, index) => (
-                <React.Fragment key={index}>
-                  <Separator orientation="vertical" />
-                  <li>{theme}</li>
-                </React.Fragment>
-              ))}
-            </>
-          ) : (
-            <>
-              <li>전체</li>
-              <Separator orientation="vertical" />
-              <li>후기순</li>
-            </>
-          )}
-        </div>
-        <Separator />
-        <section className="p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12">
-          {[...Array(itemsPerPage)].map((_, i) => (
-            <DestinationCard key={i} isLoading />
-          ))}
-        </section>
-      </section>
-    );
-  }
-
-  if (isError) {
-    return <div>Error loading destinations.</div>;
-  }
 
   return (
     <section id="mainSection">
@@ -107,15 +73,26 @@ export default function ExploreDestinations({
       <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1 list-none">
         {page === 'themes' ? (
           <>
-            <li onClick={() => handleThemeChange('all')} className={`cursor-pointer ${selectedTheme === 'all' ? 'font-semibold' : ''}`}>전체</li>
+            <li
+              onClick={() => handleThemeChange('all', setSelectedTheme)}
+              className={`cursor-pointer ${selectedTheme === 'all' ? 'font-semibold' : ''}`}
+            >
+              전체
+            </li>
             {Object.keys(themeCategories).filter((theme) => theme !== 'all').map((theme, index) => (
               <React.Fragment key={index}>
                 <Separator orientation="vertical" />
-                <li onClick={() => handleThemeChange(theme as Theme)} className={`cursor-pointer ${selectedTheme === theme ? 'font-semibold' : ''}`}>{theme}</li>
+                <li
+                  onClick={() => handleThemeChange(theme as Theme, setSelectedTheme)}
+                  className={`cursor-pointer ${selectedTheme === theme ? 'font-semibold' : ''}`}
+                >
+                  {theme}
+                </li>
               </React.Fragment>
             ))}
           </>
         ) : (
+          // 나중에 수정해야됨
           <>
             <li>전체</li>
             <Separator orientation="vertical" />
@@ -126,32 +103,37 @@ export default function ExploreDestinations({
       <Separator />
 
       <section className="p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12">
-        <Suspense fallback="loading...">
-          {data.map((destination, i) => (
-            <React.Fragment key={i}>
-              <DestinationCard
-                className="col-span-1 first:ml-0"
-                contentId={destination.contentId}
-                imageSrc={destination.firstImage}
-                location={destination.location}
-                title={destination.title}
-                description={destination.destinationDescription}
-              />
-              <Separator
-                className={`${(i + 1) % divideNumber === 0 ? 'block' : 'hidden'}`}
-                style={{ gridColumn: `span ${divideNumber} / span ${divideNumber}` }}
-              />
-            </React.Fragment>
-          ))}
-        </Suspense>
+        {isLoading ?
+          [...Array(itemsPerPage)].map((_, i) => (
+            <DestinationCard key={i} isLoading />
+          )) : isError ?
+            [...Array(itemsPerPage)].map((_, i) => (
+              <DestinationCard key={i} isError />
+            ))
+            : data.map((destination, i) => (
+              <React.Fragment key={i}>
+                <DestinationCard
+                  isSmallSize
+                  className="col-span-1 first:ml-0"
+                  contentId={destination.contentId}
+                  imageSrc={destination.firstImage}
+                  location={destination.location}
+                  title={destination.title}
+                  description={destination.destinationDescription}
+                />
+                <Separator
+                  className={`${(i + 1) % divideNumber === 0 ? 'block' : 'hidden'}`}
+                  style={{ gridColumn: `span ${divideNumber} / span ${divideNumber}` }}
+                />
+              </React.Fragment>
+            ))}
       </section>
-      <div className="flex justify-center pb-8 mt-5">
-        <DestinationPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-        />
-      </div>
+
+      <DestinationPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </section>
   );
 }

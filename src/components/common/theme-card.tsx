@@ -22,10 +22,12 @@ interface ThemeCardProps {
   }
   isSecondCard?: boolean;
   theme: keyof typeof themeCategories;
+  count: number;
 }
 
-export default function ThemeCard({ themeImages, isSecondCard = false, theme }: ThemeCardProps) {
-  const { data, isLoading, isError } = useFetchThemeDestinationByCat({ count: '8', page: '1', theme });
+export default function ThemeCard({ themeImages, isSecondCard = false, theme, count }: ThemeCardProps) {
+  const itemsPerPage = 2; // 한 페이지에 표시할 아이템 수
+  const { data, isLoading, isError } = useFetchThemeDestinationByCat({ count: String(count), page: '1', theme });
   const router = useRouter();
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -45,9 +47,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme }: 
     swiper?.slideTo(index * slidesPerView);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading data</div>;
-  
+
   return (
     <>
       {isSecondCard && (
@@ -93,16 +93,26 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme }: 
               },
             }}
           >
-            {data && data.map((item, index) => (
+            {isLoading ? [...Array(count)].map((_, index) => (
               <SwiperSlide key={index}>
-                <DestinationCard
-                  imageSrc={item.firstImage}
-                  location={item.location}
-                  title={item.title}
-                  description={item.destinationDescription}
-                />
+                <DestinationCard isLoading />
               </SwiperSlide>
-            ))}
+            )) : isError ? (
+              [...Array(itemsPerPage)].map((_, index) => (
+                <SwiperSlide key={index}>
+                  <DestinationCard isError />
+                </SwiperSlide>)
+              )) : (
+              data && data.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <DestinationCard
+                    imageSrc={item.firstImage}
+                    location={item.location}
+                    title={item.title}
+                    description={item.destinationDescription}
+                  />
+                </SwiperSlide>
+              )))}
           </Swiper>
         </div>
       </div>

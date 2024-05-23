@@ -16,4 +16,3 @@ export function calculateStarRating(rating: number) {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   return { fullStars, hasHalfStar, emptyStars };
 }
-

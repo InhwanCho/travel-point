@@ -12,7 +12,7 @@ import { REGIONS } from '@/data/data';
 function RegionsContent() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
-  const region = searchparams.get('region') ?? 'all'; 
+  const region = searchparams.get('region') ?? 'all';
   const regionPath = region === 'all' ? '' : REGIONS.find((r) => r.name === region)?.path || '';
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -33,16 +33,16 @@ function RegionsContent() {
       <RegionSelection page='regions' title='여행지 지역 탐색' activeRegion={activeRegion} />
       <Separator className='my-20' />
       <PageLayout>
-        <ExploreDestinations 
-          data={data || []} 
-          region={region} 
-          page='regions' 
-          isLoading={isLoading} 
-          isError={isError} 
+        <ExploreDestinations
+          data={data || []}
+          region={region}
+          page='regions'
+          isLoading={isLoading}
+          isError={isError}
           currentPage={currentPage}
           onPageChange={handlePageChange}
           totalPages={10}
-        />        
+        />
       </PageLayout>
     </>
   );

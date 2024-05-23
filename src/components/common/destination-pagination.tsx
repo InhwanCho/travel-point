@@ -2,10 +2,10 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { generatePageNumbers, renderPageNumbers } from "@/components/common/pagination";
 
 interface DestinationPaginationProps {
   currentPage: number;
@@ -14,86 +14,11 @@ interface DestinationPaginationProps {
 }
 
 export default function DestinationPagination({ currentPage, totalPages, onPageChange }: DestinationPaginationProps) {
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    const showLeftEllipsis = currentPage > 3;
-    const showRightEllipsis = currentPage < totalPages - 2;
-
-    if (totalPages <= 3) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        pageNumbers.push(1, 2, 3, 4);
-      } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push(totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
-      } else {
-        pageNumbers.push(currentPage - 1, currentPage, currentPage + 1);
-      }
-    }
-
-    return (
-      <>
-        {showLeftEllipsis && (
-          <>
-            <PaginationItem>
-              <PaginationLink
-                href="#mainSection"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPageChange(1);
-                }}
-              >
-                1
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <span className="px-3 py-1">...</span>
-            </PaginationItem>
-          </>
-        )}
-        {pageNumbers.map(number => (
-          <PaginationItem key={number}>
-            <PaginationLink
-              href="#mainSection"
-              isActive={number === currentPage}
-              onClick={(e) => {
-                e.preventDefault();
-                if (number !== currentPage) {
-                  onPageChange(number);
-                }
-              }}
-              className={number === currentPage ? 'text-gray-500 cursor-not-allowed' : ''}
-            >
-              {number}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-        {showRightEllipsis && (
-          <>
-            <PaginationItem>
-              <span className="px-3 py-1">...</span>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink
-                href="#mainSection"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPageChange(totalPages);
-                }}
-              >
-                {totalPages}
-              </PaginationLink>
-            </PaginationItem>
-          </>
-        )}
-      </>
-    );
-  };
+  const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
   return (
-    <Pagination>
+    
+    <Pagination className="flex justify-center pb-8 mt-5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -106,7 +31,8 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
           />
         </PaginationItem>
 
-        {renderPageNumbers()}
+        {/* 페이지 렌더링 ui */}
+        {renderPageNumbers(pageNumbers, currentPage, totalPages, onPageChange)}
 
         <PaginationItem>
           <PaginationNext
@@ -120,5 +46,8 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
         </PaginationItem>
       </PaginationContent>
     </Pagination>
+    
   );
 }
+
+

@@ -25,10 +25,6 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
     dragFree: true,
   });
 
-  const autoplay = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
-  );
-
   useEffect(() => {
     if (!api) return;
 
@@ -56,10 +52,7 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
     <div>
       <Carousel
         setApi={setApi}
-        plugins={[autoplay.current]}
         className="w-full"
-        onMouseEnter={autoplay.current.stop}
-        onMouseLeave={autoplay.current.reset}
       >
         <CarouselContent className="flex">
           {images.map((src, index) => (
@@ -92,6 +85,7 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
               width={100}
               height={68}
               className="object-cover aspect-[16/11]"
+              quality={40}
             />
           </div>
         ))}

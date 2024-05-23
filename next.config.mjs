@@ -13,7 +13,7 @@ const nextConfig = {
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000", // 개발 서버의 기본 URL을 설정
   },
   productionBrowserSourceMaps: true,
-  images: {
+  images: {    
     remotePatterns: [
       {
         protocol: "http",

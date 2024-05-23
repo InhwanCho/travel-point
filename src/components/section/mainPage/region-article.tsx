@@ -50,11 +50,11 @@ export default function RegionArticle({ region, count}: RegionArticleProps) {
             <DestinationCard key={i} isLoading />
           ))
         ) : isError ? (
-          <div>Error loading data.</div>
-        ) : !data || data.length === 0 ? (
-          <div>No data available.</div>
+          [...Array(itemsPerPage)].map((_, i) => (
+            <DestinationCard key={i} isError />
+          ))
         ) : (
-          data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
+          data && data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
             <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
           ))
         )}
