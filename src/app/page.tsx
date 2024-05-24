@@ -26,7 +26,7 @@ export default function Home() {
         <ThemeRecommendation />
         <Separator className="my-10 md:mt-20" />
         {/* 축제 섹션 */}
-        <FestivalRecommendation count="1"/>
+        <FestivalRecommendation count="16"/>
       </PageLayout>
 
       {/* ui 테스트 섹션 */}

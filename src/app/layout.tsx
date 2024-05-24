@@ -103,7 +103,7 @@ export default function RootLayout({
           <link rel="manifest" href="/assets/favicons/site.webmanifest" />
           <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
         </head>
-        <body className={cn('min-h-dvh antialiased', pretendard.className)}>          
+        <body className={cn('min-h-dvh antialiased', pretendard.className)}>
           <KbarLayout >
             <QueryProvider>
               {modal}

@@ -1,5 +1,4 @@
 import { cn } from '@/libs/utils';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -47,7 +46,6 @@ function getEventStatus(startDate: string, endDate: string): { status: string, d
     return { status: '종료', dDay: '' };
   }
 }
-
 
 export default function DestinationCard({
   className,
@@ -102,16 +100,20 @@ export default function DestinationCard({
       <Link href={`/destinations/${contentId}?title=${title}&location=${location}`}>
         <div className='relative'>
           {isSmallSize ?
-            <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' />
-            : <Image width={300} height={220} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' />}
+            <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={40}/>
+            : <Image width={300} height={220} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={50}/>}
           {FestivalDate && (
             <div>
-              <p className="absolute top-0 right-0 bg-slate-50/80 text-slate-800 text-[10px] p-1 rounded-bl-md rounded-tr-[3px]">
-                {eventStatus?.dDay}
-              </p>
-              <p className="absolute bottom-0 left-0 bg-slate-50/80 text-slate-800 text-xs p-1 rounded-tr-md rounded-bl-[3px]">
-                {eventStatus?.status}
-              </p>
+              {eventStatus?.dDay && (
+                <p className="absolute top-0 right-0 bg-slate-50/90 text-slate-800 text-[10px] p-1 font-semibold rounded-bl-md rounded-tr-[3px]">
+                  {eventStatus?.dDay}
+                </p>
+              )}
+              {eventStatus?.status && (
+                <p className="absolute px-1.5 bottom-0 left-0 bg-slate-50/90 text-slate-800 text-xs p-1 font-semibold rounded-tr-md rounded-bl-[3px]">
+                  {eventStatus?.status}
+                </p>
+              )}
             </div>
           )}
         </div>

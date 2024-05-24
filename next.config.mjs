@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['three'],
   // 프록시할 외부 API의 주소를 /api/로 변경
   async rewrites() {
     return [

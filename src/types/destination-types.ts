@@ -26,14 +26,7 @@ export interface DestinationDetailType extends DestinationType {
   tel: string;
 }
 
-export interface FestivalType {
-  location: string;
-  title: string;
-  firstimage: string;  
-  contentId: string;
-  id: string;
-  areaCode: string;
+export interface FestivalType extends DestinationType{  
   startDate: string;
   endDate: string;
-  description:string
 }
