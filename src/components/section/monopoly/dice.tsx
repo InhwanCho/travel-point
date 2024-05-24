@@ -1,54 +1,53 @@
+// Dice.tsx
 'use client';
 import { useState } from 'react';
 import '@/styles/dice.css';
 
+interface DiceProps {
+  onRoll: (diceNumber: number) => void;
+}
+
 // Dice 컴포넌트 정의
-const Dice = () => {
-  // 주사위 번호 상태와 애니메이션 상태 설정
+const Dice = ({ onRoll }: DiceProps) => {
   const [diceNumber, setDiceNumber] = useState(1);
   const [isRolling, setIsRolling] = useState(false);
 
-  // 주사위를 굴리는 함수, 1부터 6까지의 랜덤 숫자를 설정
   const rollDice = () => {
     if (isRolling) return; // 주사위가 굴러가는 중이면 중복 클릭 방지
     setIsRolling(true);
-    setDiceNumber(Math.floor(Math.random() * 6) + 1);
+    const newDiceNumber = Math.floor(Math.random() * 6) + 1;
+    setDiceNumber(newDiceNumber);
 
-    // 2초 후에 애니메이션 상태를 초기화
     setTimeout(() => {
       setIsRolling(false);
+      onRoll(newDiceNumber);
     }, 2000);
   };
 
   return (
-    // 화면 중앙에 주사위 배치
-    <div className="flex justify-center items-center h-screen">
-      {/* 주사위를 클릭하면 rollDice 함수가 호출됨 */}
-      <div
-        onClick={rollDice}
-        className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
-      >
-        {/* 각 주사위 면을 DiceSide 컴포넌트로 렌더링 */}
-        <DiceSide sideNumber={1} />
-        <DiceSide sideNumber={2} />
-        <DiceSide sideNumber={3} />
-        <DiceSide sideNumber={4} />
-        <DiceSide sideNumber={5} />
-        <DiceSide sideNumber={6} />
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="flex justify-center items-center h-screen">
+        <div
+          onClick={rollDice}
+          className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
+        >
+          <DiceSide sideNumber={1} />
+          <DiceSide sideNumber={2} />
+          <DiceSide sideNumber={3} />
+          <DiceSide sideNumber={4} />
+          <DiceSide sideNumber={5} />
+          <DiceSide sideNumber={6} />
+        </div>
       </div>
     </div>
   );
 };
 
-// DiceSide 컴포넌트는 각 주사위 면을 나타냄
 const DiceSide = ({ sideNumber }: { sideNumber: number }) => {
-  // 주사위 면의 점 위치를 가져옴
   const dots = getDots(sideNumber);
 
   return (
-    // 주사위 면의 클래스 설정
     <div className={`side side-${sideNumber}`}>
-      {/* 점들을 반복하여 렌더링 */}
       {dots.map((dot, index) => (
         <div key={index} className={`dot ${dot.className}`}></div>
       ))}
@@ -56,9 +55,7 @@ const DiceSide = ({ sideNumber }: { sideNumber: number }) => {
   );
 };
 
-// 각 주사위 면의 점 위치를 정의하는 함수
 const getDots = (sideNumber: number) => {
-  // 주사위 면에 따른 점 위치를 정의한 객체
   const dotPositions: { [key: number]: { className: string }[] } = {
     1: [{ className: "one-1" }],
     2: [
@@ -93,7 +90,6 @@ const getDots = (sideNumber: number) => {
     ],
   };
 
-  // 주어진 주사위 면에 대한 점 위치 반환
   return dotPositions[sideNumber];
 };
 

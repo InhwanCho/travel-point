@@ -1,83 +1,108 @@
-// @/app/sample/page.tsx
-import Title from '@/components/common/title';
-import Dice from '@/components/section/monopoly/dice';
-import React from 'react';
+'use client';
 
+// @/app/monopoly/page.tsx
+import Title from '@/components/common/title'; // 타이틀 컴포넌트
+import Dice from '@/components/section/monopoly/dice'; // 주사위 컴포넌트
+import React, { useState, useMemo } from 'react'; // React 훅 import
+import { FaChessPawn } from "react-icons/fa"; // 폰 아이콘
+
+// MonopolyPage 컴포넌트 정의
 export default function MonopolyPage() {
-  const boardColsMdUp = 6; // md 이상일 때 보드의 열 크기
-  const boardRowsMdUp = 7; // md 이상일 때 보드의 행 크기
-  const boardColsSmDown = 7; // md 이하일 때 보드의 열 크기
-  const boardRowsSmDown = 6; // md 이하일 때 보드의 행 크기
-  const specialCells = new Map<number, string>([
-    [41, '가즈아'], // 시작 위치를 맨 아래로 변경
-    [6, '무인도'],
-    [35, '세금'],
-  ]);
+  const boardCols = 7; // 보드의 열 크기
+  const boardRows = 7; // 보드의 행 크기
+  const specialCells = useMemo(() => new Map<number, string>([
+    [48, '<-시작'], // 시작 위치를 맨 아래로 변경
+    [47, '2번'], // 47번 셀
+    [4, '스페셜'], // 4번 셀
+  ]), []); // 특별한 셀 정의
+
+  // 발판의 순서 정의 (반시계 방향)
+  const path = useMemo(() => [
+    48, 47, 46, 45, 44, 43, 42, // 아래쪽 가로줄
+    35, 28, 21, 14, 7, 0, // 왼쪽 세로줄
+    1, 2, 3, 4, 5, 6, // 위쪽 가로줄
+    13, 20, 27, 34, 41, // 오른쪽 세로줄    
+  ], []);
+
+  const [currentPosition, setCurrentPosition] = useState(48); // 현재 위치 상태
+  const [isMoving, setIsMoving] = useState(false); // 이동 중 여부 상태
 
   // 셀의 내용을 가져오는 함수
-  const getCellContent = (index: number, isMdUp: boolean) => {
-    const adjustedIndex = isMdUp ? index : adjustIndexForSmallBoard(index);
-    return specialCells.get(adjustedIndex) || '';
-  };
-
+  const getCellContent = (index: number) => specialCells.get(index) || '';
   // 보드의 경계 셀인지 확인하는 함수
-  const isEdgeCell = (index: number, isMdUp: boolean) => {
-    const boardCols = isMdUp ? boardColsMdUp : boardColsSmDown;
-    const boardRows = isMdUp ? boardRowsMdUp : boardRowsSmDown;
-    const row = Math.floor(index / boardCols);
-    const col = index % boardCols;
-    return row === 0 || row === boardRows - 1 || col === 0 || col === boardCols - 1;
+  const isEdgeCell = (index: number) => path.includes(index);
+
+  // 주사위 굴림 핸들러
+  const handleDiceRoll = (diceNumber: number) => {
+    if (isMoving) return; // 이동 중일 경우 무시
+    setIsMoving(true); // 이동 상태로 변경
+
+    // 주사위 애니메이션 후 0.1초 후에 말이 움직이기 시작
+    setTimeout(() => {
+      const newPositionIndex = (path.indexOf(currentPosition) + diceNumber) % path.length; // 새로운 위치 계산
+      const newPosition = path[newPositionIndex]; // 새로운 위치 값
+      moveToken(newPosition); // 토큰 이동 함수 호출
+    }, 100);
   };
 
-  // 작은 보드에 맞게 인덱스를 조정하는 함수
-  const adjustIndexForSmallBoard = (index: number) => {
-    // Adjust the special cells indices for the smaller board
-    if (index === 41) return 35; // '가즈아'
-    if (index === 6) return 6; // '무인도'
-    if (index === 35) return 41; // '세금'
-    return index;
+  // 토큰을 이동시키는 함수
+  const moveToken = (end: number) => {
+    const startIndex = path.indexOf(currentPosition); // 현재 위치 인덱스
+    const endIndex = path.indexOf(end); // 목표 위치 인덱스
+    const distance = (endIndex >= startIndex) ? endIndex - startIndex : path.length - startIndex + endIndex; // 이동 거리 계산
+
+    for (let i = 0; i <= distance; i++) {
+      setTimeout(() => {
+        setCurrentPosition(path[(startIndex + i) % path.length]); // 토큰의 새로운 위치 설정
+        if (i === distance) setIsMoving(false); // 마지막 이동 후 이동 상태 해제
+      }, i * 500); // 0.5초 간격으로 토큰 이동
+    }
   };
+
+  // 보드 셀을 렌더링하는 함수
+  const renderBoardCell = (i: number) => (
+    <div
+      key={i}
+      className={`md:size-[60px] lg:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'}`}
+    >
+      <div className="transform -rotate-45 flex flex-col items-center">
+        <span className="font-semibold truncate">{getCellContent(i)}</span>
+        {currentPosition === i && (
+          <span className='animate-bounce'>
+            <FaChessPawn className="text-red-500 text-2xl" />
+          </span>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <main>
-      <section className="min-h-screen bg-blue-100 flex flex-col items-center justify-center p-4 relative">
-        <Title className="absolute top-12">부루마블</Title>
-        <div className="relative w-full h-4/5">
-          {/* md: 이상일 때 */}
-          <div className="hidden md:grid absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45 grid-cols-6 grid-rows-7 gap-1">
-            {Array.from({ length: boardColsMdUp * boardRowsMdUp }, (_, i) => (
+      <section className="min-h-screen bg-blue-100 flex flex-col items-center justify-center relative w-full">
+        <Title className="absolute top-12">부루마블! 기본 기능만 구현</Title> {/* 타이틀 */}
+        <div className="relative w-full sm:w-[90%] md:w-[110%] h-4/5 px-4 sm:px-0">
+          {/* md 이상일 때 보드 렌더링 */}
+          <div className="hidden md:grid absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45 grid-cols-7 grid-rows-7 gap-1">
+            {Array.from({ length: boardCols * boardRows }, (_, i) => renderBoardCell(i))}
+          </div>
+          {/* md 이하일 때 보드 렌더링 */}
+          <div className="grid md:hidden grid-cols-7 grid-rows-7 gap-0.5 sm:gap-1 xsm:w-[88%] xsm:mx-auto">
+            {Array.from({ length: boardCols * boardRows }, (_, i) => (
               <div
                 key={i}
-                className={`flex items-center justify-center border bg-white ${
-                  isEdgeCell(i, true) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'
-                }`}
-                style={{ minWidth: '70px', minHeight: '70px' }} // 각 셀의 최소 크기를 설정
+                className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'}`}
               >
-                <div className="transform -rotate-45">
-                  <span className="text-lg font-semibold">{getCellContent(i, true)}</span>
+                <div className="flex flex-col items-center">
+                  <span className="text-lg font-semibold">{getCellContent(i)}</span>
+                  {currentPosition === i && (
+                    <FaChessPawn className="text-red-500 text-2xl animate-bounce" />
+                  )}
                 </div>
               </div>
             ))}
           </div>
-          {/* md: 이하일 때 */}
-          <div className="grid md:hidden grid-cols-7 grid-rows-6 gap-0.5 sm:gap-1 xsm:w-[88%] xsm:mx-auto">
-            {Array.from({ length: boardColsSmDown * boardRowsSmDown }, (_, i) => (
-              <div
-                key={i}
-                className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${
-                  isEdgeCell(i, false) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'
-                }`}
-              >
-                <div>
-                  <span className="text-lg font-semibold">{getCellContent(i, false)}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Dice />
-        </div>
+        </div>        
+        <Dice onRoll={handleDiceRoll} /> {/* 주사위 컴포넌트 */}        
       </section>
     </main>
   );

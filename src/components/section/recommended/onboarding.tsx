@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
 import RegionSelection, { getStyles } from '@/components/section/region-selection';
+import Link from 'next/link';
 
 function PreferenceRadioGroup({
   label,
@@ -193,6 +194,9 @@ export default function TravelRecommendations() {
             </Button>
             <Button onClick={skipToFinalStep} variant="secondary">
                 무작위 여행지 추천
+            </Button>
+            <Button variant="secondary">
+              <Link href='/monopoly'>여행지 추천 게임 한판!</Link>
             </Button>
           </div>
         </div>
