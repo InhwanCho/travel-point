@@ -1,7 +1,6 @@
 'use client';
 
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarSearch, KBarProvider, Action } from "kbar";
-
 import { useRouter } from "next/navigation";
 import { Book, Home, Search } from "lucide-react";
 import RenderResults from "@/components/kbar/kbar-result";
@@ -46,36 +45,6 @@ export default function KbarLayout({ children }: { children: React.ReactNode }) 
       perform: () => router.push("/"),
       icon: <Home className="w-6 h-6 mx-3" />,
       subtitle: "메인페이지로 이동하기",
-    },
-    {
-      id: "regionAction",
-      name: "Region",
-      shortcut: ["r"],
-      keywords: "region",
-      section: "Navigation",
-      icon: <Book className="w-6 h-6 mx-3" />,
-      perform: () => router.push("/regions"),
-      subtitle: "지역페이지로 이동하기",
-    },
-    {
-      id: "themeAction",
-      name: "Theme Travel",
-      shortcut: ["t"],
-      keywords: "theme travel",
-      section: "Navigation",
-      icon: <Book className="w-6 h-6 mx-3" />,
-      perform: () => router.push("/themes"),
-      subtitle: "테마여행페이지로 이동하기",
-    },
-    {
-      id: "festivalAction",
-      name: "Festival",
-      shortcut: ["f"],
-      keywords: "festival",
-      section: "Navigation",
-      icon: <Book className="w-6 h-6 mx-3" />,
-      perform: () => router.push("/festivals"),
-      subtitle: "축제페이지로 이동하기",
     },
     {
       id: "recommendationAction",

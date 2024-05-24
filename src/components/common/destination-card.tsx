@@ -24,9 +24,7 @@ interface DestinationCardProps {
 // 날짜 포맷을 변경하는 함수
 function formatDateRange(startDate: string, endDate: string): string {
   const formatDate = (date: string) => {
-    const year = date.substring(0, 4);
-    const month = date.substring(4, 6);
-    const day = date.substring(6, 8);
+    const [year, month, day] = date.split('-');
     return `${year}.${month}.${day}`;
   };
 
@@ -36,8 +34,8 @@ function formatDateRange(startDate: string, endDate: string): string {
 // 이벤트 상태를 반환하는 함수
 function getEventStatus(startDate: string, endDate: string): { status: string, dDay: string } {
   const currentDate = new Date();
-  const start = new Date(`${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}`);
-  const end = new Date(`${endDate.substring(0, 4)}-${endDate.substring(4, 6)}-${endDate.substring(6, 8)}`);
+  const start = new Date(startDate);
+  const end = new Date(endDate);
 
   if (currentDate >= start && currentDate <= end) {
     return { status: '진행중', dDay: '' };
@@ -46,11 +44,10 @@ function getEventStatus(startDate: string, endDate: string): { status: string, d
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return { status: '진행 예정', dDay: `D-${diffDays}` };
   } else {
-    const diffTime = currentDate.getTime() - start.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return { status: '종료', dDay: `D-${365 - diffDays}` };
+    return { status: '종료', dDay: '' };
   }
 }
+
 
 export default function DestinationCard({
   className,
@@ -68,7 +65,7 @@ export default function DestinationCard({
 
   if (isLoading) {
     return (
-      <div className={`${cn('flex-1 animate-pulse', className)}`} {...props}>
+      <div className={`${cn('flex-1 animate-pulse', className)}`}>
         <div className='relative bg-gray-300 aspect-[16/11] w-full rounded-sm'></div>
         <div className='mt-4 bg-gray-300 h-3.5 w-3/4 rounded'></div>
         <div className='mt-2 bg-gray-300 h-5 w-5/6 rounded'></div>
@@ -80,7 +77,7 @@ export default function DestinationCard({
 
   if (isError) {
     return (
-      <div className={`${cn('flex-1 animate-pulse-slow', className)}`} {...props}>
+      <div className={`${cn('flex-1 animate-pulse-slow', className)}`}>
         <div className='relative bg-gray-300 aspect-[16/11] w-full rounded-sm'>
           <div className='p-2 sm:p-3'>
             <MdError className='text-red-500 size-4.5' />

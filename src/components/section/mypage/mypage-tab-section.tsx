@@ -1,6 +1,8 @@
 import DestinationCard from "@/components/common/destination-card";
 import DestinationPagination from "@/components/common/destination-pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import RecentDestinationsTab from "@/components/section/mypage/recent-destination-tab";
+import { X } from "lucide-react";
 
 // 탭 섹션을 렌더링하는 함수 
 export function MypageTabSection({ data, paginatedData, currentPage, totalPages, onPageChange }: any) {
@@ -11,13 +13,20 @@ export function MypageTabSection({ data, paginatedData, currentPage, totalPages,
         <TabsTrigger value="myComments" className='underline-link'>내가 쓴 리뷰</TabsTrigger>
         <TabsTrigger value="recentDestionation" className='underline-link'>최근 본 여행지</TabsTrigger>
       </TabsList>
+      {/* 내가 찜한 여행지 */}
       <TabsContent value="myFavs">
         <div className="min-h-dvh p-4">
           {data ? paginatedData.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 md:px-12 py-2">
               {paginatedData.map((item: any, index: number) => (
-                <div key={index} className="p-4 relative">
-                  <button className="absolute top-0 -right-1 text-xl text-gray-500 hover:text-gray-700">×</button>
+                <div key={index} className="px-4 relative">
+                  <button
+                    onClick={() => {}}
+                    className="absolute top-0 right-0 text-xs pl-2 text-red-500 hover:text-red-700 transition-colors"
+                    title="Remove Destination"
+                  >
+                    <X className="size-3.5" />
+                  </button>
                   <DestinationCard
                     location={item.location}
                     title={item.title}
@@ -36,6 +45,14 @@ export function MypageTabSection({ data, paginatedData, currentPage, totalPages,
           ) : (
             <div>데이터가 없습니다.</div>
           ) : <div>데이터가 없습니다.</div>}
+        </div>
+      </TabsContent>
+      {/* 내가 쓴 리뷰 */}
+      <TabsContent value="myComments"></TabsContent>
+      {/* 최근 본 여행지 */}
+      <TabsContent value="recentDestionation">
+        <div className="min-h-dvh p-4">
+          <RecentDestinationsTab />
         </div>
       </TabsContent>
     </Tabs>

@@ -1,8 +1,8 @@
 'use client';
 import { headerMenus } from '@/config/site-config';
 import React from 'react';
-import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export default function MainNav() {
   const pathname = usePathname();

@@ -7,7 +7,7 @@ import DestinationComment from '@/components/section/destination/destination-com
 import DestinationBlog from '@/components/section/destination/destination-blog';
 import { Separator } from '@/components/ui/separator';
 import DestinationImages from '@/components/section/destination/destination-images';
-import { DestinationDetailType } from '@/types/destination-types';
+import { DestinationDetailType, DestinationType } from '@/types/destination-types';
 import { filterArray } from '@/libs/utils';
 import { MdError } from 'react-icons/md';
 
@@ -17,7 +17,7 @@ interface DestinationBodyProps {
   isError?: boolean;
 }
 
-export default function DestinationBody({ data, isLoading, isError }: DestinationBodyProps) {
+export default function DestinationBody({ data, isLoading, isError }: DestinationBodyProps) {  
   if (isLoading) {
     return (
       <section className="w-full h-full mx-auto xl:flex-grow">
@@ -70,6 +70,14 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
     // { label: '행사내용', value: data.destinationDescription },
   ].filter(detail => detail.value);
 
+  const destinationData = {
+    location: data.location.split(' ').slice(0, 2).join(' '),
+    title: data.title,
+    firstImage: data.firstImage,
+    destinationDescription: data.destinationDescription.slice(0,55),
+    contentId: data.contentId
+  };
+
   return (
     <section className="w-full h-full mx-auto xl:flex-grow">
       <div className="flex">
@@ -83,7 +91,7 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
           <DestinationComment />
           <DestinationBlog title={data.title} />
         </main>
-        <RecentDestinations />
+        <RecentDestinations newDestination={destinationData}/>
       </div>
     </section>
   );
