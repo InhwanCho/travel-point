@@ -30,3 +30,21 @@ export interface FestivalType extends DestinationType{
   startDate: string;
   endDate: string;
 }
+
+export interface FestivalDetailType {
+  contentId: number;
+  title: string;
+  tel: string;
+  areaCode: string;
+  location: string;
+  mapX: string;
+  mapY: string;
+  firstImage: string;
+  homepage: string;
+  introduction: string;
+  startDate: string;
+  endDate: string;
+  useTime: string;
+  charge: string;
+  destinationDescription: string;
+}

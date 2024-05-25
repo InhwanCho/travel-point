@@ -1,4 +1,4 @@
-import { cn } from '@/libs/utils';
+import { cn, formatDateRange, getEventStatus } from '@/libs/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -18,34 +18,9 @@ interface DestinationCardProps {
     startDate: string;
     endDate: string;
   }
+  priority?: boolean;
 }
 
-// 날짜 포맷을 변경하는 함수
-function formatDateRange(startDate: string, endDate: string): string {
-  const formatDate = (date: string) => {
-    const [year, month, day] = date.split('-');
-    return `${year}.${month}.${day}`;
-  };
-
-  return `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
-}
-
-// 이벤트 상태를 반환하는 함수
-function getEventStatus(startDate: string, endDate: string): { status: string, dDay: string } {
-  const currentDate = new Date();
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
-  if (currentDate >= start && currentDate <= end) {
-    return { status: '진행중', dDay: '' };
-  } else if (currentDate < start) {
-    const diffTime = start.getTime() - currentDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return { status: '진행 예정', dDay: `D-${diffDays}` };
-  } else {
-    return { status: '종료', dDay: '' };
-  }
-}
 
 export default function DestinationCard({
   className,
@@ -58,6 +33,7 @@ export default function DestinationCard({
   isError,
   isSmallSize,
   contentId,
+  priority,
   ...props
 }: DestinationCardProps) {
 
@@ -100,8 +76,8 @@ export default function DestinationCard({
       <Link href={`/destinations/${contentId}?title=${title}&location=${location}`}>
         <div className='relative'>
           {isSmallSize ?
-            <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={40}/>
-            : <Image width={300} height={220} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={50}/>}
+            <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={40} priority={priority}/>
+            : <Image width={300} height={220} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={50} priority={priority}/>}
           {FestivalDate && (
             <div>
               {eventStatus?.dDay && (
@@ -119,10 +95,10 @@ export default function DestinationCard({
         </div>
         <p className='mt-4 text-xs sm:text-sm'>{location && location.split(' ').slice(0, 2).join(' ')}</p>
         <h3 className='text-sm sm:text-base font-semibold pt-1 pb-px sm:py-1 truncate'>{title && title.split('(')[0].split('/')[0]}</h3>
+        {/* html태그 제거 */}
         <div
           className='text-sm two-line-truncate'
-          dangerouslySetInnerHTML={{ __html: description || '' }}
-        ></div>
+        >{description && description.replace(/<\/?[^>]+(>|$)/g, "")}</div>
         {formattedDateRange && <p className='pt-1.5 text-xs sm:text-sm text-slate-700/90'>{formattedDateRange}</p>}
       </Link>
     </div>

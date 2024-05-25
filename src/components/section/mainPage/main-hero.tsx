@@ -76,7 +76,7 @@ export default function MainHero() {
               height={450}
               className='max-h-[450px]'
               alt={`${item.title} hero image`}
-              priority
+              priority={i === 0 ? true : false}
             />
             {navBtn}
           </SwiperSlide>

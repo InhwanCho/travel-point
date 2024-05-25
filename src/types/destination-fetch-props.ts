@@ -20,3 +20,7 @@ export interface fetchThemeDestinationByCatProps {
   theme: keyof typeof themeCategories;
 }
 
+export interface fetchDestinationDetailProps{
+  contentId: string;
+  contentTypeId?: string
+}

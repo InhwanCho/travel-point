@@ -124,7 +124,8 @@ export default function FestivalRecommendation({ count }: { count: string }) {
             data && data.map((item, i) => (
               <SwiperSlide key={i}>
                 <DestinationCard FestivalDate={{ startDate: item.startDate, endDate: item.endDate }}
-                  location={item.location} title={item.title} description={item.destinationDescription} imageSrc={item.firstImage} contentId={item.contentId}/>
+                  priority={i === 0 ? true : false}
+                  location={item.location} title={item.title} description={item.destinationDescription} imageSrc={item.firstImage} contentId={item.contentId} />
               </SwiperSlide>
             ))
         }

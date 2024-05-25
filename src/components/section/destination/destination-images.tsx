@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+// import Autoplay from "embla-carousel-autoplay";
 import Image from 'next/image';
 import {
   Carousel,
@@ -11,7 +12,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DestinationCarouselProps {
   images: string[];
@@ -63,7 +64,7 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
                 width={800}
                 height={550}
                 className="object-cover w-full aspect-[16/11]"
-                priority
+                priority={index === 0 ? true : false}
               />
             </CarouselItem>
           ))}
@@ -71,7 +72,6 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-
       <div ref={emblaThumbsRef} className="hidden md:flex justify-center space-x-4 mt-4">
         {images.map((src, index) => (
           <div
@@ -79,13 +79,10 @@ export default function DestinationCarousel({ images }: DestinationCarouselProps
             onClick={() => onThumbClick(index)}
             className={`cursor-pointer p-1 ${index === selectedIndex ? 'ring-2 ring-offset-2 ring-slate-500' : ''}`}
           >
-            <Image
+            <img
               src={src}
               alt={`Thumbnail ${index}`}
-              width={100}
-              height={68}
-              className="object-cover aspect-[16/11]"
-              quality={40}
+              className="object-cover aspect-[16/11] w-24 h-16"
             />
           </div>
         ))}

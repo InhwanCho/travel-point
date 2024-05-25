@@ -7,13 +7,13 @@ import { useFetchDestinationById } from '@/hooks/use-fetch-destination';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
-interface DestinationDetailPageProps {
+interface FestivalDetailPageProps {
   params: {
     slug: string;
   };
 }
 
-export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
+export default function FestivalDetailPage({ params }: FestivalDetailPageProps) {
   
   const searchParams = useSearchParams();    
   const { data, isError, isLoading } = useFetchDestinationById(params.slug);

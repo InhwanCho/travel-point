@@ -22,7 +22,7 @@ export async function fetchDestination({
 export async function fetchDestinationById(
   contentId: string
 ): Promise<DestinationDetailType> {
-  return fetchFromApi("/api/destination/contentId", { contentId });
+  return fetchFromApi(`/api/destination/contentId`, { contentId });
 }
 
 export async function fetchThemeDestinationByCat({

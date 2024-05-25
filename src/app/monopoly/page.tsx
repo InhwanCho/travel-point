@@ -1,12 +1,12 @@
 'use client';
 
 // @/app/monopoly/page.tsx
-import Title from '@/components/common/title'; // 타이틀 컴포넌트
-import Dice from '@/components/section/monopoly/dice'; // 주사위 컴포넌트
-import React, { useState, useMemo } from 'react'; // React 훅 import
-import { FaChessPawn } from "react-icons/fa"; // 폰 아이콘
+import Title from '@/components/common/title';
+import Dice from '@/components/section/monopoly/dice'; 
+import React, { useState, useMemo } from 'react';
+import { FaChessPawn } from "react-icons/fa";
 
-// MonopolyPage 컴포넌트 정의
+
 export default function MonopolyPage() {
   const boardCols = 7; // 보드의 열 크기
   const boardRows = 7; // 보드의 행 크기
@@ -29,13 +29,13 @@ export default function MonopolyPage() {
 
   // 셀의 내용을 가져오는 함수
   const getCellContent = (index: number) => specialCells.get(index) || '';
-  // 보드의 경계 셀인지 확인하는 함수
+  // 보드의 경계 셀인지 확인
   const isEdgeCell = (index: number) => path.includes(index);
 
   // 주사위 굴림 핸들러
   const handleDiceRoll = (diceNumber: number) => {
-    if (isMoving) return; // 이동 중일 경우 무시
-    setIsMoving(true); // 이동 상태로 변경
+    if (isMoving) return; 
+    setIsMoving(true); 
 
     // 주사위 애니메이션 후 0.1초 후에 말이 움직이기 시작
     setTimeout(() => {
@@ -69,7 +69,7 @@ export default function MonopolyPage() {
         <span className="font-semibold truncate">{getCellContent(i)}</span>
         {currentPosition === i && (
           <span className='animate-bounce'>
-            <FaChessPawn className="text-red-500 text-2xl" />
+            <FaChessPawn className="text-red-500 text-3xl shadow-xl" />
           </span>
         )}
       </div>

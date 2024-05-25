@@ -15,7 +15,7 @@ interface RegionArticleProps {
 }
 
 
-export default function RegionArticle({ region, count}: RegionArticleProps) {
+export default function RegionArticle({ region, count }: RegionArticleProps) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2; // 한 페이지에 표시할 아이템 수
@@ -55,7 +55,9 @@ export default function RegionArticle({ region, count}: RegionArticleProps) {
           ))
         ) : (
           data && data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
-            <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
+            <DestinationCard key={i}
+              priority={i === 0 ? true : false}
+              contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
           ))
         )}
       </CardLayout>

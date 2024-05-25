@@ -1,15 +1,17 @@
-import KakaoMap from '@/components/common/map';
-import DestinationInfo from '@/components/section/destination/destination-info';
-import RecentDestinations from '@/components/section/destination/recent-destinations';
-import DestinationDescription from '@/components/section/destination/destination-description';
-import Nearby from '@/components/section/destination/nearby';
-import DestinationComment from '@/components/section/destination/destination-comment';
-import DestinationBlog from '@/components/section/destination/destination-blog';
-import { Separator } from '@/components/ui/separator';
+import { lazy, Suspense } from 'react';
 import DestinationImages from '@/components/section/destination/destination-images';
-import { DestinationDetailType, DestinationType } from '@/types/destination-types';
+import { DestinationDetailType } from '@/types/destination-types';
 import { filterArray } from '@/libs/utils';
 import { MdError } from 'react-icons/md';
+import { Separator } from '@/components/ui/separator';
+
+const DestinationDescription = lazy(() => import('@/components/section/destination/destination-description'));
+const KakaoMap = lazy(() => import('@/components/common/map'));
+const DestinationInfo = lazy(() => import('@/components/section/destination/destination-info'));
+const Nearby = lazy(() => import('@/components/section/destination/nearby'));
+const DestinationComment = lazy(() => import('@/components/section/destination/destination-comment'));
+const DestinationBlog = lazy(() => import('@/components/section/destination/destination-blog'));
+const RecentDestinations = lazy(() => import('@/components/section/destination/recent-destinations'));
 
 interface DestinationBodyProps {
   data?: DestinationDetailType;
@@ -17,7 +19,7 @@ interface DestinationBodyProps {
   isError?: boolean;
 }
 
-export default function DestinationBody({ data, isLoading, isError }: DestinationBodyProps) {  
+export default function DestinationBody({ data, isLoading, isError }: DestinationBodyProps) {
   if (isLoading) {
     return (
       <section className="w-full h-full mx-auto xl:flex-grow">
@@ -27,7 +29,11 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
               <div className='w-full h-full bg-gray-300'></div>
             </div>
           </main>
-          <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 "></aside>
+          <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 animate-pulse">
+            <div className={`border rounded-md shadow-md bg-white flex flex-col p-3 w-full`}>
+              <h3 className="text-lg font-semibold mb-3 text-gray-800">최근 본 여행지</h3>
+            </div>
+          </aside>
         </div>
       </section>
     );
@@ -49,7 +55,11 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
               </div>
             </div>
           </main>
-          <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 "></aside>
+          <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 animate-pulse">
+            <div className={`border rounded-md shadow-md bg-white flex flex-col p-3 w-full `}>
+              <h3 className="text-lg font-semibold mb-3 text-gray-800">최근 본 여행지</h3>
+            </div>
+          </aside>
         </div>
       </section>
     );
@@ -59,6 +69,7 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
     return null;
   }
 
+  // 이미지가 null or ''인 경우 제거하고 리스트로 만듬
   const filteredImages = filterArray([data.firstImage, data.firstImage2, data.firstImage3, data.firstImage4, data.firstImage5]);
   const destinationDetails = [
     { label: '홈페이지', value: data.homepage },
@@ -74,24 +85,30 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
     location: data.location.split(' ').slice(0, 2).join(' '),
     title: data.title,
     firstImage: data.firstImage,
-    destinationDescription: data.destinationDescription.slice(0,55),
+    destinationDescription: data.destinationDescription.slice(0, 55),
     contentId: data.contentId
   };
+
 
   return (
     <section className="w-full h-full mx-auto xl:flex-grow">
       <div className="flex">
-        <main className="flex p-5 flex-col sm:p-6 xl:p-0 w-full">
+        <main className="flex p-2.5 flex-col sm:p-6 xl:p-0 w-full">
           <DestinationImages images={filteredImages} />
-          <DestinationDescription description={data.destinationDescription} />
-          <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />
-          <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />
-          <Nearby />
-          <Separator />
-          <DestinationComment />
-          <DestinationBlog title={data.title} />
+          <Suspense fallback={null}>
+            <DestinationDescription description={data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} />
+            <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />
+            <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />
+            <Nearby />
+            <Separator />
+            <DestinationComment />
+            <DestinationBlog title={data.title} />
+          </Suspense>
         </main>
-        <RecentDestinations newDestination={destinationData}/>
+        <Suspense fallback={null}>
+          {/* 최근 본 여행지 - 데이터 정제 후 데이터 넣기 */}
+          <RecentDestinations newDestination={destinationData} />
+        </Suspense>
       </div>
     </section>
   );
