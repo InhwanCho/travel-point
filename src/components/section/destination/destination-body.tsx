@@ -4,6 +4,7 @@ import { DestinationDetailType } from '@/types/destination-types';
 import { filterArray } from '@/libs/utils';
 import { MdError } from 'react-icons/md';
 import { Separator } from '@/components/ui/separator';
+import Title from '@/components/common/title';
 
 const DestinationDescription = lazy(() => import('@/components/section/destination/destination-description'));
 const KakaoMap = lazy(() => import('@/components/common/map'));
@@ -27,6 +28,8 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
           <main className="flex p-5 flex-col sm:p-6 xl:p-0 w-full">
             <div className='w-full aspect-[16/11] animate-pulse'>
               <div className='w-full h-full bg-gray-300'></div>
+              <Title className='justify-start my-8'>상세 정보</Title>
+              <div>Loading ...</div>
             </div>
           </main>
           <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10 animate-pulse">

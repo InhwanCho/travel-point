@@ -1,7 +1,6 @@
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
 import Onboarding from '@/components/section/recommended/onboarding';
-
 export default function RecommendedPage() {
 
   return (

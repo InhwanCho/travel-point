@@ -1,0 +1,30 @@
+.cube {
+  width: 100px;
+  height: 100px;
+  background-color: #a0e1a0;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  position: relative;
+}
+.cube::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  transform: rotateX(90deg) translateY(-10px);
+}
+.cube::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: -1;
+  transform: rotateY(90deg) translateX(-10px);
+}

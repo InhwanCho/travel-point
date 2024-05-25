@@ -2,7 +2,7 @@
 
 // @/app/monopoly/page.tsx
 import Title from '@/components/common/title';
-import Dice from '@/components/section/monopoly/dice'; 
+import Dice from '@/components/section/monopoly/dice';
 import React, { useState, useMemo } from 'react';
 import { FaChessPawn } from "react-icons/fa";
 
@@ -12,7 +12,8 @@ export default function MonopolyPage() {
   const boardRows = 7; // 보드의 행 크기
   const specialCells = useMemo(() => new Map<number, string>([
     [48, '<-시작'], // 시작 위치를 맨 아래로 변경
-    [47, '2번'], // 47번 셀
+    [47, '2번 셀'], 
+    [46, '3번 셀'],
     [4, '스페셜'], // 4번 셀
   ]), []); // 특별한 셀 정의
 
@@ -34,8 +35,8 @@ export default function MonopolyPage() {
 
   // 주사위 굴림 핸들러
   const handleDiceRoll = (diceNumber: number) => {
-    if (isMoving) return; 
-    setIsMoving(true); 
+    if (isMoving) return;
+    setIsMoving(true);
 
     // 주사위 애니메이션 후 0.1초 후에 말이 움직이기 시작
     setTimeout(() => {
@@ -63,7 +64,7 @@ export default function MonopolyPage() {
   const renderBoardCell = (i: number) => (
     <div
       key={i}
-      className={`md:size-[60px] lg:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'}`}
+      className={`md:w-[60px] md:h-[60px] lg:w-[70px] lg:h-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
     >
       <div className="transform -rotate-45 flex flex-col items-center">
         <span className="font-semibold truncate">{getCellContent(i)}</span>
@@ -90,7 +91,7 @@ export default function MonopolyPage() {
             {Array.from({ length: boardCols * boardRows }, (_, i) => (
               <div
                 key={i}
-                className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'bg-green-200 border-gray-600 shadow-lg' : 'invisible'}`}
+                className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
               >
                 <div className="flex flex-col items-center">
                   <span className="text-lg font-semibold">{getCellContent(i)}</span>
@@ -101,8 +102,8 @@ export default function MonopolyPage() {
               </div>
             ))}
           </div>
-        </div>        
-        <Dice onRoll={handleDiceRoll} /> {/* 주사위 컴포넌트 */}        
+        </div>
+        <Dice onRoll={handleDiceRoll} />
       </section>
     </main>
   );

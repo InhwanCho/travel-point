@@ -25,7 +25,7 @@ const Dice = ({ onRoll }: DiceProps) => {
   };
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
+    <div className="absolute left-1/2 right-1/2 flex items-center justify-center">
       <div className="flex justify-center items-center h-screen">
         <div
           onClick={rollDice}
