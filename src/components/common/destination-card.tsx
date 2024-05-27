@@ -1,9 +1,7 @@
-'use client';
 
 import { cn, formatDateRange, getEventStatus } from '@/libs/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, useEffect, useRef } from 'react';
 import { MdError } from "react-icons/md";
 
 interface DestinationCardProps {
@@ -37,18 +35,6 @@ export default function DestinationCard({
   priority,
   ...props
 }: DestinationCardProps) {
-  const [imageLoading, setImageLoading] = useState(true);
-
-  useEffect(() => {
-    return () => {
-      // 컴포넌트가 언마운트될 때 로딩 상태 초기화
-      setImageLoading(true);
-    };
-  }, [imageSrc]); // 이미지가 변경될 때마다 로딩 상태를 초기화
-
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
 
   if (isLoading) {
     return (
@@ -89,9 +75,9 @@ export default function DestinationCard({
         <div className='relative' >
           {isSmallSize ? (
             <>
-              {imageLoading && (
+              {/* {imageLoading && (
                 <div className='absolute inset-0 bg-gray-300 animate-pulse rounded-sm'></div>
-              )}
+              )} */}
               <Image
                 width={180}
                 height={123}
@@ -100,8 +86,7 @@ export default function DestinationCard({
                 className='rounded-sm w-full object-cover aspect-[16/11]'
                 quality={40}
                 sizes="(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px"
-                priority={priority}
-                onLoad={handleImageLoad}
+                priority={priority}                
               />
             </>
           ) :
