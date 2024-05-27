@@ -22,7 +22,7 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "tong.visitkorea.or.kr",
-        pathname: "/cms/resource/**",
+        pathname: "/cms/**",
       },
     ],
     formats: ["image/avif", "image/webp"],
