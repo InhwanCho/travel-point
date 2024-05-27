@@ -13,6 +13,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
+import { placeholderImageBase64 } from "@/data/data";
 
 interface DestinationCarouselProps {
   images: string[];
@@ -68,6 +69,8 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
                 className="object-cover w-full aspect-[16/11]"
                 sizes="(max-width: 640px) 500px, (max-width: 1200px) 800px, 760px"
                 priority
+                placeholder='blur'
+                blurDataURL={placeholderImageBase64}
               />
             </CarouselItem>
           ))}
@@ -91,6 +94,8 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
               className="object-cover aspect-[16/11] w-24 h-16"              
               quality={40}
               priority
+              placeholder='blur'
+              blurDataURL={placeholderImageBase64}
             />
           </div>
         ))}

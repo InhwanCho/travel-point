@@ -1,4 +1,5 @@
 
+import { placeholderImageBase64 } from '@/data/data';
 import { cn, formatDateRange, getEventStatus } from '@/libs/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -75,9 +76,6 @@ export default function DestinationCard({
         <div className='relative' >
           {isSmallSize ? (
             <>
-              {/* {imageLoading && (
-                <div className='absolute inset-0 bg-gray-300 animate-pulse rounded-sm'></div>
-              )} */}
               <Image
                 width={180}
                 height={123}
@@ -86,7 +84,9 @@ export default function DestinationCard({
                 className='rounded-sm w-full object-cover aspect-[16/11]'
                 quality={40}
                 sizes="(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px"
-                priority={priority}                
+                priority={priority}
+                placeholder='blur'
+                blurDataURL={placeholderImageBase64}
               />
             </>
           ) :
@@ -99,6 +99,8 @@ export default function DestinationCard({
               sizes="(max-width: 640px) 300px, (max-width: 1200px) 180px, 220px"
               quality={60}
               priority={priority}
+              placeholder='blur'
+              blurDataURL={placeholderImageBase64}
             />
           }
           {FestivalDate && (

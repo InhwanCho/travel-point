@@ -9,8 +9,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '@/styles/custom-swiper.css';
-import { Pagination, Keyboard } from "swiper/modules";
-import SwiperCore from "swiper";
+import { Pagination, Keyboard } from 'swiper/modules';
+import SwiperCore from 'swiper';
 import { useFetchFestival } from '@/hooks/use-fetch-destination';
 
 export default function FestivalRecommendation({ count }: { count: string }) {
@@ -19,39 +19,38 @@ export default function FestivalRecommendation({ count }: { count: string }) {
   const [swiperState, setSwiperState] = useState({
     swiperInstance: null as SwiperCore | null,
     isBeginning: true,
-    isEnd: false
+    isEnd: false,
   });
 
   const handleSwiper = (newSwiper: SwiperCore) => {
+    newSwiper.on('slideChange', () => updateNavigationState(newSwiper)); // 슬라이드 변경 시 상태 업데이트
+    updateNavigationState(newSwiper); // 초기 상태 업데이트
     setSwiperState({
       ...swiperState,
       swiperInstance: newSwiper,
-      isBeginning: newSwiper.isBeginning,
-      isEnd: newSwiper.isEnd
     });
   };
 
-  const updateNavigationState = () => {
-    if (swiperState.swiperInstance) {
-      setSwiperState({
-        ...swiperState,
-        isBeginning: swiperState.swiperInstance.isBeginning,
-        isEnd: swiperState.swiperInstance.isEnd
-      });
+  const updateNavigationState = (swiperInstance?: SwiperCore) => {
+    const swiper = swiperInstance || swiperState.swiperInstance;
+    if (swiper) {
+      setSwiperState((prevState) => ({
+        ...prevState,
+        isBeginning: swiper.isBeginning,
+        isEnd: swiper.isEnd,
+      }));
     }
   };
 
   const goPrev = () => {
     if (swiperState.swiperInstance && !swiperState.isBeginning) {
       swiperState.swiperInstance.slidePrev();
-      updateNavigationState();
     }
   };
 
   const goNext = () => {
     if (swiperState.swiperInstance && !swiperState.isEnd) {
       swiperState.swiperInstance.slideNext();
-      updateNavigationState();
     }
   };
 
@@ -59,7 +58,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
     <div className='flex gap-x-4 absolute z-10 right-2 md:right-0 top-1'>
       <button
         onClick={goPrev}
-        aria-label="Previous slide"
+        aria-label='Previous slide'
         disabled={swiperState.isBeginning}
         className='disabled:cursor-not-allowed disabled:text-slate-300 hover:text-slate-700/80 disabled:hover:text-slate-300'
       >
@@ -67,7 +66,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
       </button>
       <button
         onClick={goNext}
-        aria-label="Next slide"
+        aria-label='Next slide'
         disabled={swiperState.isEnd}
         className='disabled:cursor-not-allowed disabled:text-slate-300 hover:text-slate-700/80 disabled:hover:text-slate-300'
       >
@@ -81,7 +80,6 @@ export default function FestivalRecommendation({ count }: { count: string }) {
       <Title navBtn={navBtn}>이런 축제 어때요?</Title>
       <Swiper
         onSwiper={handleSwiper}
-        onSlideChange={updateNavigationState}
         slidesPerView={4}
         slidesPerGroup={4}
         spaceBetween={30}
@@ -89,7 +87,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
         keyboard={true}
         watchOverflow={true}
         pagination={{
-          type: "bullets",
+          type: 'bullets',
           clickable: true,
         }}
         modules={[Pagination, Keyboard]}
@@ -110,25 +108,32 @@ export default function FestivalRecommendation({ count }: { count: string }) {
           },
         }}
       >
-        {isLoading ?
-          [...Array(itemsPerPage)].map((_, i) =>
+        {isLoading
+          ? [...Array(itemsPerPage)].map((_, i) => (
             <SwiperSlide key={i}>
               <DestinationCard isLoading />
             </SwiperSlide>
-          ) : isError ?
-            [...Array(itemsPerPage)].map((_, i) =>
+          ))
+          : isError
+            ? [...Array(itemsPerPage)].map((_, i) => (
               <SwiperSlide key={i}>
                 <DestinationCard isError />
               </SwiperSlide>
-            ) :
-            data && data.map((item, i) => (
-              <SwiperSlide key={i}>
-                <DestinationCard FestivalDate={{ startDate: item.startDate, endDate: item.endDate }}
-                  priority={i === 0 ? true : false}
-                  location={item.location} title={item.title} description={item.destinationDescription} imageSrc={item.firstImage} contentId={item.contentId} />
-              </SwiperSlide>
             ))
-        }
+            : data &&
+            data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <DestinationCard
+                  FestivalDate={{ startDate: item.startDate, endDate: item.endDate }}
+                  priority={i === 0 ? true : false}
+                  location={item.location}
+                  title={item.title}
+                  description={item.destinationDescription}
+                  imageSrc={item.firstImage}
+                  contentId={item.contentId}
+                />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </section>
   );

@@ -57,10 +57,9 @@ export default function RecentDestinations({ newDestination }: RecentDestination
 
   return (
     <aside className="sticky w-full min-w-[240px] max-w-[260px] hidden xl:flex top-[120px] self-start pl-10">
-      <div className={`border rounded-md shadow-md bg-white flex flex-col p-3 w-full 
-      ${totalPages > 1 ? 'min-h-[320px]' : ''}`}>
+      <div className={`border rounded-md shadow-md bg-white flex flex-col p-3 w-full ${totalPages > 1 ? 'min-h-[320px]' : ''}`}>
         <h3 className="text-lg font-semibold mb-3 text-gray-800">최근 본 여행지</h3>
-        <div className="space-y-4 relative">
+        <div className="flex-grow space-y-4 relative">
           {paginatedDestinations.length === 0 ? (
             <p className="text-xs text-gray-700">최근 본 여행지가 없습니다.</p>
           ) : (
@@ -85,8 +84,8 @@ export default function RecentDestinations({ newDestination }: RecentDestination
           )}
         </div>
         {totalPages > 1 && (
-          <div className={`absolute bottom-3.5 left-1/2`}>
-            <div className=" flex justify-center mt-4">
+          <div className="flex justify-center mt-4">
+            <div className="flex justify-center">
               {Array.from({ length: totalPages }).map((_, pageIndex) => (
                 <span
                   key={pageIndex}
@@ -99,5 +98,7 @@ export default function RecentDestinations({ newDestination }: RecentDestination
         )}
       </div>
     </aside>
+
+
   );
 }

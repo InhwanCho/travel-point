@@ -1,11 +1,12 @@
 'use client';
 import { headerMenus } from '@/config/site-config';
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function MainNav() {
   const pathname = usePathname();
+  
   return (
     <nav aria-label="Navigation menus" className="hidden sm:flex items-center sm:space-x-6 md:space-x-16 md:pr-20 " >
       {headerMenus.map((menu) => (
