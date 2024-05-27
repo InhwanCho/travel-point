@@ -1,7 +1,9 @@
+'use client';
+
 import { cn, formatDateRange, getEventStatus } from '@/libs/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MdError } from "react-icons/md";
 
 interface DestinationCardProps {
@@ -21,7 +23,6 @@ interface DestinationCardProps {
   priority?: boolean;
 }
 
-
 export default function DestinationCard({
   className,
   imageSrc,
@@ -36,6 +37,18 @@ export default function DestinationCard({
   priority,
   ...props
 }: DestinationCardProps) {
+  const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      // 컴포넌트가 언마운트될 때 로딩 상태 초기화
+      setImageLoading(true);
+    };
+  }, [imageSrc]); // 이미지가 변경될 때마다 로딩 상태를 초기화
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
 
   if (isLoading) {
     return (
@@ -70,14 +83,39 @@ export default function DestinationCard({
 
   const eventStatus = FestivalDate ? getEventStatus(FestivalDate.startDate, FestivalDate.endDate) : null;
   const formattedDateRange = FestivalDate ? formatDateRange(FestivalDate.startDate, FestivalDate.endDate) : null;
-
   return (
     <div className={`${cn('flex-1', className)}`} {...props}>
       <Link href={`/destinations/${contentId}?title=${title}&location=${location}`}>
-        <div className='relative'>
-          {isSmallSize ?
-            <Image width={180} height={123} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={40} priority={priority}/>
-            : <Image width={300} height={220} src={imageSrc || '/img/sample.avif'} alt='sample img' className='rounded-sm w-full object-cover aspect-[16/11]' quality={50} priority={priority}/>}
+        <div className='relative' >
+          {isSmallSize ? (
+            <>
+              {imageLoading && (
+                <div className='absolute inset-0 bg-gray-300 animate-pulse rounded-sm'></div>
+              )}
+              <Image
+                width={180}
+                height={123}
+                src={imageSrc || '/img/sample.avif'}
+                alt={`${title} image` || 'sample image'}
+                className='rounded-sm w-full object-cover aspect-[16/11]'
+                quality={40}
+                sizes="(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px"
+                priority={priority}
+                onLoad={handleImageLoad}
+              />
+            </>
+          ) :
+            <Image
+              width={300}
+              height={200}
+              src={imageSrc || '/img/sample.avif'}
+              alt={`${title} image` || 'sample image'}
+              className='rounded-sm w-full object-cover aspect-[16/11]'
+              sizes="(max-width: 640px) 300px, (max-width: 1200px) 180px, 220px"
+              quality={60}
+              priority={priority}
+            />
+          }
           {FestivalDate && (
             <div>
               {eventStatus?.dDay && (
@@ -95,10 +133,7 @@ export default function DestinationCard({
         </div>
         <p className='mt-4 text-xs sm:text-sm'>{location && location.split(' ').slice(0, 2).join(' ')}</p>
         <h3 className='text-sm sm:text-base font-semibold pt-1 pb-px sm:py-1 truncate'>{title && title.split('(')[0].split('/')[0]}</h3>
-        {/* html태그 제거 */}
-        <div
-          className='text-sm two-line-truncate'
-        >{description && description.replace(/<\/?[^>]+(>|$)/g, "")}</div>
+        <div className='text-sm two-line-truncate'>{description && description.replace(/<\/?[^>]+(>|$)/g, "")}</div>
         {formattedDateRange && <p className='pt-1.5 text-xs sm:text-sm text-slate-700/90'>{formattedDateRange}</p>}
       </Link>
     </div>

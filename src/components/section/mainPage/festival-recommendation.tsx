@@ -15,7 +15,7 @@ import { useFetchFestival } from '@/hooks/use-fetch-destination';
 
 export default function FestivalRecommendation({ count }: { count: string }) {
   const itemsPerPage = 4;
-  const { data, isLoading, isError } = useFetchFestival({ count: count, page: '1' });
+  const { data, isLoading, isError } = useFetchFestival({ count: count, page: '1', sort: '1' });
   const [swiperState, setSwiperState] = useState({
     swiperInstance: null as SwiperCore | null,
     isBeginning: true,

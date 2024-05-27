@@ -11,6 +11,7 @@ export interface FetchDestinationProps {
   areaName?: string;
   count?: string;
   page?: string;
+  sort?: string;
 }
 
 export interface fetchThemeDestinationByCatProps {
@@ -24,3 +25,4 @@ export interface fetchDestinationDetailProps{
   contentId: string;
   contentTypeId?: string
 }
+

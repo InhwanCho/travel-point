@@ -16,7 +16,7 @@ interface DestinationDetailPageProps {
 export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
   
   const searchParams = useSearchParams();    
-  const { data, isError, isLoading } = useFetchDestinationById(params.slug);
+  const { data, isError, isLoading } = useFetchDestinationById({contentId:params.slug});
   
   const title = searchParams.get('title');
   const location = searchParams.get('location');

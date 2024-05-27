@@ -76,7 +76,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
             <span className='flex items-center text-sm'>더보기 <ChevronRight className='size-[15px] ml-[3px]' strokeWidth={1} /></span>
           </button>
         </div>
-        <Image width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden' />
+        <Image width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden overflow-hidden' priority />
         <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] p-4'>
           <Swiper
             onSwiper={setSwiper}
@@ -111,6 +111,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
                     location={item.location}
                     title={item.title}
                     description={item.destinationDescription}
+                    contentId={item.contentId}
                   />
                 </SwiperSlide>
               )))}

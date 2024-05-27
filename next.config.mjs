@@ -14,12 +14,15 @@ const nextConfig = {
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000", // 개발 서버의 기본 URL을 설정
   },
   productionBrowserSourceMaps: true,
+  // 이미지 최적화
   images: {    
+    deviceSizes: [640, 800, 1920],
+    imageSizes: [300, 220, 250],
     remotePatterns: [
       {
         protocol: "http",
         hostname: "tong.visitkorea.or.kr",
-        pathname: "/cms/**",
+        pathname: "/cms/resource/**",
       },
     ],
     formats: ["image/avif", "image/webp"],

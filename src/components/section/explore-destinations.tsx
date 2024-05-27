@@ -70,7 +70,7 @@ export default function ExploreDestinations({
       <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
       <Separator />
 
-      <div className="flex h-5 items-center space-x-5 text-sm m-3 pl-1 list-none">
+      <div className="flex h-5 items-center space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
         {page === 'themes' ? (
           <>
             <li

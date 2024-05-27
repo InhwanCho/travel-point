@@ -6,7 +6,6 @@ import Dice from '@/components/section/monopoly/dice';
 import React, { useState, useMemo } from 'react';
 import { FaChessPawn } from "react-icons/fa";
 
-
 export default function MonopolyPage() {
   const boardCols = 7; // 보드의 열 크기
   const boardRows = 7; // 보드의 행 크기
@@ -94,7 +93,7 @@ export default function MonopolyPage() {
                 className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
               >
                 <div className="flex flex-col items-center">
-                  <span className="text-lg font-semibold">{getCellContent(i)}</span>
+                  <span className="text-sm sm:text-lg font-semibold">{getCellContent(i)}</span>
                   {currentPosition === i && (
                     <FaChessPawn className="text-red-500 text-2xl animate-bounce" />
                   )}

@@ -18,7 +18,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
 
   return (
     
-    <Pagination className="flex justify-center pb-8 mt-5">
+    <Pagination className="flex justify-center mt-5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

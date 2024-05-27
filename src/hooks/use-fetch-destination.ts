@@ -6,6 +6,7 @@ import {
   fetchThemeDestinationByCat,
 } from "@/services/fetch-destination";
 import {
+  fetchDestinationDetailProps,
   FetchDestinationProps,
   fetchThemeDestinationByCatProps,
 } from "@/types/destination-fetch-props";
@@ -28,10 +29,14 @@ export function useFetchDestination({
   });
 }
 
-export function useFetchDestinationById(contentId: string) {
+export function useFetchDestinationById({
+  contentId,
+  contentTypeId,
+}: fetchDestinationDetailProps) {
   return useQuery<DestinationDetailType, Error>({
-    queryKey: ["destinationDetail", contentId],
-    queryFn: () => fetchDestinationById(contentId),
+    queryKey: ["destinationDetail", { contentId, contentTypeId }],
+    queryFn: ({ queryKey }) =>
+      fetchDestinationById(queryKey[1] as fetchDestinationDetailProps),
   });
 }
 
@@ -54,9 +59,10 @@ export function useFetchFestival({
   areaName,
   count,
   page,
+  sort
 }: FetchDestinationProps) {
   return useQuery<FestivalType[], Error>({
-    queryKey: ["festivalData", { areaName, count, page }],
+    queryKey: ["festivalData", { areaName, count, page, sort }],
     queryFn: ({ queryKey }) =>
       fetchFestivals(queryKey[1] as FetchDestinationProps),
   });

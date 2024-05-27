@@ -55,7 +55,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ isModal = true }) => {
           </div>
         </div>
       </div>
-      {isModal ? '' : <Separator className='my-20' />}
+      {isModal ? '' : <Separator className='my-10 sm:my-20' />}
     </div>
   );
 };

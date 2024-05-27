@@ -92,12 +92,11 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
     contentId: data.contentId
   };
 
-
   return (
     <section className="w-full h-full mx-auto xl:flex-grow">
       <div className="flex">
         <main className="flex p-2.5 flex-col sm:p-6 xl:p-0 w-full">
-          <DestinationImages images={filteredImages} />
+          <DestinationImages images={filteredImages} title={data.title}/>
           <Suspense fallback={null}>
             <DestinationDescription description={data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} />
             <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />

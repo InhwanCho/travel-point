@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { useFetchDestination } from '@/hooks/use-fetch-destination';
 import { REGIONS } from '@/data/data';
 
+
 function RegionsContent() {
   const searchparams = useSearchParams();
   const [activeRegion, setActiveRegion] = useState('all');
@@ -31,7 +32,7 @@ function RegionsContent() {
   return (
     <>
       <RegionSelection page='regions' title='여행지 지역 탐색' activeRegion={activeRegion} />
-      <Separator className='my-20' />
+      <Separator className='my-10 sm:my-20' />
       <PageLayout>
         <ExploreDestinations
           data={data || []}

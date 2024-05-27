@@ -1,5 +1,6 @@
 // src/services/fetch-destination.ts
 import {
+  fetchDestinationDetailProps,
   FetchDestinationProps,
   fetchThemeDestinationByCatProps,
   themeCategories,
@@ -19,10 +20,14 @@ export async function fetchDestination({
   return fetchFromApi("/api/destination/location", { areaName, count, page });
 }
 
-export async function fetchDestinationById(
-  contentId: string
-): Promise<DestinationDetailType> {
-  return fetchFromApi(`/api/destination/contentId`, { contentId });
+export async function fetchDestinationById({
+  contentId,
+  contentTypeId = '12',
+}: fetchDestinationDetailProps): Promise<DestinationDetailType> {
+  return fetchFromApi(`/api/destination/contentId`, {
+    contentId,
+    contentTypeId,
+  });
 }
 
 export async function fetchThemeDestinationByCat({
@@ -39,6 +44,7 @@ export async function fetchFestivals({
   areaName,
   count = "16",
   page = "1",
+  sort,
 }: FetchDestinationProps): Promise<FestivalType[]> {
-  return fetchFromApi("/api/festival/location", { areaName, count, page });
+  return fetchFromApi("/api/festival/location", { areaName, count, page, sort });
 }

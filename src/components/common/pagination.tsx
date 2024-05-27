@@ -32,7 +32,7 @@ export function renderPageNumbers(pageNumbers: number[], currentPage: number, to
   const showRightEllipsis = currentPage < totalPages - 2;
 
   return (
-    <>
+    <div className="hidden sm:flex">
       {showLeftEllipsis && (
         <>
           <PaginationItem>
@@ -86,6 +86,6 @@ export function renderPageNumbers(pageNumbers: number[], currentPage: number, to
           </PaginationItem>
         </>
       )}
-    </>
+    </div>
   );
 }

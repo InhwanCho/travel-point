@@ -22,7 +22,7 @@ export function getStyles(page: PageName, active: boolean) {
 
 export default function RegionSelection({ page, title, activeRegion, onRegionChange }: RegionSelectionProps) {
   return (
-    <nav className="mt-10 max-w-screen-md mx-auto">
+    <nav className="mt-4 sm:mt-10 max-w-screen-md mx-auto">
       <h2 className="text-center py-8 font-semibold">{title}</h2>
       <ul className="flex flex-wrap justify-center gap-4">
         {page === 'mainpage' ? (

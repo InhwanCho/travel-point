@@ -21,7 +21,7 @@ function FestivalsContent() {
     <>
       
       <RegionSelection title='축제 지역 탐색' page='festivals' activeRegion={activeRegion}/>
-      <Separator className='my-20' />
+      <Separator className='my-10 sm:my-20' />
       {/* <PageLayout>
         <ExploreDestinations />
       </PageLayout> */}

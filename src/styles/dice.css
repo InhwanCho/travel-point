@@ -6,6 +6,12 @@
   transition: transform 1.6s;
   cursor: pointer;
   transform-origin: center;
+  /* 하드웨어에 따른 속도를 일정하게 변경 */
+  will-change: transform;
+  -webkit-transition: transform 1.6s; /* Safari & Chrome */
+  -moz-transition: transform 1.6s; /* Firefox */
+  -o-transition: transform 1.6s; /* Opera */
+  transition: transform 1.6s; /* Standard */
 }
 
 .dot {
