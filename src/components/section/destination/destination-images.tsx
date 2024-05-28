@@ -54,13 +54,13 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
   return (
     <div>
       <Carousel
-        opts={{loop:true}}
+        opts={{ loop: true }}
         setApi={setApi}
         className="w-full"
       >
         <CarouselContent className="flex">
           {images.map((src, index) => (
-            <CarouselItem key={index} className="relative w-full">              
+            <CarouselItem key={index} className="relative w-full">
               <Image
                 src={src}
                 alt={`${title} Image ${index}`}
@@ -75,11 +75,15 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        {images.length > 1 &&
+        <>
+          <CarouselPrevious />
+          <CarouselNext /></>
+        }
+
       </Carousel>
       <div ref={emblaThumbsRef} className="hidden md:flex justify-center space-x-4 mt-4">
-        {images.map((src, index) => (
+        {images.length > 1 ? images.map((src, index) => (
           <div
             key={index}
             onClick={() => onThumbClick(index)}
@@ -91,14 +95,14 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
               height={64}
               src={src}
               alt={`${title} Thumbnail ${index}`}
-              className="object-cover aspect-[16/11] w-24 h-16"              
+              className="object-cover aspect-[16/11] w-24 h-16"
               quality={40}
               priority
               placeholder='blur'
               blurDataURL={placeholderImageBase64}
             />
           </div>
-        ))}
+        )) : <div></div>}
       </div>
     </div>
   );
