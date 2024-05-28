@@ -33,10 +33,11 @@ interface RenderPageNumbersProps {
   totalPages: number;
   onPageChange: (page: number) => void;
   createPageUrl?: (pageNumber: number | string) => string;
+  isDisabled?: boolean;
 }
 
 // 필요에 따라 생략 기호를 포함하여 페이지 번호를 렌더링하는 함수
-export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPageChange, createPageUrl }: RenderPageNumbersProps) {
+export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPageChange, createPageUrl, isDisabled }: RenderPageNumbersProps) {
   const showLeftEllipsis = currentPage > 3;
   const showRightEllipsis = currentPage < totalPages - 2;
 
@@ -49,8 +50,11 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
               href={createPageUrl ? createPageUrl(1) : '#mainSection'}
               onClick={(e) => {
                 e.preventDefault();
-                onPageChange(1);
+                if (!isDisabled) {
+                  onPageChange(1);
+                }
               }}
+              disabled={isDisabled}
             >
               1
             </PaginationLink>
@@ -67,10 +71,11 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
             isActive={number === currentPage}
             onClick={(e) => {
               e.preventDefault();
-              if (number !== currentPage) {
+              if (number !== currentPage && !isDisabled) {
                 onPageChange(number);
               }
             }}
+            disabled={isDisabled}
             className={number === currentPage ? 'text-gray-500 cursor-not-allowed' : ''}
           >
             {number}
@@ -87,8 +92,11 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
               href={createPageUrl ? createPageUrl(totalPages) : '#mainSection'}
               onClick={(e) => {
                 e.preventDefault();
-                onPageChange(totalPages);
+                if (!isDisabled) {
+                  onPageChange(totalPages);
+                }
               }}
+              disabled={isDisabled}
             >
               {totalPages}
             </PaginationLink>

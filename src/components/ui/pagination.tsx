@@ -43,9 +43,9 @@ PaginationItem.displayName = "PaginationItem";
 
 interface PaginationLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   isActive?: boolean;
-  size?: "icon" | "default" | "sm" | "lg" | null | undefined ; // 예시
+  size?: "icon" | "default" | "sm" | "lg" | null | undefined; // 예시
   disabled?: boolean;  // 'disabled' 속성 추가
-  href:string
+  href: string
 }
 
 const PaginationLink = ({
@@ -53,6 +53,7 @@ const PaginationLink = ({
   isActive,
   size = "icon",
   href,
+  disabled,
   ...props
 }: PaginationLinkProps) => (
   <Link
@@ -63,8 +64,14 @@ const PaginationLink = ({
         variant: isActive ? "outline" : "ghost",
         size,
       }),
-      className
+      className,
+      disabled && 'pointer-events-none opacity-70' 
     )}
+    onClick={(e) => {
+      if (disabled) {
+        e.preventDefault();
+      }
+    }}
     {...props}
   />
 );
@@ -74,7 +81,7 @@ const PaginationPrevious = ({
   className,
   disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink>& { disabled: boolean }) => (
+}: React.ComponentProps<typeof PaginationLink> & { disabled: boolean }) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
@@ -98,7 +105,7 @@ const PaginationNext = ({
   className,
   disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink>& { disabled: boolean }) => (
+}: React.ComponentProps<typeof PaginationLink> & { disabled: boolean }) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"

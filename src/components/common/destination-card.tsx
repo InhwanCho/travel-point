@@ -74,35 +74,19 @@ export default function DestinationCard({
     <div className={`${cn('flex-1', className)}`} {...props}>
       <Link href={`/destinations/${contentId}?title=${title}&location=${location}`}>
         <div className='relative' >
-          {isSmallSize ? (
-            <>
-              <Image
-                width={180}
-                height={123}
-                src={imageSrc || '/img/sample.avif'}
-                alt={`${title} image` || 'sample image'}
-                className='rounded-sm w-full object-cover aspect-[16/11]'
-                quality={40}
-                sizes="(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px"
-                priority={priority}
-                placeholder='blur'
-                blurDataURL={placeholderImageBase64}
-              />
-            </>
-          ) :
-            <Image
-              width={300}
-              height={200}
-              src={imageSrc || '/img/sample.avif'}
-              alt={`${title} image` || 'sample image'}
-              className='rounded-sm w-full object-cover aspect-[16/11]'
-              sizes="(max-width: 640px) 300px, (max-width: 1200px) 180px, 220px"
-              quality={60}
-              priority={priority}
-              placeholder='blur'
-              blurDataURL={placeholderImageBase64}
-            />
-          }
+          <Image
+            width={isSmallSize ? 180 : 300}
+            height={isSmallSize ? 123 : 200}
+            src={imageSrc || '/img/sample.avif'}
+            alt={`${title} image` || 'sample image'}
+            className='rounded-sm w-full object-cover aspect-[16/11]'
+            quality={isSmallSize ? 40 : 60}
+            sizes={isSmallSize ? "(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px" : "(max-width: 640px) 300px, (max-width: 1200px) 180px, 220px"}
+            priority={priority}
+            placeholder='blur'
+            blurDataURL={placeholderImageBase64}
+          />
+
           {FestivalDate && (
             <div>
               {eventStatus?.dDay && (
