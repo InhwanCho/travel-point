@@ -11,18 +11,18 @@ interface DestinationPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  createPageUrl: (pageNumber: number | string) => string;
 }
 
-export default function DestinationPagination({ currentPage, totalPages, onPageChange }: DestinationPaginationProps) {
+export default function DestinationPagination({ currentPage, totalPages, onPageChange, createPageUrl }: DestinationPaginationProps) {
   const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
   return (
-    
     <Pagination className="flex justify-center mt-5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href="#mainSection"
+            href={createPageUrl(`${Math.max(currentPage - 1, 1)}`)}
             onClick={(e) => {
               e.preventDefault();
               onPageChange(Math.max(currentPage - 1, 1));
@@ -31,12 +31,12 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
           />
         </PaginationItem>
 
-        {/* 페이지 렌더링 ui */}
-        {renderPageNumbers(pageNumbers, currentPage, totalPages, onPageChange)}
+        {/* 페이지 렌더링 UI */}
+        {renderPageNumbers({ pageNumbers, currentPage, totalPages, onPageChange, createPageUrl })}
 
         <PaginationItem>
           <PaginationNext
-            href="#mainSection"
+            href={createPageUrl(Math.min(currentPage + 1, totalPages))}
             onClick={(e) => {
               e.preventDefault();
               onPageChange(Math.min(currentPage + 1, totalPages));
@@ -46,8 +46,5 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
         </PaginationItem>
       </PaginationContent>
     </Pagination>
-    
   );
 }
-
-

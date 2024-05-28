@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import Title from '@/components/common/title';
 import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
@@ -28,11 +29,6 @@ function calculateDivideNumber(width: number): number {
   return 2;
 }
 
-// 필터 - 테마 변경함수
-function handleThemeChange(theme: Theme, setSelectedTheme: (theme: Theme) => void) {
-  setSelectedTheme(theme);
-}
-
 export default function ExploreDestinations({
   data,
   region,
@@ -49,6 +45,9 @@ export default function ExploreDestinations({
   const selectedTheme = useThemeStore((state) => state.selectedTheme);
   const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
 
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   useEffect(() => {
     // 창 크기 변경 시 divideNumber를 업데이트하는 함수
     const handleResize = () => {
@@ -65,6 +64,30 @@ export default function ExploreDestinations({
     setSelectedTheme('all');
   }, [setSelectedTheme]);
 
+  useEffect(() => {
+    // URL에서 현재 페이지를 가져와 설정
+    const pageParam = searchParams.get('page');
+    if (pageParam) {
+      onPageChange(parseInt(pageParam, 10));
+    }
+  }, [searchParams, onPageChange]);
+
+  const createPageUrl = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', pageNumber.toString());
+    return `${pathname}?${params.toString()}#mainSection`;
+  };
+
+  // 필터 - 테마 변경함수
+  const handleThemeChange = (theme: Theme) => {
+    setSelectedTheme(theme);
+    const params = new URLSearchParams(searchParams);
+    params.set('theme', theme);
+    params.set('page', '1'); // 페이지를 1로 설정
+    router.push(`${pathname}?${params.toString()}#mainSection`);
+  };
+
+
   return (
     <section id="mainSection">
       <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
@@ -74,7 +97,7 @@ export default function ExploreDestinations({
         {page === 'themes' ? (
           <>
             <li
-              onClick={() => handleThemeChange('all', setSelectedTheme)}
+              onClick={() => handleThemeChange('all')}
               className={`cursor-pointer ${selectedTheme === 'all' ? 'font-semibold' : ''}`}
             >
               전체
@@ -83,7 +106,7 @@ export default function ExploreDestinations({
               <React.Fragment key={index}>
                 <Separator orientation="vertical" />
                 <li
-                  onClick={() => handleThemeChange(theme as Theme, setSelectedTheme)}
+                  onClick={() => handleThemeChange(theme as Theme)}
                   className={`cursor-pointer ${selectedTheme === theme ? 'font-semibold' : ''}`}
                 >
                   {theme}
@@ -92,7 +115,6 @@ export default function ExploreDestinations({
             ))}
           </>
         ) : (
-          // 나중에 수정해야됨
           <>
             <li>전체</li>
             <Separator orientation="vertical" />
@@ -133,6 +155,7 @@ export default function ExploreDestinations({
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        createPageUrl={createPageUrl}
       />
     </section>
   );

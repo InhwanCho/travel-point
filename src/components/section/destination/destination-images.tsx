@@ -60,7 +60,7 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
       >
         <CarouselContent className="flex">
           {images.map((src, index) => (
-            <CarouselItem key={index} className="relative w-full">
+            <CarouselItem key={index} className="relative w-full">              
               <Image
                 src={src}
                 alt={`${title} Image ${index}`}

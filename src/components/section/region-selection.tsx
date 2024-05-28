@@ -15,7 +15,7 @@ interface RegionSelectionProps {
 export function getStyles(page: PageName, active: boolean) {
   const { bg, ring } = pageColors[page];
   if (!bg || !ring) return '';
-  
+
   const baseRing = ring === 'ring-0' ? 'ring-0' : `${ring} ring-2 ring-offset-1`;
   return active ? `${bg} ${baseRing} hover:${ring}` : ring;
 }
@@ -40,7 +40,7 @@ export default function RegionSelection({ page, title, activeRegion, onRegionCha
                 className={`text-sm ${getStyles(page, activeRegion === 'all')} rounded-full border px-4 py-1 hover:ring-2 ring-offset-1 transition-all`}
                 onClick={() => onRegionChange && onRegionChange('all')}
               >
-          전체
+                전체
               </button>
             </li>
             {REGIONS.map((item, index) => (
@@ -61,13 +61,13 @@ export default function RegionSelection({ page, title, activeRegion, onRegionCha
                 href={`/${page}?region=all`}
                 className={`${getStyles(page, activeRegion === 'all')}`}
               >
-          전체
+                전체
               </LinkButton>
             </li>
             {REGIONS.map((item, index) => (
               <li key={index}>
                 <LinkButton
-                  href={`/${page}?region=${item.name}`}
+                  href={`/${page}?region=${item.name}&page=1`}
                   className={`${getStyles(page, item.name === activeRegion)}`}
                 >
                   {item.name}

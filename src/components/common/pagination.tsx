@@ -26,8 +26,17 @@ export function generatePageNumbers(currentPage: number, totalPages: number): nu
   return pageNumbers;
 }
 
+
+interface RenderPageNumbersProps {
+  pageNumbers: number[];
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  createPageUrl: (pageNumber: number | string) => string;
+}
+
 // 필요에 따라 생략 기호를 포함하여 페이지 번호를 렌더링하는 함수
-export function renderPageNumbers(pageNumbers: number[], currentPage: number, totalPages: number, onPageChange: (page: number) => void) {
+export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPageChange, createPageUrl }: RenderPageNumbersProps) {
   const showLeftEllipsis = currentPage > 3;
   const showRightEllipsis = currentPage < totalPages - 2;
 
@@ -37,7 +46,7 @@ export function renderPageNumbers(pageNumbers: number[], currentPage: number, to
         <>
           <PaginationItem>
             <PaginationLink
-              href="#mainSection"
+              href={createPageUrl(1)}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange(1);
@@ -54,7 +63,7 @@ export function renderPageNumbers(pageNumbers: number[], currentPage: number, to
       {pageNumbers.map(number => (
         <PaginationItem key={number}>
           <PaginationLink
-            href="#mainSection"
+            href={createPageUrl(number)}
             isActive={number === currentPage}
             onClick={(e) => {
               e.preventDefault();
@@ -75,7 +84,7 @@ export function renderPageNumbers(pageNumbers: number[], currentPage: number, to
           </PaginationItem>
           <PaginationItem>
             <PaginationLink
-              href="#mainSection"
+              href={createPageUrl(totalPages)}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange(totalPages);

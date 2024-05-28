@@ -30,7 +30,7 @@ export default function MobileNav() {
           </MobileLink>
           <nav className="flex flex-col gap-3.5 mt-6">
             {headerMenus.map((menu) => (
-              <MobileLink onOpenChange={setOpen} href={menu.path} key={menu.name}>
+              <MobileLink onOpenChange={setOpen} href={`${menu.path}?region=all&page=1`} key={menu.name}>
                 <span className="underline-link hover:font-semibold transition-all">{menu.name}</span>
               </MobileLink>
             ))}
