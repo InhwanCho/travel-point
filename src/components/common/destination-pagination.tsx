@@ -11,7 +11,7 @@ interface DestinationPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  createPageUrl: (pageNumber: number | string) => string;
+  createPageUrl?: (pageNumber: number | string) => string;
 }
 
 export default function DestinationPagination({ currentPage, totalPages, onPageChange, createPageUrl }: DestinationPaginationProps) {
@@ -22,7 +22,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={createPageUrl(`${Math.max(currentPage - 1, 1)}`)}
+            href={createPageUrl ? createPageUrl(`${Math.max(currentPage - 1, 1)}`) : '#mainSection'}
             onClick={(e) => {
               e.preventDefault();
               onPageChange(Math.max(currentPage - 1, 1));
@@ -36,7 +36,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
 
         <PaginationItem>
           <PaginationNext
-            href={createPageUrl(Math.min(currentPage + 1, totalPages))}
+            href={createPageUrl ? createPageUrl(Math.min(currentPage + 1, totalPages)) : '#mainSection'}
             onClick={(e) => {
               e.preventDefault();
               onPageChange(Math.min(currentPage + 1, totalPages));

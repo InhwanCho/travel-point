@@ -32,7 +32,7 @@ interface RenderPageNumbersProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  createPageUrl: (pageNumber: number | string) => string;
+  createPageUrl?: (pageNumber: number | string) => string;
 }
 
 // 필요에 따라 생략 기호를 포함하여 페이지 번호를 렌더링하는 함수
@@ -46,7 +46,7 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
         <>
           <PaginationItem>
             <PaginationLink
-              href={createPageUrl(1)}
+              href={createPageUrl ? createPageUrl(1) : '#mainSection'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange(1);
@@ -63,7 +63,7 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
       {pageNumbers.map(number => (
         <PaginationItem key={number}>
           <PaginationLink
-            href={createPageUrl(number)}
+            href={createPageUrl ? createPageUrl(number) : '#mainSection'}
             isActive={number === currentPage}
             onClick={(e) => {
               e.preventDefault();
@@ -84,7 +84,7 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
           </PaginationItem>
           <PaginationItem>
             <PaginationLink
-              href={createPageUrl(totalPages)}
+              href={createPageUrl ? createPageUrl(totalPages) : '#mainSection'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange(totalPages);

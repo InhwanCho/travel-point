@@ -21,7 +21,7 @@ export function MypageTabSection({ data, paginatedData, currentPage, totalPages,
               {paginatedData.map((item: any, index: number) => (
                 <div key={index} className="px-4 relative">
                   <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="absolute top-0 right-0 text-xs pl-2 text-red-500 hover:text-red-700 transition-colors"
                     title="Remove Destination"
                   >
@@ -36,6 +36,7 @@ export function MypageTabSection({ data, paginatedData, currentPage, totalPages,
               ))}
               <div className='flex justify-center pb-8 mt-5 col-span-2 md:col-span-3'>
                 <DestinationPagination
+
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={(page: number) => onPageChange(page)}
