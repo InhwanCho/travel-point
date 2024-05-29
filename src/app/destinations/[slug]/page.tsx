@@ -1,11 +1,8 @@
-'use client';
+
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
-import DestinationBody from '@/components/section/destination/destination-body';
-import DestinationHeader from '@/components/section/destination/destination-header';
-import { useFetchDestinationById } from '@/hooks/use-fetch-destination';
-import { useSearchParams } from 'next/navigation';
-import React from 'react';
+import DestinationContent from '@/components/section/destination/destination-content';
+import { Metadata } from 'next';
 
 interface DestinationDetailPageProps {
   params: {
@@ -13,36 +10,18 @@ interface DestinationDetailPageProps {
   };
 }
 
+export const metadata: Metadata = {
+  title: '여행지 상세',
+  description: '여행지의 상세페이지 입니다'
+};
+
 export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
-  
-  const searchParams = useSearchParams();    
-  const { data, isError, isLoading } = useFetchDestinationById({contentId:params.slug});
-  
-  const title = searchParams.get('title');
-  const location = searchParams.get('location');
 
   return (
     <main>
       <HeroSection page='destination' title='여행지' subtitle='즐거운 여정' />
       <PageLayout>
-        {isLoading ? (
-          <>
-            <DestinationHeader title={title || 'Loading...'} location={location || 'Loading...'} />
-            <DestinationBody isLoading />
-          </>
-        ) : isError ? (
-          <>
-            <DestinationHeader title={title || 'Loading...'} location={location || 'Loading...'} />
-            <DestinationBody isError />
-          </>
-        ) : (
-          data && (
-            <>
-              <DestinationHeader title={data.title} location={data.location} />
-              <DestinationBody data={data} />
-            </>
-          )
-        )}
+        <DestinationContent slug={params.slug}/>        
       </PageLayout>
     </main>
   );

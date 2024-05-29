@@ -11,6 +11,7 @@ function makeQueryClient() {
         retry: 3,
         retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 3000), // 재시도 간격
         staleTime: 24 * 60 * 60 * 1000, // 24 hours
+        gcTime: (24 * 60 * 60 * 1000) + 5000,
       },
     },
   });

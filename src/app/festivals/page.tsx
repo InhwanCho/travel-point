@@ -1,40 +1,20 @@
-'use client';
+
 import HeroSection from '@/components/common/hero-section';
-import PageLayout from '@/components/layout/page-layout';
-import ExploreDestinations from '@/components/section/explore-destinations';
-import RegionSelection from '@/components/section/region-selection';
-import { Separator } from '@/components/ui/separator';
-import { useSearchParams } from 'next/navigation';
-import React, { Suspense, useEffect, useState } from 'react';
+import { Metadata } from 'next/types';
+import { FestivalsContent } from './festival-content';
+import { Suspense } from 'react';
 
-function FestivalsContent() {
-  const searchparams = useSearchParams();
-  const [activeRegion, setActiveRegion] = useState('all');
-  const region = searchparams.get('region');
-
-  useEffect(() => {
-    if (region) {
-      setActiveRegion(region as string);
-    }
-  }, [region, activeRegion]);
-  return (
-    <>
-      
-      <RegionSelection title='축제 지역 탐색' page='festivals' activeRegion={activeRegion}/>
-      <Separator className='my-10 sm:my-20' />
-      {/* <PageLayout>
-        <ExploreDestinations />
-      </PageLayout> */}
-    </>
-  );
-}
+export const metadata: Metadata = {
+  title: '축제',
+  description: '국내 지역별 축제 추천 페이지입니다'
+};
 
 export default function FestivalsPage() {
   return (
     <main>
       <HeroSection page='festivals' title='매혹적인 축제의 세계' subtitle='지금 시작되는 축제의 향연' />
-      <Suspense fallback={<div>loading ...</div>}>
-        <FestivalsContent/>
+      <Suspense>
+        <FestivalsContent />
       </Suspense>
     </main>
   );

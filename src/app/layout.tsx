@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_KR, Roboto } from "next/font/google";
 import "@/styles/globals.css";
 import SiteHeader from "@/components/site-header";
 import { ViewTransitions } from 'next-view-transitions';
@@ -11,9 +10,6 @@ import localFont from 'next/font/local';
 import KbarLayout from "@/components/kbar/kbar-layout";
 import { Toaster } from "@/components/ui/toaster";
 
-// const inter = Inter({ subsets: ["latin"] });
-// const noto = Noto_Sans_KR({ subsets: ['latin'] });
-// const roboto = Roboto({ weight: ['300','400','500','700'],subsets:['latin'] },);
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2'
 });
@@ -96,13 +92,11 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="ko" className="scroll-smooth scroll-pt-20">
-        <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
-          <link rel="manifest" href="/assets/favicons/site.webmanifest" />
-          <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-        </head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
+        <link rel="manifest" href="/assets/favicons/site.webmanifest" />
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
         <body className={cn('min-h-dvh antialiased', pretendard.className)}>
           <KbarLayout >
             <QueryProvider>

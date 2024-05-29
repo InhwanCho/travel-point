@@ -5,8 +5,9 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
-import RegionSelection, { getStyles } from '@/components/section/region-selection';
+
 import Link from 'next/link';
+import RegionSelection, { getStyles } from '@/components/common/region-selection';
 
 function PreferenceRadioGroup({
   label,
