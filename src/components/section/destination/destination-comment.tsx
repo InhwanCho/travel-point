@@ -110,7 +110,7 @@ export default function DestinationComment() {
           </div>
         </form>
         {submitError && <p className="text-red-500 text-xs mt-2">{submitError}</p>}
-        <div className='flex justify-end sm:justify-between text-sm text-slate-600 pt-3 px-1'>          
+        <div className='flex justify-between text-sm text-slate-600 pt-3 px-1'>          
           <ImageUploadGuidelines />
           <p className='text-xs'>{charCount} / 1,000자</p>
         </div>

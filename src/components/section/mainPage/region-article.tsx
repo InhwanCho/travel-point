@@ -65,7 +65,7 @@ export default function RegionArticle({ region, count }: RegionArticleProps) {
         <nav className='flex justify-center pt-10'>
           <button onClick={handleNextPage}>
             <span className='flex justify-center text-sm border px-8 py-2 rounded-sm'>
-              다른 여행지 추천 {currentPage + 1} <span className='text-slate-400 pl-1'>/ {Math.ceil(data.length / itemsPerPage)}</span>
+              다른 여행지 추천 {currentPage + 1} <span className='text-slate-500 pl-1'>/ {Math.ceil(data.length / itemsPerPage)}</span>
             </span>
           </button>
         </nav>
