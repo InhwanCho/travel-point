@@ -4,16 +4,9 @@ import { useMemo, useState } from "react";
 import { FaChessPawn } from "react-icons/fa6";
 import Dice from "@/components/section/monopoly/dice";
 
-
 export function MonopolyContent() {
   const boardCols = 7; // 보드의 열 크기
   const boardRows = 7; // 보드의 행 크기
-  const specialCells = useMemo(() => new Map<number, string>([
-    [48, '<-시작'], // 시작 위치를 맨 아래로 변경
-    [47, '2번 셀'],
-    [46, '3번 셀'],
-    [4, '스페셜'], // 4번 셀
-  ]), []); // 특별한 셀 정의
 
   // 발판의 순서 정의 (반시계 방향)
   const path = useMemo(() => [
@@ -23,11 +16,24 @@ export function MonopolyContent() {
     13, 20, 27, 34, 41, // 오른쪽 세로줄    
   ], []);
 
+  // 셀의 내용을 정의
+  const cells = useMemo(() => {
+    const cellMap = new Map<number, string>();
+    path.forEach((pos, index) => {
+      if (index === 0) {
+        cellMap.set(pos, '<-시작');
+      } else {
+        cellMap.set(pos, `${index}번`);
+      }
+    });
+    return cellMap;
+  }, [path]);
+
   const [currentPosition, setCurrentPosition] = useState(48); // 현재 위치 상태
   const [isMoving, setIsMoving] = useState(false); // 이동 중 여부 상태
 
   // 셀의 내용을 가져오는 함수
-  const getCellContent = (index: number) => specialCells.get(index) || '';
+  const getCellContent = (index: number) => cells.get(index) || '';
   // 보드의 경계 셀인지 확인
   const isEdgeCell = (index: number) => path.includes(index);
 
@@ -74,6 +80,7 @@ export function MonopolyContent() {
       </div>
     </div>
   );
+
   return (
     <>
       <div className="relative w-full sm:w-[90%] md:w-[110%] h-4/5 px-4 sm:px-0">
