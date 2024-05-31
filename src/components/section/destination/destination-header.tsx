@@ -10,20 +10,21 @@ import { useToast } from '@/components/ui/use-toast';
 interface DestinationHeaderProps {
   title: string;
   location: string;
+  tags?: string[];
 }
 
 const rating = 3.7;
-const hashtags = ['걷기좋은길', '봄여행', '공원'];
 
-export default function DestinationHeader({ title, location }: DestinationHeaderProps) {
+export default function DestinationHeader({ title, location, tags }: DestinationHeaderProps) {
+
   return (
     <ToastProvider>
-      <HeaderContent title={title} location={location} />
+      <HeaderContent title={title} location={location} tags={tags}/>
     </ToastProvider>
   );
 }
 
-function HeaderContent({ title, location }: DestinationHeaderProps) {
+function HeaderContent({ title, location, tags }: DestinationHeaderProps) {
   const { toast } = useToast();
 
   const handleCopyClick = async () => {
@@ -40,7 +41,6 @@ function HeaderContent({ title, location }: DestinationHeaderProps) {
       });
     }
   };
-
   return (
     <header className='py-8'>
       <Separator className='my-4' />
@@ -64,7 +64,7 @@ function HeaderContent({ title, location }: DestinationHeaderProps) {
       </div>
       <Separator className='my-4' />
       <div className='max-w-screen-sm flex justify-center mx-auto'>
-        {hashtags.map((tag, index) => (
+        {tags && tags.map((tag, index) => (
           <span key={index} className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
             #{tag}
           </span>

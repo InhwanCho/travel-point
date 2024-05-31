@@ -8,10 +8,13 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         // reretching time setting
-        retry: 3,
-        retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 3000), // 재시도 간격
+        retry: 3, // 재시도 횟수를 3로 설정
+        retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000), // 재시도 간격을 5초로 설정
         staleTime: 24 * 60 * 60 * 1000, // 24 hours
         gcTime: (24 * 60 * 60 * 1000) + 5000,
+        refetchOnWindowFocus: false, // 윈도우 포커스 시 리페치 안 함
+        refetchOnReconnect: false, // 재연결 시 항상 리페치하지 않음
+        refetchInterval: false, // 정기적으로 리페치하지 않음
       },
     },
   });
@@ -31,7 +34,7 @@ function getQueryClient() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
 
-  const queryClient = getQueryClient(); 
+  const queryClient = getQueryClient();
   // const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider client={queryClient}>

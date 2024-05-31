@@ -1,3 +1,5 @@
+import { CATEGORIES } from "@/data/data";
+import { CategoryName } from "@/types/categoriy-types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -52,4 +54,20 @@ export function getEventStatus(startDate: string, endDate: string): { status: st
   } else {
     return { status: '종료', dDay: '' };
   }
+}
+
+
+// cat1, cat2, cat3를 실제 카테고리(한글)로 변경하는 함수
+export function getCategoryName(cat1: string, cat2: string, cat3: string): CategoryName {
+  const category1 = CATEGORIES[cat1];
+  if (!category1) return {};
+
+  const category2 = category1.subCategories[cat2];
+  if (!category2) return { cat2: category1.name };
+
+  const category3 = category2.details[cat3];
+  return {
+    cat2: category2.name,
+    cat3: category3,
+  };
 }
