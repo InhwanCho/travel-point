@@ -4,7 +4,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { PiSirenFill } from "react-icons/pi";
 
 import { cn } from '@/libs/utils';
-import StarRating from './star-rating';
+import StarRating from '@/components/common/star-rating';
 
 interface CommentItemProps {
   className?: string

@@ -11,8 +11,7 @@ export default function DestinationContent({ slug }: { slug: string }) {
 
   const title = searchParams.get('title');
   const location = searchParams.get('location');
-
-
+  
   if (data) {
     const categoryNames = getCategoryName(data.cat1, data.cat2, data.cat3);
     data.cat2 = categoryNames.cat2 || data.cat2;

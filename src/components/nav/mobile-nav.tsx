@@ -7,7 +7,7 @@ import { Menu } from 'lucide-react';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/navigation';
 import { headerMenus } from '@/config/site-config';
-import KBarButton from '../kbar/kbar-btn';
+import KBarButton from '@/components/kbar/kbar-btn';
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);

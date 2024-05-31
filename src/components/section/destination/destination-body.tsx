@@ -3,7 +3,6 @@ import DestinationImages from '@/components/section/destination/destination-imag
 import { DestinationDetailType } from '@/types/destination-types';
 import { filterArray } from '@/libs/utils';
 import { MdError } from 'react-icons/md';
-import { Separator } from '@/components/ui/separator';
 import Title from '@/components/common/title';
 
 const DestinationDescription = lazy(() => import('@/components/section/destination/destination-description'));
@@ -100,10 +99,9 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
           <Suspense fallback={null}>
             <DestinationDescription description={data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} />
             <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />
-            <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />
-            <Nearby />
-            <Separator />
+            <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />            
             <DestinationComment />
+            <Nearby />
             <DestinationBlog title={data.title} />
           </Suspense>
         </main>

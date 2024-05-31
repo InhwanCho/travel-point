@@ -74,7 +74,7 @@ export function MonopolyContent() {
         <span className="font-semibold truncate">{getCellContent(i)}</span>
         {currentPosition === i && (
           <span className='animate-bounce'>
-            <FaChessPawn className="text-red-500 text-3xl shadow-xl" />
+            <FaChessPawn className="text-red-500 text-3xl shadow-xl" />            
           </span>
         )}
       </div>
@@ -98,7 +98,7 @@ export function MonopolyContent() {
               <div className="flex flex-col items-center">
                 <span className="text-sm sm:text-lg font-semibold">{getCellContent(i)}</span>
                 {currentPosition === i && (
-                  <FaChessPawn className="text-red-500 text-2xl animate-bounce" />
+                  <FaChessPawn className="text-red-500 text-2xl animate-bounce" />                  
                 )}
               </div>
             </div>

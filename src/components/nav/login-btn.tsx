@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,6 @@ import { PopoverClose } from '@radix-ui/react-popover';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import Image from 'next/image';
 
 export default function LoginBtn() {
   const token = true;
@@ -27,7 +27,7 @@ export default function LoginBtn() {
       {token ? (
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger className='focus-visible:outline-none'>
-            <Image src={'/assets/image/characters/m1.png'} alt='character image' width={42} height={42} className='bg-white rounded-full border outline-none' />
+            <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white rounded-full border outline-none' />
           </PopoverTrigger>
           <PopoverContent className='mt-2 mx-2 bg-slate-100/90 relative'>
             <PopoverClose className='absolute top-2.5 right-2.5 focus-visible:outline-none'>
@@ -35,7 +35,7 @@ export default function LoginBtn() {
             </PopoverClose>
             <div className='flex justify-center flex-col items-center space-y-4 '>
               <p>asdfasdf@naver.com</p>
-              <Image src={'/assets/image/characters/m1.png'} alt='character image' width={72} height={72} className='bg-white rounded-full' />
+              <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full' />
               <p>안녕하세요, 인환님.</p>
               <div className='flex justify-evenly w-full'>
                 <Button variant='outline' className='rounded-full' onClick={handleMyPageClick}>

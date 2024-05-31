@@ -75,7 +75,7 @@ export default function TrendingDestinations() {
 
   return (
     <section>
-      <Title navBtn={navBtn}>주간 인기 여행지</Title>
+      <Title navBtn={navBtn}>주간 인기 여행지 - 백엔드 구현 중</Title>
       <Swiper
         onSwiper={handleSwiper}
         onSlideChange={updateNavigationState}

@@ -67,8 +67,8 @@ export default function DestinationComment() {
 
   return (
     <>
-      <Title className='pt-8'>여행 후기</Title>
-      <div className="bg-slate-100/90 relative rounded p-4 sm:mt-8">
+      <Title className='pt-8 border-t'>여행 후기</Title>
+      <div className="bg-slate-100/90 relative rounded p-4">
         <div className="flex justify-between items-center pb-2">
           <StarSetting />
           <CommentGuidelines />

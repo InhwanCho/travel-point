@@ -1,7 +1,7 @@
 import React from 'react';
-import DestinationCard from '../../common/destination-card';
-import CardLayout from '../../layout/card-layout';
-import Title from '../../common/title';
+import DestinationCard from '@/components/common/destination-card';
+import CardLayout from '@/components/layout/card-layout';
+import Title from '@/components/common/title';
 import { cn } from '@/libs/utils';
 
 interface NearbyProps {
@@ -10,7 +10,7 @@ interface NearbyProps {
 
 export default function Nearby({ className }: NearbyProps) {
   return (
-    <section className={cn('py-8', className)}>
+    <section className={cn('py-10 sm:py-16', className)}>
       <Title className='border-b border-slate-700/70'>주변 여행지</Title>
       <CardLayout className='gap-6'>
         {[...Array(4)].map((item, i) => (
