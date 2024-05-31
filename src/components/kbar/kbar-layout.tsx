@@ -8,32 +8,27 @@ import RenderResults from "@/components/kbar/kbar-result";
 export default function KbarLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
-  const searchIndex = [
-    {
-      id: "destination1",
-      name: "N서울타워",
-      subtitle: "서울특별시",
-      perform: () => router.push('/destinations/N서울타워'),
+  const searchIndex = [];
+
+  for (let i = 1; i <= 7999; i++) {
+    searchIndex.push({
+      id: i.toString(),
+      name: `Fake Place ${i}`,
+      subtitle: `Fake Subtitle ${i}`,
+      perform: () => router.push(`/destinations/${i}`),
       parent: "search",
       section: 'Destinations',
-    },
-    {
-      id: "destination2",
-      name: "해운대 해수욕장",
-      subtitle: "부산광역시",
-      perform: () => router.push('/destinations/해운대해수욕장'),
-      parent: "search",
-      section: 'Destinations',
-    },
-    {
-      id: "destination3",
-      name: "불국사",
-      subtitle: "경상북도 경주시",
-      perform: () => router.push('/destinations/불국사'),
-      parent: "search",
-      section: 'Destinations',
-    },
-  ];
+    });
+  }
+  // 마지막 데이터 추가
+  searchIndex.push({
+    id: "126273",
+    name: "불국사",
+    subtitle: "경상북도 경주시",
+    perform: () => router.push('/destinations/126273'),
+    parent: "search",
+    section: 'Destinations',
+  });
 
   const actions: Action[] = [
     {
