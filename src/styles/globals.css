@@ -111,9 +111,18 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }  
+  .truncate-6 {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: calc(1em * 6); /* 6글자 만큼의 너비 */
+    @apply font-semibold text-[10px]
+  }
   .mini-icon{
     @apply p-1.5 bg-slate-200/60 rounded-full hover:cursor-pointer
   }
+
 }
 /* textarea 태그 사이즈 조절 금지 */
 textarea {

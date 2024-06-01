@@ -20,6 +20,10 @@ const config: Config = {
         "0%, 100%": { opacity: "1" },
         "50%": { opacity: "0.65" },
       },
+      bounce: {
+        '0%, 100%': { transform: 'translateY(0)' },
+        '50%': { transform: 'translateY(-10%)' },
+      },
     },
     extend: {
       animation: {

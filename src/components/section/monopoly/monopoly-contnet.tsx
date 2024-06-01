@@ -21,9 +21,9 @@ export function MonopolyContent() {
     const cellMap = new Map<number, string>();
     path.forEach((pos, index) => {
       if (index === 0) {
-        cellMap.set(pos, '<-시작');
+        cellMap.set(pos, '<- 시작');
       } else {
-        cellMap.set(pos, `${index}번`);
+        cellMap.set(pos, `가나다라마바사아`);
       }
     });
     return cellMap;
@@ -33,7 +33,12 @@ export function MonopolyContent() {
   const [isMoving, setIsMoving] = useState(false); // 이동 중 여부 상태
 
   // 셀의 내용을 가져오는 함수
-  const getCellContent = (index: number) => cells.get(index) || '';
+  const getCellContent = (index: number) => {
+    const content = cells.get(index) || '';
+    const needsPadding = content.length > 6;
+    return { content: needsPadding ? content.substring(0, 6) + '...' : content, needsPadding };
+  };
+
   // 보드의 경계 셀인지 확인
   const isEdgeCell = (index: number) => path.includes(index);
 
@@ -42,12 +47,12 @@ export function MonopolyContent() {
     if (isMoving) return;
     setIsMoving(true);
 
-    // 주사위 애니메이션 후 0.1초 후에 말이 움직이기 시작
+    // 주사위 애니메이션 후 0.2초 후에 말이 움직이기 시작
     setTimeout(() => {
       const newPositionIndex = (path.indexOf(currentPosition) + diceNumber) % path.length; // 새로운 위치 계산
       const newPosition = path[newPositionIndex]; // 새로운 위치 값
       moveToken(newPosition); // 토큰 이동 함수 호출
-    }, 100);
+    }, 200);
   };
 
   // 토큰을 이동시키는 함수
@@ -65,21 +70,24 @@ export function MonopolyContent() {
   };
 
   // 보드 셀을 렌더링하는 함수
-  const renderBoardCell = (i: number) => (
-    <div
-      key={i}
-      className={`md:w-[60px] md:h-[60px] lg:w-[70px] lg:h-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
-    >
-      <div className="transform -rotate-45 flex flex-col items-center">
-        <span className="font-semibold truncate">{getCellContent(i)}</span>
-        {currentPosition === i && (
-          <span className='animate-bounce'>
-            <FaChessPawn className="text-red-500 text-3xl shadow-xl" />            
-          </span>
-        )}
+  const renderBoardCell = (i: number) => {
+    const { content, needsPadding } = getCellContent(i);
+    return (
+      <div
+        key={i}
+        className={`md:w-[60px] md:h-[60px] lg:w-[70px] lg:h-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
+      >
+        <div className="transform -rotate-45 flex flex-col items-center">
+          <span className={`truncate-6 ${needsPadding ? 'pl-1.5' : ''}`}>{content}</span>
+          {currentPosition === i && (
+            <span className='animate-bounce'>
+              <FaChessPawn className="text-red-500 text-3xl shadow-xl" />            
+            </span>            
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>
@@ -96,9 +104,9 @@ export function MonopolyContent() {
               className={`size-[56px] xsm:size-[60px] sm:size-[70px] flex items-center justify-center border bg-white ${isEdgeCell(i) ? 'border-gray-600 shadow-lg' : 'invisible'}`}
             >
               <div className="flex flex-col items-center">
-                <span className="text-sm sm:text-lg font-semibold">{getCellContent(i)}</span>
+                <span className={`truncate-6 ${getCellContent(i).needsPadding ? 'pl-1.5' : ''}`}>{getCellContent(i).content}</span>
                 {currentPosition === i && (
-                  <FaChessPawn className="text-red-500 text-2xl animate-bounce" />                  
+                  <FaChessPawn className="text-red-500 text-2xl animate-bounce" />
                 )}
               </div>
             </div>

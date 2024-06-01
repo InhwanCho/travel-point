@@ -1,12 +1,11 @@
 .dice {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   transform-style: preserve-3d;
   transition: transform 1.6s;
   cursor: pointer;
   transform-origin: center;
-  /* 하드웨어에 따른 속도를 일정하게 변경 */
   will-change: transform;
   -webkit-transition: transform 1.6s; /* Safari & Chrome */
   -moz-transition: transform 1.6s; /* Firefox */
@@ -16,8 +15,8 @@
 
 .dot {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: #f25f5c;
   box-shadow: inset 2px 2px #d90429;
@@ -26,35 +25,35 @@
 .side {
   position: absolute;
   background-color: #fff;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   text-align: center;
   line-height: 2em;
   @apply border border-slate-700/60 rounded-md shadow-lg;
 }
 
 .side:nth-child(1) {
-  transform: translateZ(50px);
+  transform: translateZ(30px);
 }
 
 .side:nth-child(2) {
-  transform: rotateY(90deg) translateZ(50px);
+  transform: rotateY(90deg) translateZ(30px);
 }
 
 .side:nth-child(3) {
-  transform: rotateY(180deg) translateZ(50px);
+  transform: rotateY(180deg) translateZ(30px);
 }
 
 .side:nth-child(4) {
-  transform: rotateY(-90deg) translateZ(50px);
+  transform: rotateY(-90deg) translateZ(30px);
 }
 
 .side:nth-child(5) {
-  transform: rotateX(90deg) translateZ(50px);
+  transform: rotateX(90deg) translateZ(30px);
 }
 
 .side:nth-child(6) {
-  transform: rotateX(-90deg) translateZ(50px);
+  transform: rotateX(-90deg) translateZ(30px);
 }
 
 .show-1 {

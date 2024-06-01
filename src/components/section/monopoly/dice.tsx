@@ -27,17 +27,31 @@ const Dice = ({ onRoll }: DiceProps) => {
   return (
     <div className="absolute left-1/2 right-1/2 flex items-center justify-center">
       <div className="flex justify-center items-center h-screen">
-        <div
-          onClick={rollDice}
-          className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
-        >
-          <DiceSide sideNumber={1} />
-          <DiceSide sideNumber={2} />
-          <DiceSide sideNumber={3} />
-          <DiceSide sideNumber={4} />
-          <DiceSide sideNumber={5} />
-          <DiceSide sideNumber={6} />
+        <div className='flex space-x-20'>
+          <div
+            onClick={rollDice}
+            className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
+          >
+            <DiceSide sideNumber={1} />
+            <DiceSide sideNumber={2} />
+            <DiceSide sideNumber={3} />
+            <DiceSide sideNumber={4} />
+            <DiceSide sideNumber={5} />
+            <DiceSide sideNumber={6} />
+          </div>
+          <div
+            onClick={rollDice}
+            className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
+          >
+            <DiceSide sideNumber={1} />
+            <DiceSide sideNumber={2} />
+            <DiceSide sideNumber={3} />
+            <DiceSide sideNumber={4} />
+            <DiceSide sideNumber={5} />
+            <DiceSide sideNumber={6} />
+          </div>
         </div>
+
       </div>
     </div>
   );
