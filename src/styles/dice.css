@@ -1,59 +1,80 @@
 .dice {
   position: relative;
-  width: 60px;
-  height: 60px;
   transform-style: preserve-3d;
-  transition: transform 1.6s;
   cursor: pointer;
   transform-origin: center;
   will-change: transform;
+  transition: transform 1.6s;
   -webkit-transition: transform 1.6s; /* Safari & Chrome */
   -moz-transition: transform 1.6s; /* Firefox */
   -o-transition: transform 1.6s; /* Opera */
   transition: transform 1.6s; /* Standard */
+  @apply size-[50px] sm:size-[60px];
 }
 
 .dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
   border-radius: 50%;
   background-color: #f25f5c;
   box-shadow: inset 2px 2px #d90429;
+  @apply size-[9px] sm:size-[10px];
 }
 
 .side {
   position: absolute;
   background-color: #fff;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  line-height: 2em;
-  @apply border border-slate-700/60 rounded-md shadow-lg;
+  @apply size-[50px] sm:size-[60px] border border-slate-700/60 rounded-md shadow-lg;
 }
-
+/* 기본 translateZ 값 */
 .side:nth-child(1) {
-  transform: translateZ(30px);
+  transform: translateZ(25px);
 }
 
 .side:nth-child(2) {
-  transform: rotateY(90deg) translateZ(30px);
+  transform: rotateY(90deg) translateZ(25px);
 }
 
 .side:nth-child(3) {
-  transform: rotateY(180deg) translateZ(30px);
+  transform: rotateY(180deg) translateZ(25px);
 }
 
 .side:nth-child(4) {
-  transform: rotateY(-90deg) translateZ(30px);
+  transform: rotateY(-90deg) translateZ(25px);
 }
 
 .side:nth-child(5) {
-  transform: rotateX(90deg) translateZ(30px);
+  transform: rotateX(90deg) translateZ(25px);
 }
 
 .side:nth-child(6) {
-  transform: rotateX(-90deg) translateZ(30px);
+  transform: rotateX(-90deg) translateZ(25px);
+}
+
+/* sm: 일때 translateZ 값 변경 */
+@media (min-width: 640px) {
+  .side:nth-child(1) {
+    transform: translateZ(30px);
+  }
+
+  .side:nth-child(2) {
+    transform: rotateY(90deg) translateZ(30px);
+  }
+
+  .side:nth-child(3) {
+    transform: rotateY(180deg) translateZ(30px);
+  }
+
+  .side:nth-child(4) {
+    transform: rotateY(-90deg) translateZ(30px);
+  }
+
+  .side:nth-child(5) {
+    transform: rotateX(90deg) translateZ(30px);
+  }
+
+  .side:nth-child(6) {
+    transform: rotateX(-90deg) translateZ(30px);
+  }
 }
 
 .show-1 {

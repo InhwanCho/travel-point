@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-const { fontFamily } = require("tailwindcss/defaultTheme");
 
 const config: Config = {
   darkMode: ["class"],
@@ -21,8 +20,8 @@ const config: Config = {
         "50%": { opacity: "0.65" },
       },
       bounce: {
-        '0%, 100%': { transform: 'translateY(0)' },
-        '50%': { transform: 'translateY(-10%)' },
+        "0%, 100%": { transform: "translateY(0)" },
+        "50%": { transform: "translateY(-10%)" },
       },
     },
     extend: {
@@ -88,7 +87,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms"),    
+  ],
 };
 
 export default config;

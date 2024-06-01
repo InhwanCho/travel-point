@@ -4,54 +4,44 @@ import { useState } from 'react';
 import '@/styles/dice.css';
 
 interface DiceProps {
-  onRoll: (diceNumber: number) => void;
+  onRoll: (diceNumbers: number[]) => void;
 }
 
-// Dice 컴포넌트 정의
 const Dice = ({ onRoll }: DiceProps) => {
-  const [diceNumber, setDiceNumber] = useState(1);
+  const [diceNumbers, setDiceNumbers] = useState([1, 1, 1, 1]);
   const [isRolling, setIsRolling] = useState(false);
 
   const rollDice = () => {
     if (isRolling) return; // 주사위가 굴러가는 중이면 중복 클릭 방지
     setIsRolling(true);
-    const newDiceNumber = Math.floor(Math.random() * 6) + 1;
-    setDiceNumber(newDiceNumber);
+    const newDiceNumbers = [1, 2, 3, 4].map(() => Math.floor(Math.random() * 6) + 1);
+    setDiceNumbers(newDiceNumbers);
 
     setTimeout(() => {
       setIsRolling(false);
-      onRoll(newDiceNumber);
+      onRoll(newDiceNumbers);
     }, 2000);
   };
 
   return (
     <div className="absolute left-1/2 right-1/2 flex items-center justify-center">
       <div className="flex justify-center items-center h-screen">
-        <div className='flex space-x-20'>
-          <div
-            onClick={rollDice}
-            className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
-          >
-            <DiceSide sideNumber={1} />
-            <DiceSide sideNumber={2} />
-            <DiceSide sideNumber={3} />
-            <DiceSide sideNumber={4} />
-            <DiceSide sideNumber={5} />
-            <DiceSide sideNumber={6} />
-          </div>
-          <div
-            onClick={rollDice}
-            className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
-          >
-            <DiceSide sideNumber={1} />
-            <DiceSide sideNumber={2} />
-            <DiceSide sideNumber={3} />
-            <DiceSide sideNumber={4} />
-            <DiceSide sideNumber={5} />
-            <DiceSide sideNumber={6} />
-          </div>
+        <div className='flex space-x-2 sm:space-x-4 hover:animate-bounce'>
+          {diceNumbers.map((diceNumber, i) => (
+            <div
+              key={i}
+              onClick={rollDice}
+              className={`dice show-${diceNumber} ${isRolling ? 'roll-dice' : ''}`}
+            >
+              <DiceSide sideNumber={1} />
+              <DiceSide sideNumber={2} />
+              <DiceSide sideNumber={3} />
+              <DiceSide sideNumber={4} />
+              <DiceSide sideNumber={5} />
+              <DiceSide sideNumber={6} />
+            </div>
+          ))}
         </div>
-
       </div>
     </div>
   );
