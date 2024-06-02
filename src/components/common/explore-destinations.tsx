@@ -93,7 +93,7 @@ export default function ExploreDestinations({
       <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
       <Separator />
 
-      <div className="flex h-5 items-center space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
+      <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
         {page === 'themes' ? (
           <>
             <li
@@ -124,7 +124,7 @@ export default function ExploreDestinations({
       </div>
       <Separator />
 
-      <section className="p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-12">
+      <section className="p-3 sm:p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-7 sm:pt-12">
         {isLoading ?
           [...Array(itemsPerPage)].map((_, i) => (
             <DestinationCard key={i} isLoading />

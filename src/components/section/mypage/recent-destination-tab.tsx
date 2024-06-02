@@ -38,9 +38,9 @@ export default function RecentDestinationsTab() {
   };
 
   return (
-    <div className="min-h-dvh p-4">
+    <>
       {recentDestinations.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 md:px-12 py-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 md:px-12 py-2">
           {paginatedData.map((item, index) => (
             <div key={index} className="px-4 relative">
               <button
@@ -70,6 +70,6 @@ export default function RecentDestinationsTab() {
       ) : (
         <div>최근 본 여행지가 없습니다.</div>
       )}
-    </div>
+    </>
   );
 }

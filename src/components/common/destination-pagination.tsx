@@ -31,7 +31,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
 
   return (
     <Pagination className="flex justify-center mt-5">
-      <PaginationContent>
+      <PaginationContent className=''>
         <PaginationItem>
           <PaginationPrevious
             href={createPageUrl ? createPageUrl(`${Math.max(currentPage - 1, 1)}`) : '#mainSection'}
@@ -48,6 +48,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
 
         <PaginationItem>
           <PaginationNext
+            className='sm:ml-0 ml-7'
             href={createPageUrl ? createPageUrl(Math.min(currentPage + 1, totalPages)) : '#mainSection'}
             onClick={(e) => {
               e.preventDefault();

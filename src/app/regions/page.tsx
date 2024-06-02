@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RegionsPage() {
   return (
-    <main>
+    <main className=''>
       <HeroSection page='regions' title='매력적인 지역 여행지' subtitle='여러분을 기다리는 특별한 장소들' />
       <Suspense>
         <RegionsContent />

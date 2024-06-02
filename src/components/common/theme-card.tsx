@@ -53,7 +53,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
       {isSecondCard && (
         <>
           <Separator className='block md:hidden' />
-          <Title className='flex md:hidden'>당신만의 여행 취향 찾기2</Title>
+          <Title className='flex md:hidden'>당신만의 힐링 여행</Title>
         </>
       )}
       <div className='relative mb-[260px] md:mb-[200px]'>

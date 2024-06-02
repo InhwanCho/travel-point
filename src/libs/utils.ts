@@ -71,3 +71,16 @@ export function getCategoryName(cat1: string, cat2: string, cat3: string): Categ
     cat3: category3,
   };
 }
+
+export function throttleHelper(callback: () => void, waitTime: number): () => void {
+  let timerId: ReturnType<typeof setTimeout> | null = null;
+
+  return function () {
+    if (timerId === null) {
+      timerId = setTimeout(() => {
+        callback();
+        timerId = null;
+      }, waitTime);
+    }
+  };
+}

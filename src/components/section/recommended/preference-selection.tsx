@@ -10,7 +10,7 @@ export default function PreferenceSelectionStep({ preference, onPreferenceChange
       <div className="flex flex-col">
         <h2 className="text-center py-8 font-semibold">여행 취향 설정</h2>
         <div className="mb-6">
-          <div className="flex gap-4 flex-wrap items-center justify-center">
+          <div className="flex gap-4 flex-wrap items-center justify-center phone-container">
             {['전체', '자연', '힐링', '역사', '체험', '엑티비티'].map((pref) => (
               <button
                 key={pref}

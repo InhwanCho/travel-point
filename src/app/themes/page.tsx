@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ThemesPage() {
   return (
     <main>
-      <HeroSection page='themes' title='테마로 떠나는 여행스토리' subtitle='개성 넘치는 테마 여행과 함께하세요' />
+      <HeroSection page='themes' title='테마로 떠나는 여행' subtitle='개성 넘치는 테마 여행과 함께하세요' />
       <Suspense>
         <ThemesContent />
       </Suspense>

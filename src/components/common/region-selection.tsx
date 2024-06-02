@@ -2,6 +2,7 @@ import React from 'react';
 import LinkButton from '@/components/ui/link-button';
 import { pageColors, REGIONS } from '@/data/data';
 import { RegionName } from '@/types/region-type';
+import { cn } from '@/libs/utils';
 
 type PageName = keyof typeof pageColors;
 
@@ -10,6 +11,7 @@ interface RegionSelectionProps {
   title: string;
   activeRegion?: RegionName;
   onRegionChange?: (region: string) => void;
+  className?: string;
 }
 
 export function getStyles(page: PageName, active: boolean) {
@@ -20,9 +22,9 @@ export function getStyles(page: PageName, active: boolean) {
   return active ? `${bg} ${baseRing} hover:${ring}` : ring;
 }
 
-export default function RegionSelection({ page, title, activeRegion, onRegionChange }: RegionSelectionProps) {
+export default function RegionSelection({ className, page, title, activeRegion, onRegionChange }: RegionSelectionProps) {
   return (
-    <nav className="mt-4 sm:mt-10 max-w-screen-md mx-auto">
+    <nav className={cn('mt-4 sm:mt-10 max-w-screen-md mx-auto phone-container', className)}>
       <h2 className="text-center py-8 font-semibold">{title}</h2>
       <ul className="flex flex-wrap justify-center gap-4">
         {page === 'mainpage' ? (

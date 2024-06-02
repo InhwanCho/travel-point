@@ -8,7 +8,7 @@ export default function ThemeRecommendation() {
   return (
     <section className='relative'>
       <Title className='pb-6'>특별한 테마 여행 찾기</Title>
-      <div className='grid md:grid-cols-2 gap-8 grid-cols-1'>
+      <div className='grid md:grid-cols-2 gap-6 sm:gap-8 grid-cols-1'>
         {/* 테마 카드 */}
         <ThemeCard themeImages={themeImages[0]} theme='역사' count={8}/>
         <ThemeCard themeImages={themeImages[1]} isSecondCard theme='힐링' count={8}/>

@@ -24,8 +24,8 @@ export default function Home() {
       <PageLayout>
         {/* 지역 섹션 */}
         <RegionRecommendation />
-        <RegionSelection title="다른 지역 여행지 구경가기" page="mainpage" />
-        <Separator className="my-10 md:my-20" />
+        <RegionSelection title="다른 지역 여행지 구경가기" page="mainpage" className="hidden xsm:block"/>
+        <Separator className="my-10 md:my-20 hidden xsm:block" />
         {/* 추천 섹션 - 백엔드 미구현*/}
         {/* <TrendingDestinations /> */}
         {/* <Separator className="my-10 md:my-20" /> */}
