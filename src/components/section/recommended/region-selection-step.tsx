@@ -11,7 +11,7 @@ export default function RegionSelectionStep({ areaName, onRegionChange, onNext, 
         activeRegion={areaName}
         onRegionChange={onRegionChange}
       />
-      <div className="flex justify-center gap-4 mt-8">
+      <div className="flex justify-center gap-4 sm:gap-6 mt-8">
         <Button onClick={onPrevious} variant="secondary">
           이전
         </Button>

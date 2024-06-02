@@ -17,7 +17,7 @@ export default function TravelGameStep({ onNext, onPrevious, theme, areaName }: 
       <section className="min-h-screen bg-blue-100 flex flex-col items-center justify-center relative w-full">
         <MonopolyContent theme={theme} areaName={areaName}/>
         <div className="absolute bottom-10">
-          <div className="flex justify-center gap-4 mt-8">
+          <div className="flex justify-center gap-4 sm:gap-6 mt-8">
             <Button onClick={onPrevious} variant="secondary">
               이전
             </Button>
