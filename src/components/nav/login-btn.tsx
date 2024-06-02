@@ -34,7 +34,7 @@ export default function LoginBtn() {
               <X className='size-4' />
             </PopoverClose>
             <div className='flex justify-center flex-col items-center space-y-4 '>
-              <p>asdfasdf@naver.com</p>
+              <p>abcd@naver.com</p>
               <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full' />
               <p>안녕하세요, 인환님.</p>
               <div className='flex justify-evenly w-full'>
@@ -60,7 +60,8 @@ export default function LoginBtn() {
           </PopoverContent>
         </Popover>
       ) : (
-        <Button onClick={openModal}>Login</Button>
+        <button onClick={openModal}
+          className='hidden sm:flex cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>Login</button>
       )}
     </>
   );

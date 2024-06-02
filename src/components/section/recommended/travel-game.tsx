@@ -13,7 +13,7 @@ interface TravelGameStepProps {
 export default function TravelGameStep({ onNext, onPrevious, theme, areaName }: TravelGameStepProps) {  
   return (
     <>
-      <h2 className="text-center py-8 font-semibold">여행지 부루마블</h2>
+      <h2 className="text-center py-8 font-semibold">여행지 부루마블</h2>      
       <section className="min-h-screen bg-blue-100 flex flex-col items-center justify-center relative w-full">
         <MonopolyContent theme={theme} areaName={areaName}/>
         <div className="absolute bottom-10">

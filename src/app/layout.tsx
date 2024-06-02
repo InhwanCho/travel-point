@@ -10,9 +10,6 @@ import localFont from 'next/font/local';
 import KbarLayout from "@/components/kbar/kbar-layout";
 import { Toaster } from "@/components/ui/toaster";
 
-const pretendard = localFont({
-  src: '../assets/fonts/PretendardVariable.woff2'
-});
 const spoqaHanSansNeo = localFont({
   src: [
     {
@@ -35,11 +32,6 @@ const spoqaHanSansNeo = localFont({
       weight: '700',
       style: 'normal',
     },
-    // {
-    //   path: '../assets/fonts/SpoqaHanSansNeo-ExtraBold.woff2',
-    //   weight: '800',
-    //   style: 'normal',
-    // },
   ],
 });
 

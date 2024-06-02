@@ -2,13 +2,13 @@
 export default function StepProgress({ step }: { step: number }) {
   const steps = ['시작하기', '지역 선택', '취향 설정', '여행지 브루마블', '결과 확인'];
   return (
-    <div className="mb-8">
+    <div id="progress" className="mb-8 container">
       <h2 className="sr-only">단계</h2>
       <ol className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs font-medium text-gray-500">
         {steps.map((title, index) => (
           <li key={title} className="flex items-center gap-2">
             {index + 1 < step ? (
-              <span className="rounded bg-green-50 p-1.5 text-green-600">
+              <span className="rounded bg-green-100/80 p-1.5 text-green-700/90">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-3 w-3"
