@@ -2,13 +2,13 @@
 import RegionSelection from "@/components/common/region-selection";
 import { Button } from "@/components/ui/button";
 
-export default function RegionSelectionStep({ activeRegion, onRegionChange, onNext, onPrevious }: { activeRegion: string; onRegionChange: (region: string) => void; onNext: () => void; onPrevious: () => void }) {
+export default function RegionSelectionStep({ areaName, onRegionChange, onNext, onPrevious }: { areaName: string; onRegionChange: (region: string) => void; onNext: () => void; onPrevious: () => void }) {
   return (
     <>
       <RegionSelection
         page="recommended"
         title="여행지 지역 선택"
-        activeRegion={activeRegion}
+        activeRegion={areaName}
         onRegionChange={onRegionChange}
       />
       <div className="flex justify-center gap-4 mt-8">

@@ -6,54 +6,57 @@ import StepProgress from '@/components/section/recommended/step-progress';
 import StartSection from '@/components/section/recommended/start-section';
 import RegionSelection from '@/components/section/recommended/region-selection-step';
 import PreferenceSelection from '@/components/section/recommended/preference-selection';
-import TravelGameStep from '@/components/section/recommended/travel-game';
+import TravelGameStep from '@/components/section/recommended/travel-game'; // 경로 수정
+import Title from '@/components/common/title';
+import CardLayout from '@/components/layout/card-layout';
+import DestinationCard from '@/components/common/destination-card';
+import { Theme } from '@/store/themeStore';
+import { useRecommendStore } from '@/store/recommendStore';
 
-// 나중에 여행지 추천 결과값
-export function ResultStep({ preferences, activeRegion, onRestart }: { preferences: any; activeRegion: string; onRestart: () => void }) {
+// 결과값
+export function ResultStep({ onRestart }: { onRestart: () => void }) {
+  const movedPositions = useRecommendStore((state) => state.movedPositions);
+
   return (
-    <div className="text-center">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-8">여행 추천 결과</h1>
-      <p className="text-base sm:text-lg mb-4">여기에서 추천된 여행지를 확인하세요!</p>
-      <div>
-        <h2 className="text-xl font-bold mb-4">설문 결과</h2>
-        <ul className="space-y-2">
-          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
-            <span className="font-medium">선택한 지역:</span>
-            <span>{activeRegion}</span>
-          </li>
-          <li className="flex justify-between bg-gray-100 p-4 rounded-lg">
-            <span className="font-medium">선호하는 취향:</span>
-            <span>{preferences.preference}</span>
-          </li>
-        </ul>
+    <section className='py-10 sm:py-16 container max-w-[800px] mx-auto'>
+      <Title className='border-b'>추천 여행지</Title>
+      <CardLayout className='gap-6'>
+        {movedPositions.map((item, i) => (
+          <DestinationCard key={i} location='강원특별자치도 춘천시' title={item} description='정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는' />
+        ))}
+      </CardLayout>
+      <div className='flex justify-center'>
+        <Button onClick={onRestart} variant="primary" className="mt-8">
+          다시 시작
+        </Button>
       </div>
-      <Button onClick={onRestart} variant="primary" className="mt-8">
-        다시 시작
-      </Button>
-    </div>
+    </section>
   );
 }
 
 export default function TravelRecommendations() {
-  const [state, setState] = useState({
-    step: 0,
-    preferences: {
-      preference: '전체',
-    },
-    activeRegion: 'all',
-  });
 
-  const handlePreferenceChange = (newValue: string) => {
+  const [state, setState] = useState<{
+  step: number;
+  theme: Theme;
+  areaName: string;
+}>({
+  step: 0,
+  theme: 'all',
+  areaName: 'all',
+});
+
+  const handlePreferenceChange = (newValue: Theme) => {
     setState(prevState => ({
       ...prevState,
-      preferences: { preference: newValue }
+      theme: newValue
     }));
   };
 
   const handleRegionChange = (region: string) => {
     setState(prevState => ({
       ...prevState,
-      activeRegion: region
+      areaName: region
     }));
   };
 
@@ -81,10 +84,8 @@ export default function TravelRecommendations() {
   const restart = () => {
     setState({
       step: 0,
-      preferences: {
-        preference: '전체',
-      },
-      activeRegion: 'all',
+      theme:'all',
+      areaName: 'all',
     });
   };
 
@@ -95,7 +96,7 @@ export default function TravelRecommendations() {
     case 1:
       return (
         <RegionSelection
-          activeRegion={state.activeRegion}
+          areaName={state.areaName}
           onRegionChange={handleRegionChange}
           onNext={goToNextStep}
           onPrevious={goToPreviousStep}
@@ -104,16 +105,16 @@ export default function TravelRecommendations() {
     case 2:
       return (
         <PreferenceSelection
-          preference={state.preferences.preference}
+          preference={state.theme}
           onPreferenceChange={handlePreferenceChange}
           onNext={goToNextStep}
           onPrevious={goToPreviousStep}
         />
       );
     case 3:
-      return <TravelGameStep onNext={goToNextStep} onPrevious={goToPreviousStep} />;
+      return <TravelGameStep onNext={goToNextStep} onPrevious={goToPreviousStep} theme={state.theme} areaName={state.areaName}/>;
     case 4:
-      return <ResultStep preferences={state.preferences} activeRegion={state.activeRegion} onRestart={restart} />;
+      return <ResultStep onRestart={restart} />;
     default:
       return null;
     }

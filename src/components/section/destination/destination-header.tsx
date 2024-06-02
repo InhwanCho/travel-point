@@ -46,15 +46,15 @@ function HeaderContent({ title, location, tags }: DestinationHeaderProps) {
       <Separator className='my-4' />
       <div className='max-w-[900px] mx-auto'>
         <div className='flex justify-between'>
-          <div className='flex gap-2 items-end'>
+          <div className='flex xsm:gap-2  xsm:flex-row flex-col'>
             <h2 className='sm:text-xl font-bold'>{title}</h2>
-            <StarRating className='ml-1.5' rating={rating} numPeoPle={323} />
+            <StarRating className='xsm:ml-1.5' rating={rating} numPeoPle={323} />
           </div>
           <nav className='flex space-x-2 sm:space-x-4'>
-            <div className='mini-icon'><Bookmark className='size-[18px]' /></div>
-            <div className='mini-icon'><Siren className='size-[18px]' /></div>
+            <div className='mini-icon'><Bookmark className='size-3.5 xsm:size-4' /></div>
+            <div className='mini-icon'><Siren className='size-3.5 xsm:size-4' /></div>
             <div className='mini-icon' onClick={handleCopyClick}>
-              <GoCopy className='size-[18px]' />
+              <GoCopy className='size-3.5 xsm:size-4' />
             </div>
           </nav>
         </div>

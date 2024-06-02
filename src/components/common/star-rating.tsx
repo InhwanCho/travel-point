@@ -13,8 +13,8 @@ export default function StarRating({ rating, numPeoPle, className }: StarRatingP
   const { fullStars, hasHalfStar, emptyStars } = calculateStarRating(rating);
 
   return (
-    <>
-      <div className={cn('flex items-center', className)}>
+    <div className={cn('flex items-center', className)}>
+      <div className='flex items-center'>
         {Array.from({ length: fullStars }).map((_, index) => (
           <FaStar key={index} className="text-yellow-500" />
         ))}
@@ -24,6 +24,6 @@ export default function StarRating({ rating, numPeoPle, className }: StarRatingP
         ))}
       </div>
       {numPeoPle && <span className='text-[12px]'>({numPeoPle})</span> }
-    </>
+    </div>
   );
 }

@@ -26,9 +26,9 @@ export default function Home() {
         <RegionRecommendation />
         <RegionSelection title="다른 지역 여행지 구경가기" page="mainpage" />
         <Separator className="my-10 md:my-20" />
-        {/* 추천 섹션 */}
-        <TrendingDestinations />
-        <Separator className="my-10 md:my-20" />
+        {/* 추천 섹션 - 백엔드 미구현*/}
+        {/* <TrendingDestinations /> */}
+        {/* <Separator className="my-10 md:my-20" /> */}
         {/* 테마 섹션 */}
         <ThemeRecommendation />
         <Separator className="my-10 md:mt-20" />

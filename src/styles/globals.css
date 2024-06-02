@@ -122,7 +122,7 @@
     font-weight: 600;
   }
   .mini-icon{
-    @apply p-1.5 bg-slate-200/60 rounded-full hover:cursor-pointer
+    @apply p-1.5 bg-slate-200/60 rounded-full hover:cursor-pointer max-h-[26px] xsm:max-h-none flex items-center justify-center
   }
 
 }
