@@ -34,7 +34,7 @@ export function RegionsContent() {
       <Separator className='my-10 sm:my-20' />
       <PageLayout>
         <ExploreDestinations
-          data={data || []}
+          data={data?.destinations || []}
           region={region}
           page='regions'
           isLoading={isLoading}

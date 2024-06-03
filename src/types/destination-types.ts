@@ -8,6 +8,13 @@ export interface DestinationType {
   areaCode: string;
 }
 
+export interface DestinationResultType {
+  totalData: number;
+  destinations: DestinationType[];
+  totalPages: number;
+  currentPage: number;
+}
+
 export interface DestinationDetailType extends DestinationType {
   destinationId: number;
   cat1: string;

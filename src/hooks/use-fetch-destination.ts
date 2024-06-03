@@ -12,6 +12,7 @@ import {
 } from "@/types/destination-fetch-props";
 import {
   DestinationDetailType,
+  DestinationResultType,
   DestinationType,
   FestivalType,
 } from "@/types/destination-types";
@@ -22,7 +23,7 @@ export function useFetchDestination({
   count,
   page,
 }: FetchDestinationProps) {
-  return useQuery<DestinationType[], Error>({
+  return useQuery<DestinationResultType, Error>({
     queryKey: ["destinationData", { areaName, count, page }],
     queryFn: ({ queryKey }) =>
       fetchDestination(queryKey[1] as FetchDestinationProps),

@@ -7,6 +7,7 @@ import {
 } from "@/types/destination-fetch-props";
 import {
   DestinationDetailType,
+  DestinationResultType,
   DestinationType,
   FestivalType,
 } from "@/types/destination-types";
@@ -16,7 +17,7 @@ export async function fetchDestination({
   areaName,
   count = "10",
   page = "1",
-}: FetchDestinationProps): Promise<DestinationType[]> {
+}: FetchDestinationProps): Promise<DestinationResultType> {
   return fetchFromApi("/api/destination/location", { areaName, count, page });
 }
 
