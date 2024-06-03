@@ -16,7 +16,7 @@ export default function SiteHeader() {
       const currentScrollPos = window.scrollY;
       const isScrollingUp = prevScrollPos.current > currentScrollPos;
 
-      setIsVisible(isScrollingUp || currentScrollPos < 10);
+      setIsVisible(isScrollingUp || currentScrollPos < 64);
       prevScrollPos.current = currentScrollPos;
     }, 200);
 

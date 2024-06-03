@@ -41,7 +41,7 @@ export function RegionsContent() {
           isError={isError}
           currentPage={currentPage}
           onPageChange={handlePageChange}
-          totalPages={10}
+          totalPages={Number(data?.totalPages)}
         />
       </PageLayout>
     </>
