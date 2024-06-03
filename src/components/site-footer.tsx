@@ -10,12 +10,14 @@ export default function SiteFooter() {
           <div className="text-center flex justify-between max-w-screen-lg mx-auto px-2 sm:px-5">
             <p className="text-xs text-gray-600 ">
               Copyright © {new Date().getFullYear()}{' '}
-              <a href="https://twitter.com/justansub" className="underline">
+              <a href="https://travel-point-umber.vercel.app/" className="underline">
                 Travel Point
               </a>{' '}
             </p>
             <div className="flex gap-4">
-              <ImGithub className="size-5"/>
+              <a href="https://github.com/jaehyeong21/travel_point" target="_blank">
+                <ImGithub className="size-5" />
+              </a>
             </div>
           </div>
         </div>
