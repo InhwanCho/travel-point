@@ -1,17 +1,22 @@
 import React from 'react';
 import Title from '@/components/common/title';
-import { cn } from '@/libs/utils';
+import { cn, formatFestivalIntro } from '@/libs/utils';
 
 interface DestinationDescriptionProps {
   description: string;
+  festivalIntro?: string;
   className?: string
 }
 
-export default function DestinationDescription({ description, className }: DestinationDescriptionProps) {
+export default function DestinationDescription({ description, festivalIntro, className }: DestinationDescriptionProps) {
   return (
     <div className={cn('', className)}>
-      <Title className='justify-start mt-8'>상세 정보</Title>
+      <Title className='justify-start mt-8'>{festivalIntro ? '소개' : '상세 정보'}</Title>
       <p className=''>{description}</p>
+      {festivalIntro && <>        
+        <p dangerouslySetInnerHTML={{ __html: formatFestivalIntro(festivalIntro) }} />
+      </>
+      }
     </div>
   );
 }

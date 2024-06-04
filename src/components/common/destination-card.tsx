@@ -73,7 +73,7 @@ export default function DestinationCard({
   return (
     <div className={`${cn('flex-1', className)}`} {...props}>
       <Link href={
-        FestivalDate ? 
+        Number(contentId) < 100 ? 
           `/festivals/${contentId}?title=${title}&location=${location}`
           : `/destinations/${contentId}?title=${title}&location=${location}`
       }>

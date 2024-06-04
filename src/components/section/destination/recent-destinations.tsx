@@ -64,9 +64,12 @@ export default function RecentDestinations({ newDestination }: RecentDestination
             <p className="text-xs text-gray-700">최근 본 여행지가 없습니다.</p>
           ) : (
             paginatedDestinations.map(destination => (
-              <Link href={`/destinations/${destination.contentId}`}
-                key={destination.contentId}
-                className="flex justify-between items-center border-b border-gray-200 pb-2"
+              <Link href=
+                {Number(destination.contentId) > 100 ?
+                  `/destinations/${destination.contentId}` :
+                  `/festivals/${destination.contentId}`}
+              key={destination.contentId}
+              className="flex justify-between items-center border-b border-gray-200 pb-2"
               >
                 <p className="text-xs text-gray-700 hover:text-gray-900/90">{destination.title}</p>
                 <button

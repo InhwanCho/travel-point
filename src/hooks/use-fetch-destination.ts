@@ -73,7 +73,7 @@ export function useFetchFestival({
   });
 }
 
-export function useFetchFestivalDetail({
+export function useFetchFestivalbyId({
   contentId,
   contentTypeId,
 }: fetchDestinationDetailProps) {

@@ -1,7 +1,8 @@
 
 import HeroSection from '@/components/common/hero-section';
 import PageLayout from '@/components/layout/page-layout';
-import DestinationContent from '@/components/section/destination/destination-content';
+import FestivalContent from '@/components/section/festival/festival-content';
+
 import { Metadata } from 'next';
 
 interface FestivalDetailPageProps {
@@ -19,9 +20,9 @@ export default function FestivalDetailPage({ params }: FestivalDetailPageProps) 
 
   return (
     <main>
-      <HeroSection page='destination' title='축제' subtitle='즐거운 축제' />
+      <HeroSection page='destination' title='지역 축제' subtitle='즐거운 축제' />
       <PageLayout>
-        <DestinationContent slug={params.slug} />
+        <FestivalContent slug={params.slug} />
       </PageLayout>
     </main>
   );

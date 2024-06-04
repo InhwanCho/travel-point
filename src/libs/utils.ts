@@ -84,3 +84,28 @@ export function throttleHelper(callback: () => void, waitTime: number): () => vo
     }
   };
 }
+
+// 축제 상세 정보 포매팅
+export function formatFestivalIntro(intro: string): string {
+  // Split the intro by new lines and filter out empty lines
+  const lines = intro.trim().split('\n').filter(line => line.trim() !== '');
+  
+  let formattedIntro = '';
+  let currentSection = '';
+
+  lines.forEach(line => {
+    if (line.match(/^\d+\./)) {
+      // If the line starts with a number followed by a dot, it's a section header
+      currentSection = line.trim();
+      formattedIntro += `<br><b>${currentSection}</b><br>`;
+    } else if (line.startsWith('-')) {
+      // If the line starts with a dash, it's a list item
+      formattedIntro += `${line.trim()}<br>`;
+    } else {
+      // Otherwise, it's part of the previous item
+      formattedIntro += ` ${line.trim()}`;
+    }
+  });
+
+  return formattedIntro;
+}

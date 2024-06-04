@@ -13,7 +13,6 @@ export interface MapProps {
 export default function KakaoMap({ latitude, longitude, className }: MapProps) {
   useKakaoLoader();
   const [state, setState] = useState({ lat: latitude, lng: longitude-0.000085 });
-  const [isOpen, setIsOpen] = useState(false);
 
   const resetCenter = () => {
     // 기존 위치로 재설정
@@ -23,7 +22,7 @@ export default function KakaoMap({ latitude, longitude, className }: MapProps) {
       setState(prevState => ({ lat: prevState.lat, lng: prevState.lng - 0.000000001 }));
     }, 10);
   };
-
+  
   return (
     <div className={cn('relative', className)}>
       <Map

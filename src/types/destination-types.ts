@@ -9,14 +9,14 @@ export interface DestinationType {
 }
 
 export interface DestinationResultType {
-  totalData: number;
+  totalData: string;
   destinations: DestinationType[];
-  totalPages: number;
-  currentPage: number;
+  totalPages: string;
+  currentPage: string;
 }
 
 export interface DestinationDetailType extends DestinationType {
-  destinationId: number;
+  destinationId: string;
   cat1: string;
   cat2: string;
   cat3: string;
@@ -39,14 +39,14 @@ export interface FestivalType extends DestinationType{
 }
 
 export interface FestivalResultType {
-  totalData: number;
+  totalData: string;
   destinations: FestivalType[];
-  totalPages: number;
-  currentPage: number;
+  totalPages: string;
+  currentPage: string;
 }
 
 export interface FestivalDetailType {
-  contentId: number;
+  contentId: string;
   title: string;
   tel: string;
   areaCode: string;

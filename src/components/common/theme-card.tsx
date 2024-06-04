@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import DestinationCard from '@/components/common/destination-card';
 import { Separator } from '@/components/ui/separator';
@@ -76,7 +76,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
             <span className='flex items-center text-sm'>더보기 <ChevronRight className='size-[15px] ml-[3px]' strokeWidth={1} /></span>
           </button>
         </div>
-        <Image width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden overflow-hidden' priority />
+        <img width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden overflow-hidden' />
         <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] p-4'>
           <Swiper
             onSwiper={setSwiper}
