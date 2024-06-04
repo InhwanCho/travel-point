@@ -38,6 +38,13 @@ export interface FestivalType extends DestinationType{
   endDate: string;
 }
 
+export interface FestivalResultType {
+  totalData: number;
+  destinations: FestivalType[];
+  totalPages: number;
+  currentPage: number;
+}
+
 export interface FestivalDetailType {
   contentId: number;
   title: string;

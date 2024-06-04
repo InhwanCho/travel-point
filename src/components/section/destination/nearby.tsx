@@ -3,12 +3,13 @@ import DestinationCard from '@/components/common/destination-card';
 import CardLayout from '@/components/layout/card-layout';
 import Title from '@/components/common/title';
 import { cn } from '@/libs/utils';
+import { useFetchNearby } from '@/hooks/use-fetch-destination';
+import { MapProps } from '@/components/common/map';
 
-interface NearbyProps {
-  className?: string
-}
-
-export default function Nearby({ className }: NearbyProps) {
+export default function Nearby({ latitude, longitude, className }: MapProps) {
+  // const { data, isError, isLoading } = useFetchNearby({latitude:String(latitude),longitude:String(longitude)});
+  // console.log(data);
+  // console.log(latitude,longitude);
   return (
     <section className={cn('py-10 sm:py-16', className)}>
       <Title className='border-b'>주변 여행지</Title>

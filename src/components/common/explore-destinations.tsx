@@ -6,12 +6,12 @@ import Title from '@/components/common/title';
 import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
 import DestinationPagination from '@/components/common/destination-pagination';
-import { DestinationType } from '@/types/destination-types';
+import { DestinationType, FestivalType } from '@/types/destination-types';
 import { Theme, useThemeStore } from '@/store/themeStore';
 import { themeCategories } from '@/types/destination-fetch-props';
 
 interface ExploreDestinationsProps {
-  data: DestinationType[];
+  data: DestinationType[] | FestivalType[];
   region?: string;
   page: string;
   isLoading: boolean;
@@ -19,6 +19,10 @@ interface ExploreDestinationsProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   totalPages: number;
+}
+
+function isFestivalType(destination: DestinationType | FestivalType): destination is FestivalType {
+  return (destination as FestivalType).startDate !== undefined;
 }
 
 // 브라우저 창 크기에 따라 카드 나누는 수를 계산하는 함수
@@ -114,13 +118,22 @@ export default function ExploreDestinations({
               </React.Fragment>
             ))}
           </>
-        ) : (
-          <>
-            <li>전체</li>
-            <Separator orientation="vertical" />
-            <li>후기순</li>
-          </>
-        )}
+        ) : page === 'festivals' ?
+          (
+            <>
+              <li>전체</li>
+              <Separator orientation="vertical" />
+              <li>진행 중</li>
+            </>
+          )
+          : (
+            <>
+              <li>전체</li>
+              <Separator orientation="vertical" />
+              <li>후기순</li>
+            </>
+          )}
+
       </div>
       <Separator />
 
@@ -137,6 +150,11 @@ export default function ExploreDestinations({
                 <DestinationCard
                   isSmallSize
                   className="col-span-1 first:ml-0"
+                  FestivalDate={
+                    isFestivalType(destination)
+                      ? { startDate: destination.startDate, endDate: destination.endDate }
+                      : undefined
+                  }
                   contentId={destination.contentId}
                   imageSrc={destination.firstImage}
                   location={destination.location}

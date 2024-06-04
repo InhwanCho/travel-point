@@ -83,6 +83,22 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
         </PaginationItem>
       ))}
       {showRightEllipsis &&
+        totalPages === 5 ? <>          
+          <PaginationItem>
+            <PaginationLink
+              href={createPageUrl ? createPageUrl(totalPages) : '#mainSection'}
+              onClick={(e) => {
+                e.preventDefault();
+                if (!isDisabled) {
+                  onPageChange(totalPages);
+                }
+              }}
+              disabled={isDisabled}
+            >
+              {totalPages}
+            </PaginationLink>
+          </PaginationItem>
+        </> :
         totalPages < 10 ? (
           <>
             <PaginationItem>

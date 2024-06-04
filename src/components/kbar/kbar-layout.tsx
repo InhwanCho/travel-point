@@ -4,31 +4,19 @@ import { KBarAnimator, KBarPortal, KBarPositioner, KBarSearch, KBarProvider, Act
 import { useRouter } from "next/navigation";
 import { Book, Home, Search } from "lucide-react";
 import RenderResults from "@/components/kbar/kbar-result";
+import searchData from "@/data/searchIndex.json";
 
 export default function KbarLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
-  const searchIndex = [];
-
-  for (let i = 1; i <= 7999; i++) {
-    searchIndex.push({
-      id: i.toString(),
-      name: `Fake Place ${i}`,
-      subtitle: `Fake Subtitle ${i}`,
-      perform: () => router.push(`/destinations/${i}`),
-      parent: "search",
-      section: 'Destinations',
-    });
-  }
-  // 마지막 데이터 추가
-  searchIndex.push({
-    id: "126273",
-    name: "불국사",
-    subtitle: "경상북도 경주시",
-    perform: () => router.push('/destinations/126273'),
+  const searchIndex = searchData.map((item, index) => ({
+    id: item.contentId,
+    name: item.title,
+    subtitle: "Destination",
+    perform: () => router.push(`/destinations/${item.contentId}`),
     parent: "search",
     section: 'Destinations',
-  });
+  }));
 
   const actions: Action[] = [
     {

@@ -2,6 +2,7 @@
 import {
   fetchDestinationDetailProps,
   FetchDestinationProps,
+  fetchNearbyProps,
   fetchThemeDestinationByCatProps,
   themeCategories,
 } from "@/types/destination-fetch-props";
@@ -9,7 +10,8 @@ import {
   DestinationDetailType,
   DestinationResultType,
   DestinationType,
-  FestivalType,
+  FestivalDetailType,
+  FestivalResultType,
 } from "@/types/destination-types";
 import { fetchFromApi } from "@/services/fetch-api";
 
@@ -23,7 +25,7 @@ export async function fetchDestination({
 
 export async function fetchDestinationById({
   contentId,
-  contentTypeId = '12',
+  contentTypeId = "12",
 }: fetchDestinationDetailProps): Promise<DestinationDetailType> {
   return fetchFromApi(`/api/destination/contentId`, {
     contentId,
@@ -41,11 +43,36 @@ export async function fetchThemeDestinationByCat({
   return fetchFromApi("/api/theme/type", { areaName, count, page, cat1, cat2 });
 }
 
-export async function fetchFestivals({
+export async function fetchFestival({
   areaName,
   count = "16",
   page = "1",
   sort,
-}: FetchDestinationProps): Promise<FestivalType[]> {
-  return fetchFromApi("/api/festival/location", { areaName, count, page, sort });
+}: FetchDestinationProps): Promise<FestivalResultType> {
+  return fetchFromApi("/api/festival/location", {
+    areaName,
+    count,
+    page,
+    sort,
+  });
+}
+
+export async function fetchFestivalDetail({
+  contentId,
+  contentTypeId = "15",
+}: fetchDestinationDetailProps): Promise<FestivalDetailType> {
+  return fetchFromApi("/api/festival/contentId", {
+    contentId,
+    contentTypeId,
+  });
+}
+
+export async function fetchNearby({
+  latitude,
+  longitude,
+}: fetchNearbyProps): Promise<DestinationType[]> {
+  return fetchFromApi("/api/destination/nearby", {
+    latitude,
+    longitude,
+  });
 }

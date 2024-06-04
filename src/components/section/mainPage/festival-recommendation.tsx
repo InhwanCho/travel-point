@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import DestinationCard from '@/components/common/destination-card';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-
 import Title from '@/components/common/title';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -121,7 +120,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
               </SwiperSlide>
             ))
             : data &&
-            data.map((item, i) => (
+            data.destinations.map((item, i) => (
               <SwiperSlide key={i}>
                 <DestinationCard
                   FestivalDate={{ startDate: item.startDate, endDate: item.endDate }}
@@ -130,7 +129,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
                   title={item.title}
                   description={item.destinationDescription}
                   imageSrc={item.firstImage}
-                  contentId={item.contentId}
+                  contentId={item.contentId}                  
                 />
               </SwiperSlide>
             ))}

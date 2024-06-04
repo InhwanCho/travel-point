@@ -26,3 +26,7 @@ export interface fetchDestinationDetailProps{
   contentTypeId?: string
 }
 
+export interface fetchNearbyProps {
+  latitude: string;
+  longitude: string;
+}

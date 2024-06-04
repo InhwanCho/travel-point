@@ -4,13 +4,13 @@ import useKakaoLoader from "@/contexts/use-kakao-loader";
 import { useState } from "react";
 import { cn } from "@/libs/utils";
 
-interface KakaoMapProps {
+export interface MapProps {
   latitude: number;
   longitude: number;
   className?: string
 }
 
-export default function KakaoMap({ latitude, longitude, className }: KakaoMapProps) {
+export default function KakaoMap({ latitude, longitude, className }: MapProps) {
   useKakaoLoader();
   const [state, setState] = useState({ lat: latitude, lng: longitude-0.000085 });
   const [isOpen, setIsOpen] = useState(false);
