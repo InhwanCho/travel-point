@@ -25,7 +25,7 @@ export async function fetchDestination({
 
 export async function fetchDestinationById({
   contentId,
-  contentTypeId = "12",
+  contentTypeId,
 }: fetchDestinationDetailProps): Promise<DestinationDetailType> {
   return fetchFromApi(`/api/destination/contentId`, {
     contentId,
@@ -38,9 +38,11 @@ export async function fetchThemeDestinationByCat({
   count = "8",
   page = "1",
   theme,
+  random = 'false'
 }: fetchThemeDestinationByCatProps): Promise<DestinationType[]> {
   const { cat1, cat2 } = themeCategories[theme];
-  return fetchFromApi("/api/theme/type", { areaName, count, page, cat1, cat2 });
+  
+  return fetchFromApi("/api/theme/type", { areaName, count, page, cat1, cat2, random });
 }
 
 export async function fetchFestival({
@@ -70,14 +72,14 @@ export async function fetchFestivalDetail({
 export async function fetchNearby({
   latitude,
   longitude,
-  areaName,
+  areaCode,
   count = "4",
   contentId,
 }: fetchNearbyProps): Promise<DestinationType[]> {
   return fetchFromApi("/api/destination/nearby", {
     latitude,
     longitude,
-    areaName,
+    areaCode,
     count,
     contentId,
   });

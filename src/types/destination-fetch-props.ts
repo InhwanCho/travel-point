@@ -18,6 +18,7 @@ export interface fetchThemeDestinationByCatProps {
   areaName?: string;
   count: string;
   page: string;
+  random?: 'true' | 'false';
   theme: keyof typeof themeCategories;
 }
 
@@ -29,7 +30,7 @@ export interface fetchDestinationDetailProps {
 export interface fetchNearbyProps {
   latitude?: string;
   longitude?: string;
-  areaName?: string;
+  areaCode?: string;
   count: string;
   contentId: string;
 }

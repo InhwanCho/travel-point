@@ -9,12 +9,12 @@ import { MapProps } from '@/components/common/map';
 interface NearbyProps extends MapProps {
   contentId: string;
   count: string;
-  areaName?: string
+  areaCode?: string
 }
 
-export default function Nearby({ latitude, longitude, count, areaName, contentId, className }: NearbyProps) {
+export default function Nearby({ latitude, longitude, count, areaCode, contentId, className }: NearbyProps) {
   const { data, isError, isLoading } = useFetchNearby(
-    { latitude: String(longitude), longitude: String(latitude), areaName: areaName, count: count, contentId: contentId });
+    { latitude: String(longitude), longitude: String(latitude), areaCode: areaCode, count: count, contentId: contentId });
 
   return (
     <section className={cn('py-10 sm:py-16', className)}>

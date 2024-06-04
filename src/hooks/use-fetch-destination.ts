@@ -50,9 +50,10 @@ export function useFetchThemeDestinationByCat({
   count,
   page,
   theme,
+  random,
 }: fetchThemeDestinationByCatProps) {
   return useQuery<DestinationType[], Error>({
-    queryKey: ["themedestinationData", { areaName, count, page, theme }],
+    queryKey: ["themedestinationData", { areaName, count, page, theme, random }],
     queryFn: ({ queryKey }) =>
       fetchThemeDestinationByCat(
         queryKey[1] as fetchThemeDestinationByCatProps
@@ -84,11 +85,11 @@ export function useFetchFestivalbyId({
   });
 }
 
-export function useFetchNearby({ latitude, longitude, areaName, count, contentId }: fetchNearbyProps) {
+export function useFetchNearby({ latitude, longitude, areaCode, count, contentId }: fetchNearbyProps) {
   return useQuery<DestinationType[], Error>({
     queryKey: [
       "nearbyData",
-      { latitude, longitude, areaName, count, contentId },
+      { latitude, longitude, areaCode, count, contentId },
     ],
     queryFn: ({ queryKey }) => fetchNearby(queryKey[1] as fetchNearbyProps),
   });

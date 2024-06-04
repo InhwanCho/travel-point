@@ -16,7 +16,7 @@ interface MonopolyContentProps {
 
 export default function MonopolyContent({ theme, areaName }: MonopolyContentProps) {
   const regionPath = REGIONS.find((r) => r.name === areaName)?.path || '';
-  const { data } = useFetchThemeDestinationByCat({ areaName: regionPath, count: '24', theme: theme, page: '1' });
+  const { data } = useFetchThemeDestinationByCat({ areaName: regionPath, count: '24', theme: theme, page: '1', random: 'true' });
 
   const { setMovedPositions, movedPositions: previousMovedPositions } = useRecommendStore((state) => ({
     setMovedPositions: state.setMovedPositions,
@@ -98,15 +98,15 @@ export default function MonopolyContent({ theme, areaName }: MonopolyContentProp
       }
       totalDelay += 500;
     });
-    
-    
+
+
     setTimeout(() => {
       setIsMoving(false);
       setMovedPositions(movedPositions);
       console.log(movedPositions);
     }, totalDelay);
   };
-  
+
   // 보드의 각 셀을 렌더링하는 함수
   const renderBoardCell = (i: number) => {
     const { content, needsPadding } = getCellContent(i);

@@ -75,7 +75,7 @@ export const pageColors = {
 
 export const placeholderImageBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEYCAIAAAD9PjcuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAsdJREFUeNrs1DENAAAIwDDAvzkOLsygg6SVsGPZswHwQUkAGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYgGEBGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYgGEBGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYAIYFGBaAYQEYFmBYAIYFYFiAYQEYFoBhAYYFYFiAYQEYFoBhAYYFYFgAhgUYFoBhARgWYFgAhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBZgWBIAhgVgWIBhARgWgGEBhgVgWACGBRgWgGEBGBZgWACGBWBYgGEBGBaAYQGGBWBYAIYF/HcCDAANqASx22VIMwAAAABJRU5ErkJggg==';
 
-export const CATEGORIES:CategoryMapping = {
+export const CATEGORIES: CategoryMapping = {
   A01: {
     name: '자연',
     subCategories: {
@@ -102,13 +102,6 @@ export const CATEGORIES:CategoryMapping = {
           A01011900: '동굴',
         },
       },
-      // A0102: {
-      //   name: '관광자원',
-      //   details: {
-      //     A01020100: '희귀동.식물',
-      //     A01020200: '기암괴석',
-      //   },
-      // },
     },
   },
   A02: {
@@ -163,6 +156,42 @@ export const CATEGORIES:CategoryMapping = {
   A03: {
     name: '레포츠',
     subCategories: {
+      A0301: {
+        name: '레포츠소개',
+        details: {
+          A03010200: '수상레포츠',
+          A03010300: '항공레포츠',
+        },
+      },
+      A0302: {
+        name: '육상 레포츠',
+        details: {
+          A03020200: '수련시설',
+          A03020300: '경기장',
+          A03020400: '인라인(실내 인라인 포함)',
+          A03020500: '자전거하이킹',
+          A03020600: '카트',
+          A03020700: '골프',
+          A03020800: '경마',
+          A03020900: '경륜',
+          A03021000: '카지노',
+          A03021100: '승마',
+          A03021200: '스키/스노보드',
+          A03021300: '스케이트',
+          A03021400: '썰매장',
+          A03021500: '수렵장',
+          A03021600: '사격장',
+          A03021700: '야영장,오토캠핑장',
+          A03021800: '암벽등반',
+          A03022000: '서바이벌게임',
+          A03022100: 'ATV',
+          A03022200: 'MTB',
+          A03022300: '오프로드',
+          A03022400: '번지점프',
+          A03022600: '스키(보드) 렌탈샵',
+          A03022700: '트래킹',
+        },
+      },
       A0303: {
         name: '수상 레포츠',
         details: {
@@ -183,6 +212,12 @@ export const CATEGORIES:CategoryMapping = {
           A03040200: '초경량비행',
           A03040300: '헹글라이딩/패러글라이딩',
           A03040400: '열기구',
+        },
+      },
+      A0305: {
+        name: '복합 레포츠',
+        details: {
+          A03050100: '복합 레포츠',
         },
       },
     },
