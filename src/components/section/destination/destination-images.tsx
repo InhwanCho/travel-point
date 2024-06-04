@@ -60,19 +60,30 @@ export default function DestinationCarousel({ image, images, title }: Destinatio
         className="w-full"
       >
         <CarouselContent className="flex">
-          {image && <img src={image} alt="festival image" width={800} height={550} />}
+          {image &&
+            <Image
+              src={image}
+              alt={`${title} Image`}
+              width={800}
+              height={550}
+              className="object-cover w-full aspect-[16/11]"
+              sizes="(max-width: 640px) 500px, (max-width: 1200px) 800px, 760px"
+              priority
+              placeholder='blur'
+              blurDataURL={placeholderImageBase64}
+            />}
           {images && images.map((src, index) => (
             <CarouselItem key={index} className="relative w-full">
-              <img
+              <Image
                 src={src}
                 alt={`${title} Image ${index}`}
                 width={800}
                 height={550}
                 className="object-cover w-full aspect-[16/11]"
                 sizes="(max-width: 640px) 500px, (max-width: 1200px) 800px, 760px"
-              // priority
-              // placeholder='blur'
-              // blurDataURL={placeholderImageBase64}
+                priority
+                placeholder='blur'
+                blurDataURL={placeholderImageBase64}
               />
             </CarouselItem>
           ))}

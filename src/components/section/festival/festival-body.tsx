@@ -74,7 +74,7 @@ export default function FestivalBody({ data, isLoading, isError }: FestivalBodyP
     { label: '홈페이지', value: data.homepage },
     { label: '주소', value: data.location },
     { label: '문의 및 안내', value: data.tel },
-    { label: '시간', value: data.useTime },
+    { label: '시간', value: data.useTime.replace('<br>',' ') },
     { label: '날짜', value: formatDateRange(data.startDate, data.endDate) },
     { label: '이용요금', value: data.charge },    
   ].filter(detail => detail.value);
@@ -97,7 +97,7 @@ export default function FestivalBody({ data, isLoading, isError }: FestivalBodyP
             <DestinationDescription description={data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} festivalIntro={data.introduction}/>
             <KakaoMap latitude={Number(data.mapX)} longitude={Number(data.mapY)} className='my-10' />
             <DestinationInfo details={destinationDetails} contentTypeId={data.contentId} />            
-            <Nearby latitude={Number(data.mapX)} longitude={Number(data.mapY)} />
+            <Nearby count='4' contentId={data.contentId} latitude={Number(data.mapX)} longitude={Number(data.mapY)}/>
             <DestinationBlog title={data.title} />
           </Suspense>
         </main>

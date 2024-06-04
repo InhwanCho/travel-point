@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { X } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
@@ -19,6 +19,7 @@ const ITEMS_PER_PAGE = 6;
 export default function RecentDestinations({ newDestination }: RecentDestinationsProps) {
   const [destinations, setDestinations] = useState<DestinationType[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const shouldUpdateLocalStorage = useRef(true);
 
   useEffect(() => {
     const storedDestinations = localStorage.getItem('recentDestinations');
@@ -28,7 +29,7 @@ export default function RecentDestinations({ newDestination }: RecentDestination
   }, []);
 
   useEffect(() => {
-    if (newDestination) {
+    if (newDestination && shouldUpdateLocalStorage.current) {
       setDestinations(prevDestinations => {
         const isDuplicate = prevDestinations.some(d => d.contentId === newDestination.contentId);
         if (!isDuplicate) {
@@ -38,10 +39,13 @@ export default function RecentDestinations({ newDestination }: RecentDestination
         }
         return prevDestinations;
       });
+    } else {
+      shouldUpdateLocalStorage.current = true; 
     }
   }, [newDestination]);
 
   const removeDestination = (contentId: string) => {
+    shouldUpdateLocalStorage.current = false; // 현재 페이지에서 삭제 버튼 눌렀을때, 다시 저장 방지.
     const updatedDestinations = destinations.filter(d => d.contentId !== contentId);
     setDestinations(updatedDestinations);
     localStorage.setItem('recentDestinations', JSON.stringify(updatedDestinations));
@@ -101,7 +105,5 @@ export default function RecentDestinations({ newDestination }: RecentDestination
         )}
       </div>
     </aside>
-
-
   );
 }

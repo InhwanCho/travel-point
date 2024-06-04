@@ -101,7 +101,7 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
             <KakaoMap latitude={Number(data.mapY)} longitude={Number(data.mapX)} className='my-10' />
             <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />            
             <DestinationComment />
-            <Nearby latitude={Number(data.mapY)} longitude={Number(data.mapX)}/>
+            <Nearby count='4' contentId={data.contentId} latitude={Number(data.mapY)} longitude={Number(data.mapX)}/>
             <DestinationBlog title={data.title} />
           </Suspense>
         </main>

@@ -70,9 +70,15 @@ export async function fetchFestivalDetail({
 export async function fetchNearby({
   latitude,
   longitude,
+  areaName,
+  count = "4",
+  contentId,
 }: fetchNearbyProps): Promise<DestinationType[]> {
   return fetchFromApi("/api/destination/nearby", {
     latitude,
     longitude,
+    areaName,
+    count,
+    contentId,
   });
 }

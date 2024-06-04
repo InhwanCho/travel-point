@@ -84,9 +84,12 @@ export function useFetchFestivalbyId({
   });
 }
 
-export function useFetchNearby({ latitude, longitude }: fetchNearbyProps) {
+export function useFetchNearby({ latitude, longitude, areaName, count, contentId }: fetchNearbyProps) {
   return useQuery<DestinationType[], Error>({
-    queryKey: ["nearbyData", { latitude, longitude }],
+    queryKey: [
+      "nearbyData",
+      { latitude, longitude, areaName, count, contentId },
+    ],
     queryFn: ({ queryKey }) => fetchNearby(queryKey[1] as fetchNearbyProps),
   });
 }

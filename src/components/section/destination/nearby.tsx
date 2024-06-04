@@ -6,16 +6,22 @@ import { cn } from '@/libs/utils';
 import { useFetchNearby } from '@/hooks/use-fetch-destination';
 import { MapProps } from '@/components/common/map';
 
-export default function Nearby({ latitude, longitude, className }: MapProps) {
-  // const { data, isError, isLoading } = useFetchNearby({latitude:String(latitude),longitude:String(longitude)});
-  // console.log(data);
-  // console.log(latitude,longitude);
+interface NearbyProps extends MapProps {
+  contentId: string;
+  count: string;
+  areaName?: string
+}
+
+export default function Nearby({ latitude, longitude, count, areaName, contentId, className }: NearbyProps) {
+  const { data, isError, isLoading } = useFetchNearby(
+    { latitude: String(longitude), longitude: String(latitude), areaName: areaName, count: count, contentId: contentId });
+
   return (
     <section className={cn('py-10 sm:py-16', className)}>
       <Title className='border-b'>주변 여행지</Title>
       <CardLayout className='gap-6'>
-        {[...Array(4)].map((item, i) => (
-          <DestinationCard key={i} location='강원특별자치도 춘천시' title='대관령 삼양목장' description='정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는정답게 이야기를 나눌 수 있는' />
+        {data && data.map((item, i) => (
+          <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
         ))}
       </CardLayout>
     </section>
