@@ -39,7 +39,7 @@ export async function fetchThemeDestinationByCat({
   page = "1",
   theme,
   random = 'false'
-}: fetchThemeDestinationByCatProps): Promise<DestinationType[]> {
+}: fetchThemeDestinationByCatProps): Promise<DestinationResultType> {
   const { cat1, cat2 } = themeCategories[theme];
   
   return fetchFromApi("/api/theme/type", { areaName, count, page, cat1, cat2, random });

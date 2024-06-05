@@ -83,7 +83,7 @@ export default function FestivalBody({ data, isLoading, isError }: FestivalBodyP
     location: data.location.split(' ').slice(0, 2).join(' '),
     title: data.title,
     firstImage: data.firstImage,
-    destinationDescription: data.destinationDescription.slice(0, 55),
+    destinationDescription:  data.destinationDescription ? data.destinationDescription.slice(0, 55): '',
     contentId: data.contentId
   };
   
@@ -94,7 +94,7 @@ export default function FestivalBody({ data, isLoading, isError }: FestivalBodyP
         <main className="flex p-2.5 flex-col sm:p-6 xl:p-0 w-full">
           <DestinationImages image={data.firstImage} title={data.title} />
           <Suspense fallback={null}>
-            <DestinationDescription description={data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} festivalIntro={data.introduction}/>
+            <DestinationDescription description={data.destinationDescription && data.destinationDescription.replace(/<\/?[^>]+(>|$)/g, "")} festivalIntro={data.introduction}/>
             <KakaoMap latitude={Number(data.mapX)} longitude={Number(data.mapY)} className='my-10' />
             <DestinationInfo details={destinationDetails} contentTypeId={data.contentId} />            
             <Nearby count='4' contentId={data.contentId} latitude={Number(data.mapX)} longitude={Number(data.mapY)}/>

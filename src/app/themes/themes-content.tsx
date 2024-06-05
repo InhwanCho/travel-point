@@ -38,14 +38,14 @@ export function ThemesContent() {
       <Separator className='my-10 sm:my-20' />
       <PageLayout>
         <ExploreDestinations
-          data={data || []}
+          data={data?.destinations || []}
           region={region}
           page='themes'
           isLoading={isLoading}
           isError={isError}
           currentPage={currentPage}
           onPageChange={handlePageChange}
-          totalPages={10}
+          totalPages={Number(data?.totalPages)}
         />
       </PageLayout>
     </>

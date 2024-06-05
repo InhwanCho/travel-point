@@ -9,7 +9,7 @@ interface AuthPageProps {
   isModal?: boolean;
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({ isModal = true }) => {
+export default function AuthPage({ isModal = true }: AuthPageProps) {
   const router = useRouter();
 
   const backbtn = useCallback(() => {
@@ -26,7 +26,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ isModal = true }) => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (isModal && modalRef.current && !modalRef.current.contains(event.target as Node)) {
         backbtn();
       }
     };
@@ -60,4 +60,4 @@ const AuthPage: React.FC<AuthPageProps> = ({ isModal = true }) => {
   );
 };
 
-export default AuthPage;
+

@@ -50,9 +50,9 @@ export function useFetchThemeDestinationByCat({
   count,
   page,
   theme,
-  random,
+  random = 'false',
 }: fetchThemeDestinationByCatProps) {
-  return useQuery<DestinationType[], Error>({
+  return useQuery<DestinationResultType, Error>({
     queryKey: ["themedestinationData", { areaName, count, page, theme, random }],
     queryFn: ({ queryKey }) =>
       fetchThemeDestinationByCat(

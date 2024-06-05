@@ -5,7 +5,7 @@ import InputField from '@/components/section/auth/input-field';
 import RememberMeCheckbox from '@/components/section/auth/remember-check';
 import SubmitButton from '@/components/section/auth/submit-button';
 import ForgotPasswordLink from '@/components/section/auth/forget-password';
-import OauthOptions from '@/components/section/auth/Oauth-options';
+import OauthOptions from '@/components/section/auth/oauth-options';
 
 interface LoginSectionProps {
   toggleForm: () => void;
@@ -24,7 +24,7 @@ export default function LoginSection({ toggleForm, register, handleSubmit }: Log
         </button>
       </p>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <InputField label="이메일 주소" id="email" name="email" type="email" autoComplete="email" register={register} required />
+        <InputField label="이메일 주소 혹은 이름" id="email" name="email" type="email" autoComplete="email" register={register} required />
         <InputField label="비밀번호" id="password" name="password" type="password" autoComplete="current-password" register={register} required />
         <div className="flex items-center justify-between">
           <RememberMeCheckbox />

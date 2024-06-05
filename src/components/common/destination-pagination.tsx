@@ -18,6 +18,7 @@ interface DestinationPaginationProps {
 export default function DestinationPagination({ currentPage, totalPages, onPageChange, createPageUrl }: DestinationPaginationProps) {
   const [isDisabled, setIsDisabled] = useState(false);
   const pageNumbers = generatePageNumbers(currentPage, totalPages);
+  
 
   const handlePageChange = (page: number) => {
     if (!isDisabled) {

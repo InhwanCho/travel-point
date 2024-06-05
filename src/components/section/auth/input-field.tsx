@@ -7,7 +7,7 @@ interface InputFieldProps {
   id: string;
   name: string;
   type: string;
-  autoComplete: string;
+  autoComplete?: string;
   register: UseFormRegister<any>;
   required: boolean;
 }
@@ -20,7 +20,7 @@ export default function InputField({ label, id, name, type, autoComplete, regist
       </label>
       <div className="mt-1">
         <input
-          autoComplete={autoComplete}
+          autoComplete={autoComplete}          
           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           id={id}
           type={type}

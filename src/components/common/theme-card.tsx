@@ -103,7 +103,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
                   <DestinationCard isError />
                 </SwiperSlide>)
               )) : (
-              data && data.map((item, index) => (
+              data && data.destinations.map((item, index) => (
                 <SwiperSlide key={index}>
                   <DestinationCard
                     priority={index === 0 ? true : false}

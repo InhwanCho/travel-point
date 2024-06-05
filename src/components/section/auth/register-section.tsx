@@ -1,11 +1,10 @@
 
 import React from 'react';
-import { UseFormRegister, SubmitHandler, FieldValues } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { Separator } from '@/components/ui/separator';
 import InputField from '@/components/section/auth/input-field';
 import SubmitButton from '@/components/section/auth/submit-button';
-import OauthOptions from '@/components/section/auth/Oauth-options';
-
+import OauthOptions from '@/components/section/auth/oauth-options';
 
 interface RegisterSectionProps {
   toggleForm: () => void;
@@ -26,7 +25,7 @@ export default function RegisterSection({ toggleForm, register, handleSubmit }: 
       </p>
       <form onSubmit={handleSubmit} className="space-y-6">
         <InputField label="이메일 주소" id="email" name="email" type="email" autoComplete="email" register={register} required />
-        <InputField label="이름" id="userName" name="userName" type="text" autoComplete="tel" register={register} required />
+        <InputField label="이름" id="name" name="name" type="text" autoComplete="name" register={register} required />
         <InputField label="비밀번호" id="password" name="password" type="password" autoComplete="new-password" register={register} required />
         <InputField label="비밀번호 확인" id="confirm-password" name="confirmPassword" type="password" autoComplete="new-password" register={register} required />
         <Separator />

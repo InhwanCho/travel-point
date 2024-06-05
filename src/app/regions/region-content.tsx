@@ -27,7 +27,7 @@ export function RegionsContent() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
+  
   return (
     <>
       <RegionSelection page='regions' title='여행지 지역 탐색' activeRegion={activeRegion} />

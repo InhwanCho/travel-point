@@ -39,7 +39,7 @@ export default function MonopolyContent({ theme, areaName }: MonopolyContentProp
     const cellMap = new Map<number, string>();
     path.forEach((pos, index) => {
       if (data) {
-        cellMap.set(pos, data[index]?.title || '');
+        cellMap.set(pos, data.destinations[index]?.title || '');
       }
     });
     return cellMap;
@@ -86,8 +86,8 @@ export default function MonopolyContent({ theme, areaName }: MonopolyContentProp
           if (i === diceNumber) {
             newBoard[newPosition] = 'bg-green-100/70';
             const dataIndex = path.indexOf(newPosition);
-            if (data && data[dataIndex]) {
-              const position = data[dataIndex];
+            if (data && data.destinations[dataIndex]) {
+              const position = data.destinations[dataIndex];
               if (!movedPositions.some(item => item.title === position.title)) {
                 movedPositions.push(position);
               }

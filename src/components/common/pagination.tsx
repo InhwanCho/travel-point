@@ -83,7 +83,7 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
         </PaginationItem>
       ))}
       {showRightEllipsis &&
-        totalPages === 5 ? <>          
+        totalPages === 5 ? <>
           <PaginationItem>
             <PaginationLink
               href={createPageUrl ? createPageUrl(totalPages) : '#mainSection'}
@@ -99,7 +99,7 @@ export function renderPageNumbers({ pageNumbers, currentPage, totalPages, onPage
             </PaginationLink>
           </PaginationItem>
         </> :
-        totalPages < 10 ? (
+        totalPages < 15 ? (
           <>
             <PaginationItem>
               <PaginationEllipsis className="px-3 py-1" />
