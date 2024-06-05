@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 export default function LoginBtn() {
-  const token = true;
+  const token = false;
   const router = useRouter();
   const [popoverOpen, setPopoverOpen] = useState(false);
 

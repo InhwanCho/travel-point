@@ -3,10 +3,12 @@ import { CategoryName } from "@/types/categoriy-types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// 클래스 merge
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// null or ''인 경우 제거하고 리스트로 만듬
 export const filterArray = (arr: (string | null)[]): string[] => {
   return arr.filter((item): item is string => item !== null && item !== "");
 };
@@ -72,6 +74,7 @@ export function getCategoryName(cat1: string, cat2: string, cat3: string): Categ
   };
 }
 
+// throttleHelper - 과한 스크롤 추적 방지
 export function throttleHelper(callback: () => void, waitTime: number): () => void {
   let timerId: ReturnType<typeof setTimeout> | null = null;
 

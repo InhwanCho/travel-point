@@ -46,7 +46,7 @@ export default function SiteHeader() {
           <Logo />
           <MainNav />
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-6 items-center">
               {/* TODO: search, login 나중에 손보기 */}
               <KBarButton />
               <LoginBtn />

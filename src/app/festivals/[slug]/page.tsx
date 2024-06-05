@@ -20,7 +20,7 @@ export default function FestivalDetailPage({ params }: FestivalDetailPageProps) 
 
   return (
     <main>
-      <HeroSection page='destination' title='지역 축제' subtitle='즐거운 축제' />
+      <HeroSection page='destination' title='축제' subtitle='즐거운 축제' />
       <PageLayout>
         <FestivalContent slug={params.slug} />
       </PageLayout>
