@@ -83,7 +83,7 @@ export default function DestinationCard({
             height={isSmallSize ? 123 : 200}
             src={imageSrc || '/img/sample.avif'}
             alt={`${title} image` || 'sample image'}
-            className='rounded-sm w-full object-cover aspect-[16/11]'
+            className='rounded-sm w-full object-cover aspect-[16/11] h-auto'
             quality={isSmallSize ? 40 : 60}
             sizes={isSmallSize ? "(max-width: 640px) 173px, (max-width: 1200px) 148px, 180px" : "(max-width: 640px) 300px, (max-width: 1200px) 180px, 220px"}
             priority={priority}

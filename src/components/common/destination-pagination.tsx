@@ -18,7 +18,9 @@ interface DestinationPaginationProps {
 export default function DestinationPagination({ currentPage, totalPages, onPageChange, createPageUrl }: DestinationPaginationProps) {
   const [isDisabled, setIsDisabled] = useState(false);
   const pageNumbers = generatePageNumbers(currentPage, totalPages);
-  
+
+  if (totalPages < 1) return;
+
 
   const handlePageChange = (page: number) => {
     if (!isDisabled) {
@@ -26,7 +28,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
       onPageChange(page);
       setTimeout(() => {
         setIsDisabled(false);
-      }, 600); //무한 클릭 방지
+      }, 800); //무한 클릭 방지
     }
   };
 
@@ -49,7 +51,7 @@ export default function DestinationPagination({ currentPage, totalPages, onPageC
 
         <PaginationItem>
           <PaginationNext
-            className='sm:ml-0 ml-7'
+            className='sm:mx-0 ml-7 mr-3'
             href={createPageUrl ? createPageUrl(Math.min(currentPage + 1, totalPages)) : '#mainSection'}
             onClick={(e) => {
               e.preventDefault();

@@ -20,7 +20,7 @@ export default function AuthPage({ isModal = true }: AuthPageProps) {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (isModal && event.key === 'Escape') {
         backbtn();
       }
     };

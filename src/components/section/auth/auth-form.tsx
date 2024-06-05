@@ -1,4 +1,3 @@
-// components/auth/AuthForm.tsx
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -8,9 +7,9 @@ import LoginSection from '@/components/section/auth/login-section';
 
 interface IFormInput {
   email: string;
-  phone?: string;
+  name: string;
   password: string;
-  confirmPassword?: string;
+  confirmPassword: string;
 }
 
 export default function AuthForm() {
@@ -18,7 +17,7 @@ export default function AuthForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const url = '/api/join';
+    const url = isRegister ? '/api/join' : '/api/??';
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -32,32 +31,34 @@ export default function AuthForm() {
           email: data.email,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`API call failed with status: ${response.status}`);
       }
-  
+
       const result = await response.json();
-      console.log('Success:', result);      
+      console.log('Success:', result);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
-  
+
 
   return (
     <div className="space-y-6">
       {isRegister ? (
-        <RegisterSection 
-          toggleForm={toggleForm} 
-          register={register} 
-          handleSubmit={handleSubmit(onSubmit)} 
+        <RegisterSection
+          toggleForm={toggleForm}
+          register={register}
+          handleSubmit={handleSubmit(onSubmit)}
+          errors={errors}
         />
       ) : (
-        <LoginSection 
-          toggleForm={toggleForm} 
-          register={register} 
-          handleSubmit={handleSubmit(onSubmit)} 
+        <LoginSection
+          toggleForm={toggleForm}
+          register={register}
+          handleSubmit={handleSubmit(onSubmit)}
+          errors={errors}
         />
       )}
     </div>

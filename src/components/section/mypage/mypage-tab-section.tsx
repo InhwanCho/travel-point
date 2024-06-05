@@ -1,17 +1,25 @@
+'use client';
 import DestinationCard from "@/components/common/destination-card";
 import DestinationPagination from "@/components/common/destination-pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RecentDestinationsTab from "@/components/section/mypage/recent-destination-tab";
 import { X } from "lucide-react";
+import { generateData } from "@/libs/utils";
+import { usePaginatedData } from "@/hooks/use-pagination";
 
 // 탭 섹션을 렌더링하는 함수 
-export function MypageTabSection({ data, paginatedData, currentPage, totalPages, onPageChange }: any) {
+export default function MypageTabSection() {
+  const ITEM_PER_PAGE = 6;
+  // 데이터 목록 (나중에 데이터 API 추가해야됨.)
+  const data = generateData();
+  const { currentPage, setCurrentPage, totalPages, paginatedData } = usePaginatedData(data, ITEM_PER_PAGE);
   return (
     <Tabs defaultValue="myFavs" className="w-full" id='mainSection'>
       <TabsList className='w-full py-6 flex space-x-3 sm:space-x-8'>
         <TabsTrigger value="myFavs" className='underline-link text-xs sm:text-sm'>내가 찜한 여행지</TabsTrigger>
         <TabsTrigger value="myComments" className='underline-link text-xs sm:text-sm'>내가 쓴 리뷰</TabsTrigger>
         <TabsTrigger value="recentDestionation" className='underline-link text-xs sm:text-sm'>최근 본 여행지</TabsTrigger>
+        {/* <TabsTrigger value="recentDestionation" className='underline-link text-xs sm:text-sm'>추천 받은 여행지</TabsTrigger> */}
       </TabsList>
       {/* 내가 찜한 여행지 */}
       <TabsContent value="myFavs">
@@ -38,7 +46,7 @@ export function MypageTabSection({ data, paginatedData, currentPage, totalPages,
                 <DestinationPagination
                   currentPage={currentPage}
                   totalPages={totalPages}
-                  onPageChange={(page: number) => onPageChange(page)}
+                  onPageChange={()=>{}}
                 />
               </div>
             </div>
