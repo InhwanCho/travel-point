@@ -1,4 +1,5 @@
 import { CategoryMapping } from "@/types/categoriy-types";
+import localFont from "next/font/local";
 
 export const heroImages = [
   {
@@ -223,3 +224,28 @@ export const CATEGORIES: CategoryMapping = {
     },
   },
 };
+
+export const fontSpoqaHanSansNeo = localFont({
+  src: [
+    {
+      path: '../assets/fonts/SpoqaHanSansNeo-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/SpoqaHanSansNeo-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/SpoqaHanSansNeo-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/SpoqaHanSansNeo-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+});

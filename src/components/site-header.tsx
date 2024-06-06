@@ -16,7 +16,7 @@ export default function SiteHeader() {
       const currentScrollPos = window.scrollY;
       const isScrollingUp = prevScrollPos.current > currentScrollPos;
 
-      setIsVisible(isScrollingUp || currentScrollPos < 64);
+      setIsVisible(isScrollingUp || currentScrollPos < 50);
       prevScrollPos.current = currentScrollPos;
     }, 200);
 
@@ -40,7 +40,7 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <header className={`bg-white/70 backdrop-blur-sm shadow-sm sticky top-0 z-10 transition-transform duration-300 ${isVisible ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
+    <header className={`bg-white/70 backdrop-blur-sm shadow-sm sticky top-0 z-20 transition-transform duration-300 ${isVisible ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-16 justify-between">
           <Logo />

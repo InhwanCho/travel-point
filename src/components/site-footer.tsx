@@ -15,7 +15,8 @@ export default function SiteFooter() {
               </a>{' '}
             </p>
             <div className="flex gap-4">
-              <a href="https://github.com/jaehyeong21/travel_point" target="_blank">
+              <a href="https://github.com/jaehyeong21/travel_point" target="_blank"
+                aria-label="github external link">
                 <ImGithub className="size-5" />
               </a>
             </div>

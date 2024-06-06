@@ -6,34 +6,9 @@ import QueryProvider from "@/contexts/query-provider";
 import { cn } from "@/libs/utils";
 import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/config/site-config";
-import localFont from 'next/font/local';
 import KbarLayout from "@/components/kbar/kbar-layout";
 import { Toaster } from "@/components/ui/toaster";
-
-const spoqaHanSansNeo = localFont({
-  src: [
-    {
-      path: '../assets/fonts/SpoqaHanSansNeo-Light.woff2',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../assets/fonts/SpoqaHanSansNeo-Regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../assets/fonts/SpoqaHanSansNeo-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../assets/fonts/SpoqaHanSansNeo-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-});
+import { fontSpoqaHanSansNeo } from "@/data/data";
 
 export const metadata: Metadata = {
   title: { default: siteConfig.title, template: `%s | ${siteConfig.title}` },
@@ -118,7 +93,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
         <link rel="manifest" href="/assets/favicons/site.webmanifest" />
         <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-        <body className={cn('min-h-dvh antialiased', spoqaHanSansNeo.className)}>
+        <body className={cn('min-h-dvh antialiased', fontSpoqaHanSansNeo.className)}>
           <KbarLayout >
             <QueryProvider>
               {modal}
