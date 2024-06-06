@@ -32,21 +32,36 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
   useEffect(() => {
     if (swiper) {
-      const slidesPerView = typeof swiper.params.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
-      setTotalPages(Math.ceil(swiper.slides.length / slidesPerView));
+      const slidesPerView = typeof swiper.params?.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
+  
+      const updateTotalPages = () => {
+        if (swiper && swiper.slides && swiper.slides.length > 0) {
+          setTotalPages(Math.ceil(swiper.slides.length / slidesPerView));
+        }
+      };
+  
+      updateTotalPages(); // Swiper 초기화 시 슬라이드 수 업데이트
+  
+      swiper.on('slidesLengthChange', updateTotalPages); // 슬라이드 길이 변경 시 업데이트
       swiper.on('slideChange', () => {
         setCurrentPage(Math.floor(swiper.realIndex / slidesPerView));
       });
+  
+      return () => {
+        swiper.off('slidesLengthChange', updateTotalPages);
+        swiper.off('slideChange');
+      };
     }
   }, [swiper]);
+  
 
   const handlePageClick = (index: number) => {
-    const slidesPerView = typeof swiper?.params.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
+    const slidesPerView = typeof swiper?.params?.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
     swiper?.slideTo(index * slidesPerView);
   };
-
 
   return (
     <>
@@ -78,6 +93,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
         </div>
         <img width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden overflow-hidden' />
         <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] p-4'>
+          
           <Swiper
             onSwiper={setSwiper}
             slidesPerView={2}
@@ -92,17 +108,25 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
                 spaceBetween: 20,
               },
             }}
+            onInit={(swiper) => {
+              const slidesPerView = typeof swiper.params?.slidesPerView === 'number' ? swiper.params.slidesPerView : 1;
+              setTotalPages(Math.ceil(swiper.slides.length / slidesPerView));
+            }}
           >
-            {isLoading ? [...Array(count)].map((_, index) => (
-              <SwiperSlide key={index}>
-                <DestinationCard isLoading />
-              </SwiperSlide>
-            )) : isError ? (
+            {isLoading ? (
+              <div className='grid grid-cols-2 gap-x-5'>
+                {[...Array(itemsPerPage)].map((_, index) => (
+                  <div key={index}>
+                    <DestinationCard isLoading />
+                  </div>
+                ))}</div>
+            ) : isError ? (
               [...Array(itemsPerPage)].map((_, index) => (
-                <SwiperSlide key={index}>
+                <div key={index}>
                   <DestinationCard isError />
-                </SwiperSlide>)
-              )) : (
+                </div>
+              ))
+            ) : (
               data && data.destinations.map((item, index) => (
                 <SwiperSlide key={index}>
                   <DestinationCard
@@ -114,7 +138,8 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
                     contentId={item.contentId}
                   />
                 </SwiperSlide>
-              )))}
+              ))
+            )}
           </Swiper>
         </div>
       </div>

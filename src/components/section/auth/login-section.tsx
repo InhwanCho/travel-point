@@ -1,6 +1,7 @@
-
+// components/section/auth/login-section.tsx
 import React from 'react';
-import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 import InputField from '@/components/section/auth/input-field';
 import RememberMeCheckbox from '@/components/section/auth/remember-check';
 import SubmitButton from '@/components/section/auth/submit-button';
@@ -9,12 +10,42 @@ import OauthOptions from '@/components/section/auth/oauth-options';
 
 interface LoginSectionProps {
   toggleForm: () => void;
-  register: UseFormRegister<any>;
-  handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
-  errors: FieldErrors<any>;
 }
 
-export default function LoginSection({ toggleForm, register, handleSubmit, errors }: LoginSectionProps) {
+interface IFormInput {
+  email: string;
+  password: string;
+}
+
+export default function LoginSection({ toggleForm }: LoginSectionProps) {
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const url = '/api/loginForm'; 
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: "Basic " + btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`),
+        },
+        body: JSON.stringify({
+          email: data.email,  
+          password: data.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API call failed with status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
   return (
     <>
       <h2 className="text-center text-3xl font-bold">계정에 로그인</h2>
@@ -24,13 +55,29 @@ export default function LoginSection({ toggleForm, register, handleSubmit, error
           새로운 계정 등록
         </button>
       </p>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <InputField label="이메일 주소" id="email" name="email" type="email" autoComplete="email" register={register} required error={errors.email as FieldError} />
-        {errors.email && <p className="text-red-600 text-xs">{String(errors.email.message)}</p>}
-        <InputField label="비밀번호" id="password" name="password" type="password" autoComplete="new-password" register={register} required error={errors.password as FieldError}/>
-        {errors.password && <p className="text-red-600 text-xs">{String(errors.password.message)}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <InputField
+          label="이메일 주소"
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          register={register}
+          required
+          error={errors.email as FieldError}
+        />
+        <InputField
+          label="비밀번호"
+          id="password"
+          name="password"
+          type="password"
+          autoComplete="new-password"
+          register={register}
+          required
+          error={errors.password as FieldError}
+        />
         <div className="flex items-center justify-between">
-          <RememberMeCheckbox />
+          <RememberMeCheckbox register={register} />
           <ForgotPasswordLink />
         </div>
         <SubmitButton text="로그인하기" />

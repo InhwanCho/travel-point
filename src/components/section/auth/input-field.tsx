@@ -36,7 +36,7 @@ export default function InputField({ label, id, name, type, autoComplete, regist
   }
 
   return (
-    <div className={``}>
+    <div className="">
       <label className="block text-sm font-medium text-gray-700" htmlFor={id}>
         {label}
       </label>
@@ -49,6 +49,7 @@ export default function InputField({ label, id, name, type, autoComplete, regist
           required={required}
           {...register(name, validationRules)}
         />
+        {error && <p className="text-red-600 text-xs pt-2">{String(error.message)}</p>}
       </div>
     </div>
   );

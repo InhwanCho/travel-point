@@ -108,11 +108,13 @@ export default function FestivalRecommendation({ count }: { count: string }) {
         }}
       >
         {isLoading
-          ? [...Array(itemsPerPage)].map((_, i) => (
-            <SwiperSlide key={i}>
-              <DestinationCard isLoading />
-            </SwiperSlide>
-          ))
+          ?
+          <div className={`grid grid-cols-${itemsPerPage} gap-x-6`}>
+            {[...Array(itemsPerPage)].map((_, i) => (
+              <div key={i}>
+                <DestinationCard isLoading />
+              </div>
+            ))}</div>
           : isError
             ? [...Array(itemsPerPage)].map((_, i) => (
               <SwiperSlide key={i}>
@@ -129,7 +131,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
                   title={item.title}
                   description={item.destinationDescription}
                   imageSrc={item.firstImage}
-                  contentId={item.contentId}                  
+                  contentId={item.contentId}
                 />
               </SwiperSlide>
             ))}

@@ -28,7 +28,7 @@ export default function KakaoMap({ latitude, longitude, className }: MapProps) {
       <Map
         className="w-full aspect-[16/11]"
         id="map"
-        level={3} // 지도의 확대 레벨
+        level={6} // 지도의 확대 레벨
         center={state}
         isPanto={true}
       >
