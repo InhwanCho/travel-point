@@ -109,24 +109,27 @@ export default function FestivalRecommendation({ count }: { count: string }) {
       >
         {isLoading
           ?
-          <div className={`grid grid-cols-${itemsPerPage} gap-x-6`}>
+          <div className={`grid grid-cols-4 gap-x-6`}>
             {[...Array(itemsPerPage)].map((_, i) => (
               <div key={i}>
                 <DestinationCard isLoading />
               </div>
             ))}</div>
           : isError
-            ? [...Array(itemsPerPage)].map((_, i) => (
-              <SwiperSlide key={i}>
-                <DestinationCard isError />
-              </SwiperSlide>
-            ))
+            ?
+            <div className={`grid grid-cols-4 gap-x-6`}>
+              {[...Array(itemsPerPage)].map((_, i) => (
+                <div key={i}>
+                  <DestinationCard isError />
+                </div>
+              ))}
+            </div>
             : data &&
             data.destinations.map((item, i) => (
               <SwiperSlide key={i}>
                 <DestinationCard
                   FestivalDate={{ startDate: item.startDate, endDate: item.endDate }}
-                  priority={i === 0 ? true : false}
+                  priority={false}
                   location={item.location}
                   title={item.title}
                   description={item.destinationDescription}
