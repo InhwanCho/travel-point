@@ -9,6 +9,7 @@ import DestinationPagination from '@/components/common/destination-pagination';
 import { DestinationType, FestivalType } from '@/types/destination-types';
 import { Theme, useThemeStore } from '@/store/themeStore';
 import { themeCategories } from '@/types/destination-fetch-props';
+import { pageColors } from '@/data/data';
 
 interface ExploreDestinationsProps {
   data: DestinationType[] | FestivalType[];
@@ -102,7 +103,7 @@ export default function ExploreDestinations({
           <>
             <li
               onClick={() => handleThemeChange('all')}
-              className={`cursor-pointer ${selectedTheme === 'all' ? 'font-semibold' : ''}`}
+              className={`cursor-pointer ${selectedTheme === 'all' ? `font-medium ${pageColors.themes.ring} ring rounded-full ring-offset-2 px-1.5` : ''}`}
             >
               전체
             </li>
@@ -111,7 +112,7 @@ export default function ExploreDestinations({
                 <Separator orientation="vertical" />
                 <li
                   onClick={() => handleThemeChange(theme as Theme)}
-                  className={`cursor-pointer ${selectedTheme === theme ? 'font-semibold' : ''}`}
+                  className={`cursor-pointer ${selectedTheme === theme ? `font-medium ${pageColors.themes.ring} ring rounded-full ring-offset-2 px-1.5` : ''}`}
                 >
                   {theme}
                 </li>

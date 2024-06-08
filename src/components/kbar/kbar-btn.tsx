@@ -1,8 +1,8 @@
 'use client';
 
 import { useKBar } from 'kbar';
-import { Search } from 'lucide-react';
 import { cn } from '@/libs/utils';
+import { LiaSearchSolid } from "react-icons/lia";
 
 interface KBarButtonProps {
   isMobile?: boolean
@@ -14,9 +14,10 @@ export default function KBarButton({ isMobile = false }: KBarButtonProps) {
   return (
     <>
       {isMobile ?
-        <button onClick={query.toggle} className='flex'>
+        <button onClick={query.toggle} className="flex flex-col items-center justify-center flex-1">
           <span className="sr-only">Mobile search button</span>
-          <span className="underline-link hover:font-semibold transition-all flex items-center"><Search className="size-4 mr-1.5" />검색</span>
+          <LiaSearchSolid className='h-6 w-6 mb-1' />
+          <span className="text-sm">검색</span>
         </button>
         :
         <>

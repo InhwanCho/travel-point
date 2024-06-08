@@ -135,7 +135,7 @@ export default function MonopolyContent({ theme, areaName }: MonopolyContentProp
           {Array.from({ length: boardCols * boardRows }, (_, i) => renderBoardCell(i))}
         </div>
         {/* 작은 화면에서 보드 셀을 렌더링 */}
-        <div className="grid md:hidden grid-cols-7 grid-rows-7 gap-0.5 sm:gap-1 xsm:w-[88%] xsm:mx-auto">
+        <div className="grid md:hidden grid-cols-7 grid-rows-7 gap-0.5 sm:gap-1 xsm:w-[88%] xsm:mx-auto select-none">
           {Array.from({ length: boardCols * boardRows }, (_, i) => (
             <div
               key={i}
