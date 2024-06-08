@@ -7,9 +7,10 @@ import { Separator } from '@/components/ui/separator';
 import DestinationCard from '@/components/common/destination-card';
 import DestinationPagination from '@/components/common/destination-pagination';
 import { DestinationType, FestivalType } from '@/types/destination-types';
-import { Theme, useThemeStore } from '@/store/themeStore';
 import { themeCategories } from '@/types/destination-fetch-props';
 import { pageColors } from '@/data/data';
+import { useThemeStore } from '@/store/themeStore';
+import { ThemeType } from '@/types/categoriy-types';
 
 interface ExploreDestinationsProps {
   data: DestinationType[] | FestivalType[];
@@ -84,7 +85,7 @@ export default function ExploreDestinations({
   };
 
   // 필터 - 테마 변경함수
-  const handleThemeChange = (theme: Theme) => {
+  const handleThemeChange = (theme: ThemeType) => {
     setSelectedTheme(theme);
     const params = new URLSearchParams(searchParams);
     params.set('theme', theme);
@@ -111,7 +112,7 @@ export default function ExploreDestinations({
               <React.Fragment key={index}>
                 <Separator orientation="vertical" />
                 <li
-                  onClick={() => handleThemeChange(theme as Theme)}
+                  onClick={() => handleThemeChange(theme as ThemeType)}
                   className={`cursor-pointer ${selectedTheme === theme ? `font-medium ${pageColors.themes.ring} ring rounded-full ring-offset-2 px-1.5` : ''}`}
                 >
                   {theme}

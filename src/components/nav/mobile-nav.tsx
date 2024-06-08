@@ -9,7 +9,7 @@ export default function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sm:hidden fixed bottom-0 left-0 right-0 flex justify-between py-3 items-center bg-white border-t border-gray-300 z-50">
+    <nav className="sm:hidden fixed bottom-0 left-0 right-0 flex justify-between pt-3 pb-4 items-center bg-white border-t border-gray-300 z-50">
       {headerMenus.map(({ name, path, icon: Icon }) => {
         const isActive = pathname === path;
         return (

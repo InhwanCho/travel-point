@@ -35,7 +35,7 @@ export function ThemesContent() {
   return (
     <>
       <RegionSelection title='테마 여행 지역 탐색' page='themes' activeRegion={activeRegion} />
-      <Separator className='my-10 sm:my-20' />
+      <Separator className='my-10 sm:my-14' />
       <PageLayout>
         <ExploreDestinations
           data={data?.destinations || []}

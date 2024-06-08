@@ -71,7 +71,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
           <Title className='flex md:hidden'>당신만의 힐링 여행</Title>
         </>
       )}
-      <div className='relative mb-[260px] md:mb-[200px]'>
+      <div className='relative mb-[245px] xsm:mb-[260px] md:mb-[200px]'>
         <div className='absolute -top-7 right-0 flex items-center'>
           <div className="flex gap-1.5 mr-6">
             {Array.from({ length: totalPages }, (_, index) => (
@@ -92,7 +92,7 @@ export default function ThemeCard({ themeImages, isSecondCard = false, theme, co
           </button>
         </div>
         <img width={496} height={300} src={themeImages.image} alt={themeImages.title} className='md:h-[280px] w-full max-h-[300px] sm:block hidden overflow-hidden' />
-        <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] p-4'>
+        <div className='absolute top-[75%] md:top-[85%] left-0 right-0 mx-auto bg-white w-full sm:w-[90%] px-1 sm:p-4'>
 
           <Swiper
             onSwiper={setSwiper}

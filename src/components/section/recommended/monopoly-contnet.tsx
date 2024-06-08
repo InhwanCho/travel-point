@@ -5,16 +5,17 @@ import { FaChessPawn } from "react-icons/fa6";
 import Dice from "@/components/section/recommended/dice";
 import { useFetchThemeDestinationByCat } from "@/hooks/use-fetch-destination";
 import { REGIONS } from "@/data/data";
-import { Theme } from "@/store/themeStore";
-import { useRecommendStore } from "@/store/recommendStore";
 import { DestinationType } from "@/types/destination-types";
+import { useRecommendStore } from "@/store/recommendStore";
+import { ThemeType } from "@/types/categoriy-types";
 
 interface MonopolyContentProps {
   areaName: string;
-  theme: Theme;
+  theme: ThemeType;
+  setIsGameCompleted: (completed: boolean) => void;
 }
 
-export default function MonopolyContent({ theme, areaName }: MonopolyContentProps) {
+export default function MonopolyContent({ theme, areaName, setIsGameCompleted }: MonopolyContentProps) {
   const regionPath = REGIONS.find((r) => r.name === areaName)?.path || '';
   const { data } = useFetchThemeDestinationByCat({ areaName: regionPath, count: '24', theme: theme, page: '1', random: 'true' });
 
@@ -99,10 +100,10 @@ export default function MonopolyContent({ theme, areaName }: MonopolyContentProp
       totalDelay += 500;
     });
 
-
     setTimeout(() => {
       setIsMoving(false);
       setMovedPositions(movedPositions);
+      setIsGameCompleted(true); // 게임 완료 상태를 true로 설정
       console.log(movedPositions);
     }, totalDelay);
   };

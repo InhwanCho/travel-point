@@ -14,7 +14,7 @@ export default function KBarButton({ isMobile = false }: KBarButtonProps) {
   return (
     <>
       {isMobile ?
-        <button onClick={query.toggle} className="flex flex-col items-center justify-center flex-1">
+        <button onClick={() => query.toggle()} className="flex flex-col items-center justify-center flex-1">
           <span className="sr-only">Mobile search button</span>
           <LiaSearchSolid className='h-6 w-6 mb-1' />
           <span className="text-sm">검색</span>
@@ -26,7 +26,7 @@ export default function KBarButton({ isMobile = false }: KBarButtonProps) {
               'hidden sm:flex cursor-pointer items-center rounded-lg p-1 text-xs ',
               'bg-secondary transition-colors dark:bg-slate-800 dark:hover:bg-slate-800/70 hover:bg-slate-200/80',
             )}
-            onClick={query.toggle}
+            onClick={() => query.toggle()}
           >
             <span className="sr-only">Search button</span>
             <span className="px-3">Search...</span>

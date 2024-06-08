@@ -2,9 +2,9 @@
 
 import { getStyles } from "@/components/common/region-selection";
 import { Button } from "@/components/ui/button";
-import { Theme } from "@/store/themeStore";
+import { ThemeType } from "@/types/categoriy-types";
 
-export default function PreferenceSelectionStep({ preference, onPreferenceChange, onNext, onPrevious }: { preference: Theme; onPreferenceChange: (preference: Theme) => void; onNext: () => void; onPrevious: () => void }) {
+export default function PreferenceSelectionStep({ preference, onPreferenceChange, onNext, onPrevious }: { preference: ThemeType; onPreferenceChange: (preference: ThemeType) => void; onNext: () => void; onPrevious: () => void }) {
   return (
     <>
       <div className="flex flex-col">
@@ -12,7 +12,7 @@ export default function PreferenceSelectionStep({ preference, onPreferenceChange
         <div className="mb-6">
           <div className="flex gap-4 flex-wrap items-center justify-center phone-container">
             {['전체', '자연', '힐링', '역사', '체험', '엑티비티'].map((pref) => {
-              const themePref = pref === '전체' ? 'all' : pref as Theme;
+              const themePref = pref === '전체' ? 'all' : pref as ThemeType;
               return (
                 <button
                   key={pref}

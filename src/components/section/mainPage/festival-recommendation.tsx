@@ -75,7 +75,7 @@ export default function FestivalRecommendation({ count }: { count: string }) {
   );
 
   return (
-    <section>
+    <section className='px-1'>
       <Title navBtn={navBtn}>이런 축제 어때요?</Title>
       <Swiper
         onSwiper={handleSwiper}

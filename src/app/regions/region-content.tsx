@@ -31,7 +31,7 @@ export function RegionsContent() {
   return (
     <>
       <RegionSelection page='regions' title='여행지 지역 탐색' activeRegion={activeRegion} />
-      <Separator className='my-10 sm:my-20' />
+      <Separator className='my-10 sm:my-14' />
       <PageLayout>
         <ExploreDestinations
           data={data?.destinations || []}
