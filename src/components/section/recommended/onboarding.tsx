@@ -20,8 +20,14 @@ export default function TravelRecommendations() {
     setAreaName(region);
   };
 
+  // 브루마블 height이 더 높아서 0.1초 뒤에 스크롤 내리기
   const goToNextStep = () => {
     setStep(step + 1);
+    if (step === 2 || step === 3) {
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 100); 
+    }
   };
 
   const goToPreviousStep = () => {
@@ -30,6 +36,9 @@ export default function TravelRecommendations() {
 
   const skipToGameStep = () => {
     setStep(3);
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 100); 
   };
 
   const restart = () => {

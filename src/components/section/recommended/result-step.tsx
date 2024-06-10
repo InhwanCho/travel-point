@@ -14,7 +14,7 @@ export default function ResultStep({ onRestart }: { onRestart: () => void }) {
     try {
       toast({
         title: '저장 성공',
-        description: '추천 여행지가 마이페이지에 저장되었습니다.',
+        description: '추천 여행지가 "마이페이지"에 저장되었습니다.',
       });
     } catch (err) {
       toast({

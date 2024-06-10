@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import "@/styles/globals.css";
+import type { Metadata } from "next";
 import SiteHeader from "@/components/site-header";
 import { ViewTransitions } from 'next-view-transitions';
 import QueryProvider from "@/contexts/query-provider";

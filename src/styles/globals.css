@@ -100,7 +100,7 @@
 
   .underline-link-active {
     text-decoration-thickness: 2px;
-    @apply text-blue-500 underline-offset-[3px] underline font-semibold decoration-blue-500/90;
+    @apply text-slate-900 underline-offset-[3px] underline font-semibold decoration-slate-900/90;
   }
 
   /* 2라인넘어가면 truncate으로 만들기 */
