@@ -23,7 +23,7 @@ export default function KBarButton({ isMobile = false }: KBarButtonProps) {
         <>
           <button
             className={cn(
-              'hidden sm:flex cursor-pointer items-center rounded-lg p-1 text-xs ',
+              'hidden sm:flex cursor-pointer items-center rounded-lg p-1 text-xs border-[0.5px] border-slate-200/60',
               'bg-secondary transition-colors dark:bg-slate-800 dark:hover:bg-slate-800/70 hover:bg-slate-200/80',
             )}
             onClick={() => query.toggle()}

@@ -37,7 +37,7 @@ export default function TravelGameStep({ onNext, onPrevious, theme, areaName }: 
               onClick={isGameCompleted ? onNext : undefined}
               variant={isGameCompleted ? "primary" : "secondary"}
               disabled={!isGameCompleted}
-              className={`relative ${isGameCompleted ? "" : "opacity-50 cursor-not-allowed"}`}
+              className={`relative ${isGameCompleted ? "border-[0.5px] border-slate-300" : "opacity-50 cursor-not-allowed"}`}
             >
               {isGameCompleted &&<span className="absolute -top-1 -right-1 flex size-[10px]">
                 <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-cyan-400/90 opacity-75"></span>
