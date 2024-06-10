@@ -61,7 +61,7 @@ export default function LoginBtn() {
         </Popover>
       ) : (
         <button onClick={openModal}
-          className='hidden border-[0.5px] border-slate-200/60 sm:flex cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
+          className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
           Login</button>
       )}
     </>

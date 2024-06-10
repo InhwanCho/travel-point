@@ -10,19 +10,14 @@ interface InputFieldProps {
   register: UseFormRegister<any>;
   required: boolean;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+  watch?: (name: string) => string; // watch 함수 추가
 }
 
-export default function InputField({ label, id, name, type, autoComplete, register, required, error }: InputFieldProps) {
+export default function InputField({ label, id, name, type, autoComplete, register, required, error, watch }: InputFieldProps) {
   let validationRules: Record<string, any> = { required: `${name} 값을 입력해주세요.` };
 
   if (name === 'email') {
     validationRules = { ...validationRules, maxLength: { value: 35, message: '이메일은 최대 35글자까지 가능합니다.' } };
-  } else if (name === 'name') {
-    validationRules = {
-      ...validationRules,
-      minLength: { value: 2, message: '이름은 최소 2글자 이상이어야 합니다.' },
-      maxLength: { value: 15, message: '이름은 최대 15글자까지 가능합니다.' },
-    };
   } else if (name === 'password') {
     validationRules = {
       ...validationRules,
@@ -31,8 +26,8 @@ export default function InputField({ label, id, name, type, autoComplete, regist
         message: '비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.',
       },
     };
-  } else if (name === 'confirmPassword') {
-    validationRules = { ...validationRules, validate: (value: string) => value === (register('password') as any).value || '비밀번호가 일치하지 않습니다.' };
+  } else if (name === 'confirmPassword' && watch) {
+    validationRules = { ...validationRules, validate: (value: string) => value === watch('password') || '비밀번호가 일치하지 않습니다.' };
   }
 
   return (

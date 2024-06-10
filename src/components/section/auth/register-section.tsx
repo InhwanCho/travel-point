@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import InputField from '@/components/section/auth/input-field';
 import SubmitButton from '@/components/section/auth/submit-button';
 import OauthOptions from '@/components/section/auth/oauth-options';
+import { registerApi } from '@/services/fetch-auth';
 
 interface RegisterSectionProps {
   toggleForm: () => void;
@@ -12,35 +13,21 @@ interface RegisterSectionProps {
 
 interface IFormInput {
   email: string;
-  name: string;
   password: string;
   confirmPassword: string;
 }
 
 export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const url = '/api/join';
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: "Basic " + btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`),
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+      const result = await registerApi({
+        email: data.email,
+        password: data.password,
       });
-  
-      if (!response.ok) {
-        throw new Error(`API call failed with status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      console.log('Success:', result);      
+      
+      console.log('Success:', result);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -85,6 +72,7 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
           register={register}
           required
           error={errors.confirmPassword}
+          watch={watch}
         />
         <Separator />
         <SubmitButton text="등록하고 로그인하기" />

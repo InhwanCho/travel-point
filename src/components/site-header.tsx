@@ -41,11 +41,11 @@ export default function SiteHeader() {
   return (
     <header className={`bg-white/70 backdrop-blur-sm shadow-sm sticky top-0 z-50 transition-transform duration-300 ${isVisible ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16 justify-between">
+        <div className="flex items-center h-16 justify-between sm:mx-0 mx-2">
           <Logo />
           <MainNav />
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="flex gap-6 items-center">              
+            <div className="flex gap-6 items-center">
               <KBarButton />
               <LoginBtn />
             </div>

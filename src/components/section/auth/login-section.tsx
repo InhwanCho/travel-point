@@ -7,6 +7,7 @@ import RememberMeCheckbox from '@/components/section/auth/remember-check';
 import SubmitButton from '@/components/section/auth/submit-button';
 import ForgotPasswordLink from '@/components/section/auth/forget-password';
 import OauthOptions from '@/components/section/auth/oauth-options';
+import { loginApi } from '@/services/fetch-auth';
 
 interface LoginSectionProps {
   toggleForm: () => void;
@@ -21,25 +22,12 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const url = '/api/loginForm'; 
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: "Basic " + btoa(`${process.env.NEXT_PUBLIC_API_USERNAME}:${process.env.NEXT_PUBLIC_API_PASSWORD}`),
-        },
-        body: JSON.stringify({
-          email: data.email,  
-          password: data.password,
-        }),
+      const result = await loginApi({
+        email: data.email,
+        password: data.password,
       });
-
-      if (!response.ok) {
-        throw new Error(`API call failed with status: ${response.status}`);
-      }
-
-      const result = await response.json();
+      
       console.log('Success:', result);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
