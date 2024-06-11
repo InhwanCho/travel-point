@@ -1,5 +1,5 @@
 
-import PageLayout from '@/components/layout/page-layout';
+
 import AuthPage from '@/components/section/auth/auth-page';
 import { Metadata } from 'next';
 import React from 'react';
@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <PageLayout>
-      <AuthPage isModal={false}/>
-    </PageLayout>
+    <section className='max-w-4xl xl:max-w-5xl px-4 sm:px-6 xl:px-0 mx-auto min-h-dvh'>
+      <div className="flex flex-col flex-1 ">
+        <AuthPage isModal={false} />
+      </div >
+    </section>
   );
 }

@@ -97,11 +97,10 @@ export default function ExploreDestinations({
   return (
     <section id="mainSection">
       <Title>{region && region !== 'all' ? `${region} 지역의 이런 여행지 어때요?` : '이런 여행지 어때요?'}</Title>
-      <Separator />
-
-      <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
-        {page === 'themes' ? (
-          <>
+      {page === 'themes' ? (
+        <>
+          <Separator />
+          <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
             <li
               onClick={() => handleThemeChange('all')}
               className={`cursor-pointer ${selectedTheme === 'all' ? `font-medium ${pageColors.themes.ring} ring rounded-full ring-offset-2 px-1.5` : ''}`}
@@ -119,25 +118,22 @@ export default function ExploreDestinations({
                 </li>
               </React.Fragment>
             ))}
-          </>
-        ) : page === 'festivals' ?
-          (
-            <>
-              <li>전체</li>
-              <Separator orientation="vertical" />
-              <li>진행 중</li>
-            </>
-          )
-          : (
-            <>
+          </div>
+          <Separator />
+        </>
+      ) : page === 'festivals' ? ''
+        : page === 'regions' ? (
+          <>
+            <Separator />
+            <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
               <li>전체</li>
               <Separator orientation="vertical" />
               <li>후기순</li>
-            </>
-          )}
-
-      </div>
-      <Separator />
+            </div>
+            <Separator />
+          </>
+        ) : ''
+      }
 
       <section className="p-3 sm:p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-7 sm:pt-12">
         {isLoading ?
@@ -177,6 +173,6 @@ export default function ExploreDestinations({
         onPageChange={onPageChange}
         createPageUrl={createPageUrl}
       />
-    </section>
+    </section >
   );
 }
