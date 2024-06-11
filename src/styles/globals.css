@@ -91,11 +91,11 @@
     bottom: 0;
     left: 0px;
     transform: scaleX(0);
-    transition: transform 0.45s ease;
+    transition: transform 0.4s ease;
     @apply bg-slate-700/60;
   }
   .underline-link:hover::before {
-    transform: scaleX(1);
+    transform: scaleX(0.95);
   }
 
   .underline-link-active {

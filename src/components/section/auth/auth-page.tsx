@@ -48,7 +48,7 @@ export default function AuthPage({ isModal }: AuthPageProps) {
           ref={modalRef}
         >
           <div className='relative'>
-            <button className={`${isModal ? 'absolute -top-2 right-0' : 'hidden'}`} onClick={backbtn}>
+            <button className={`${isModal ? 'absolute top-0 right-0' : 'hidden'}`} onClick={backbtn}>
               <X className="size-5 text-gray-900" />
             </button>
             <AuthForm />

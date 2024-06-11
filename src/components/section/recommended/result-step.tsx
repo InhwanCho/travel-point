@@ -8,9 +8,20 @@ import { useRecommendStore } from "@/store/recommendStore";
 
 export default function ResultStep({ onRestart }: { onRestart: () => void }) {
   const movedPositions = useRecommendStore((state) => state.movedPositions);
-  const { toast } = useToast();
+  const destinationData = movedPositions.map((data) => (
+    {
+      location: data.location.split(' ').slice(0, 2).join(' '),
+      title: data.title,
+      firstImage: data.firstImage,
+      destinationDescription: data.destinationDescription ? data.destinationDescription.slice(0, 55) : '',
+      contentId: data.contentId
+    }
+  ));
 
+  const { toast } = useToast();
   const saveResults = () => {
+    localStorage.setItem('recommendation', JSON.stringify(destinationData));
+
     try {
       toast({
         title: '저장 성공',
