@@ -122,17 +122,7 @@ export default function ExploreDestinations({
           <Separator />
         </>
       ) : page === 'festivals' ? ''
-        : page === 'regions' ? (
-          <>
-            <Separator />
-            <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
-              <li>전체</li>
-              <Separator orientation="vertical" />
-              <li>후기순</li>
-            </div>
-            <Separator />
-          </>
-        ) : ''
+        : page === 'regions' ? '' : ''
       }
 
       <section className="p-3 sm:p-6 grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-5 gap-y-8 pt-7 sm:pt-12">
