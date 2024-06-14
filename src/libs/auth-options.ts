@@ -36,5 +36,6 @@ export const authOptions: NextAuthOptions = {
       return { ...token, ...user };
     },
   },
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   debug: true,
 };
