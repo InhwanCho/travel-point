@@ -28,6 +28,8 @@ export default function InputField({ label, id, name, type, autoComplete, regist
     };
   } else if (name === 'confirmPassword' && watch) {
     validationRules = { ...validationRules, validate: (value: string) => value === watch('password') || '비밀번호가 일치하지 않습니다.' };
+  } else if (name === 'verificationCode') {
+    validationRules = { ...validationRules, pattern: { value: /^[a-zA-Z0-9]{8}$/, message: '인증번호는 8자리 영숫자여야 합니다.' } };
   }
 
   return (

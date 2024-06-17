@@ -1,3 +1,4 @@
+'use client';
 // components/section/auth/login-section.tsx
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -8,6 +9,9 @@ import SubmitButton from '@/components/section/auth/submit-button';
 import ForgotPasswordLink from '@/components/section/auth/forget-password';
 import OauthOptions from '@/components/section/auth/oauth-options';
 import { loginApi } from '@/services/fetch-auth';
+import { useUserStore } from '@/store/userStore';
+import { setCookie } from '@/libs/cookie';
+import { useRouter } from 'next/navigation';
 
 interface LoginSectionProps {
   toggleForm: () => void;
@@ -20,6 +24,8 @@ interface IFormInput {
 
 export default function LoginSection({ toggleForm }: LoginSectionProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  const setUser = useUserStore((state) => state.setUser);
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
@@ -27,8 +33,19 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
         email: data.email,
         password: data.password,
       });
-      
-      console.log('Success:', result);
+
+      if (result.response) {
+        const { accessToken, refreshToken } = result.result.token;
+        const user = result.result.user;
+        setCookie('accessToken', accessToken, 7);
+        setCookie('refreshToken', refreshToken, 7);
+        setCookie('user', JSON.stringify(user), 7);
+        setUser(user); // Zustand 스토어에 사용자 정보 저장
+        console.log('Login successful:', result);
+        router.back();
+      } else {
+        console.error('Login failed:', result.message);
+      }
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }

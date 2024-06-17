@@ -11,8 +11,8 @@ export default function OauthOptions() {
         <div className="flex-grow border-t border-gray-300" />
       </div>
       <div className="grid grid-cols-3 gap-2">
-        <SocialLoginButton provider="Naver" />
         <SocialLoginButton provider="Google" />
+        <SocialLoginButton provider="Naver" />
         <SocialLoginButton provider="KaKao" />
       </div>
     </>

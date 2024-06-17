@@ -2,12 +2,10 @@
 'use client';
 
 import React from 'react';
-import { signIn } from 'next-auth/react';
 
 export default function SocialLoginButton({ provider }: { provider: 'Naver' | 'Google' | 'KaKao' }) {
   const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // 폼 제출 방지
-    signIn(provider.toLowerCase()), { redirect: true, callbackUrl: '/' }; // NextAuth provider names are lowercase
   };
 
   return (

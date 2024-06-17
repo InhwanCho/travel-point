@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-  
+
   return (
     <ViewTransitions>
       <html lang="ko" className="scroll-smooth scroll-pt-20">
@@ -36,7 +36,7 @@ export default function RootLayout({
               <SiteHeader />
               {children}
               <SiteFooter />
-              <MobileNav/>
+              <MobileNav />
               <Toaster />
             </QueryProvider>
           </KbarLayout>

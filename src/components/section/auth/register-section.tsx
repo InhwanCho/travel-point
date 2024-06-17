@@ -6,6 +6,9 @@ import InputField from '@/components/section/auth/input-field';
 import SubmitButton from '@/components/section/auth/submit-button';
 import OauthOptions from '@/components/section/auth/oauth-options';
 import { registerApi } from '@/services/fetch-auth';
+import { setCookie } from '@/libs/cookie';
+import { useUserStore } from '@/store/userStore';
+import { useRouter } from 'next/navigation';
 
 interface RegisterSectionProps {
   toggleForm: () => void;
@@ -15,19 +18,32 @@ interface IFormInput {
   email: string;
   password: string;
   confirmPassword: string;
+  verificationCode: string;
 }
 
 export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInput>();
-
+  const setUser = useUserStore((state) => state.setUser);
+  const router = useRouter();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       const result = await registerApi({
         email: data.email,
         password: data.password,
+        verificationCode: data.verificationCode
       });
-      
-      console.log('Success:', result);
+
+      if (result.response) {
+        const { accessToken, refreshToken } = result.result.token;
+        const user = result.result.user;
+        setCookie('accessToken', accessToken, 7);
+        setCookie('refreshToken', refreshToken, 7);
+        setCookie('user', JSON.stringify(user), 7);
+        setUser(user); // Zustand 스토어에 사용자 정보 저장
+        console.log('Login successful:', result);
+        router.back();
+      }
+
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -52,6 +68,16 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
           register={register}
           required
           error={errors.email}
+        />
+        <InputField
+          label="이메일 인증"
+          id="verification-code"
+          name="verificationCode"
+          type="text"
+          autoComplete="off"
+          register={register}
+          required
+          error={errors.verificationCode}
         />
         <InputField
           label="비밀번호"

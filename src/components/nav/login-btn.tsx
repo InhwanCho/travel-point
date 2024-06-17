@@ -1,17 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-import React, { useState } from 'react';
+import { LiaSpinnerSolid } from "react-icons/lia";
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { PopoverClose } from '@radix-ui/react-popover';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginBtn() {
-  const token = false;
   const router = useRouter();
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  const clearUser = useUserStore((state) => state.clearUser);
+
+  useEffect(() => {
+    const fetchUser = () => {
+      const userCookie = getCookie('user');
+      if (userCookie) {
+        setUser(JSON.parse(userCookie));
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
+  }, [setUser]);
+
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+  };
 
   const openModal = () => {
     router.push('/auth');
@@ -19,24 +42,43 @@ export default function LoginBtn() {
 
   const handleMyPageClick = () => {
     setPopoverOpen(false);
-    router.push(`/mypage/${'abcd'}`);
+    router.push(`/mypage`);
   };
+
+  const handleLogout = () => {
+    clearUser();
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
+
+  if (loading) {
+    return (
+      <div
+        className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[6px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
+        <div className="flex items-center">
+          <LiaSpinnerSolid className="animate-spin-slow size-5 mr-1.5 text-slate-500" />
+          <span className="text-[10px]">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      {token ? (
+      {user ? (
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger className='focus-visible:outline-none'>
-            <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white rounded-full border outline-none' />
+            <img src={user.image || '/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white size-[42px] min-w-[42px] rounded-full border outline-none' />
           </PopoverTrigger>
           <PopoverContent className='mt-2 mx-2 bg-slate-100/90 relative'>
             <PopoverClose className='absolute top-2.5 right-2.5 focus-visible:outline-none'>
               <X className='size-4' />
             </PopoverClose>
-            <div className='flex justify-center flex-col items-center space-y-4 '>
-              <p>abcd@naver.com</p>
-              <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full' />
-              <p>안녕하세요, 인환님.</p>
+            <div className='flex justify-center flex-col items-center space-y-4'>
+              <p>{user.email}</p>
+              <img src={user.image || '/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full size-[72px] min-w-[72px]' />
+              <p>안녕하세요</p>
               <div className='flex justify-evenly w-full'>
                 <Button variant='outline' className='rounded-full' onClick={handleMyPageClick}>
                   마이 페이지
@@ -51,7 +93,7 @@ export default function LoginBtn() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>아니오</AlertDialogCancel>
-                      <AlertDialogAction className='bg-red-600/80 hover:bg-red-600'>예</AlertDialogAction>
+                      <AlertDialogAction className='bg-red-600/80 hover:bg-red-600' onClick={handleLogout}>예</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -62,7 +104,8 @@ export default function LoginBtn() {
       ) : (
         <button onClick={openModal}
           className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
-          Login</button>
+          Login
+        </button>
       )}
     </>
   );
