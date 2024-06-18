@@ -1,5 +1,7 @@
 // src/services/fetch-api.ts
 
+import { getCookie } from "@/libs/cookie";
+
 // DB API 설정
 const username = process.env.NEXT_PUBLIC_API_USERNAME;
 const password = process.env.NEXT_PUBLIC_API_PASSWORD;
@@ -43,12 +45,17 @@ export async function fetchFromApi(
 
 // 공통 POST API 요청 함수
 // services/fetch-auth.ts
-export async function fetchFromAuthApi(url: string, data: Record<string, any>) {
+export async function fetchFromAuthApi(
+  url: string,
+  data: Record<string, any>,
+  method: string = "POST"
+) {
+  const accessToken = getCookie('accessToken');
   const response = await fetch(url, {
-    method: 'POST',
+    method: method,
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: "Basic " + btoa(`${username}:${password}`), // Ensure username and password are defined in your scope
+      "Content-Type": "application/json",
+      Authorization: method === 'DELETE' ? `Bearer ${accessToken}` : "Basic " + btoa(`${username}:${password}`), 
     },
     body: JSON.stringify(data),
   });
@@ -56,7 +63,9 @@ export async function fetchFromAuthApi(url: string, data: Record<string, any>) {
   const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(`API call failed with status: ${response.status} - ${responseData.message}`);
+    throw new Error(
+      `API call failed with status: ${response.status} - ${responseData.message}`
+    );
   }
 
   return responseData;

@@ -4,29 +4,61 @@ import { Button } from '@/components/ui/button';
 import { deleteCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
+import InputField from '@/components/section/auth/input-field';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { deleteAccountApi } from '@/services/fetch-auth';
 
+interface IFormInput {
+  password: string;
+  confirmPassword: string;
+}
 
 export default function MypageFooter() {
-  
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const clearUser = useUserStore((state) => state.clearUser);
   const router = useRouter();
-  const handleDeleteUser = async () => {
+
+  const handleDeleteUser: SubmitHandler<IFormInput> = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
     try {
-      // await deleteUser(); 미구현
-      // 회원 탈퇴 후 로그아웃
-      clearUser();
-      deleteCookie('accessToken', 'refreshToken', 'user');
-      router.push('/');
-    } catch (error) {
-      console.error('Failed to delete user:', error);
+      const result = await deleteAccountApi(data.password);
+
+      if (result.response) {
+        clearUser();
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+        deleteCookie('user');
+        router.push('/');
+      } else {
+        setError(`Error: ${result.errorCode} - ${result.message}`);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogout = async () => {
     try {
       clearUser();
-      deleteCookie('accessToken', 'refreshToken', 'user');
+      deleteCookie('accessToken');
+      deleteCookie('refreshToken');
+      deleteCookie('user');
       router.push('/');
     } catch (error) {
       console.error('Failed to sign out:', error);
@@ -47,10 +79,36 @@ export default function MypageFooter() {
                 Travel-Point에서 회원 탈퇴 후에는 복구가 불가능하니 유의해 주세요.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>아니오</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteUser} className='bg-red-600/80 hover:bg-red-600'>예</AlertDialogAction>
-            </AlertDialogFooter>
+            <form onSubmit={handleSubmit(handleDeleteUser)} className="space-y-6">
+              <InputField
+                label="비밀번호"
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                register={register}
+                required
+                error={errors.password}
+              />
+              <InputField
+                label="비밀번호 확인"
+                id="confirm-password"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                register={register}
+                required
+                error={errors.confirmPassword}
+                watch={watch}
+              />
+              {error && <p className="mt-2 text-center text-red-600">{error}</p>}
+              <AlertDialogFooter>
+                <AlertDialogCancel>아니오</AlertDialogCancel>
+                <AlertDialogAction type="submit" className='bg-red-600/80 hover:bg-red-600'>
+                  {loading ? '처리 중...' : '예'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </form>
           </AlertDialogContent>
         </AlertDialog>
         <p className='text-xs'>탈퇴 후에는 복구가 불가능하니 유의해 주세요.</p>
