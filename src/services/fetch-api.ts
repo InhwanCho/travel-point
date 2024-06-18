@@ -42,20 +42,23 @@ export async function fetchFromApi(
 }
 
 // 공통 POST API 요청 함수
+// services/fetch-auth.ts
 export async function fetchFromAuthApi(url: string, data: Record<string, any>) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Basic " + btoa(`${username}:${password}`),
+      Authorization: "Basic " + btoa(`${username}:${password}`), // Ensure username and password are defined in your scope
     },
     body: JSON.stringify(data),
   });
 
+  const responseData = await response.json();
+
   if (!response.ok) {
-    throw new Error(`API call failed with status: ${response.status}`);
+    throw new Error(`API call failed with status: ${response.status} - ${responseData.message}`);
   }
 
-  return response.json();
+  return responseData;
 }
 

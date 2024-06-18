@@ -11,9 +11,10 @@ interface InputFieldProps {
   required: boolean;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   watch?: (name: string) => string; // watch 함수 추가
+  defaultValue?: string;
 }
 
-export default function InputField({ label, id, name, type, autoComplete, register, required, error, watch }: InputFieldProps) {
+export default function InputField({ label, id, name, type, autoComplete, register, required, error, watch, defaultValue }: InputFieldProps) {
   let validationRules: Record<string, any> = { required: `${name} 값을 입력해주세요.` };
 
   if (name === 'email') {
@@ -44,6 +45,7 @@ export default function InputField({ label, id, name, type, autoComplete, regist
           id={id}
           type={type}
           required={required}
+          defaultValue={defaultValue}
           {...register(name, validationRules)}
         />
         {error && <p className="text-red-600 text-xs pt-2">{String(error.message)}</p>}

@@ -1,8 +1,17 @@
 # Travel-Point의 웹 프론트
 
+```bash
+# 먼저 node.js가 설치 되어 있어야 됩니다.
+# 로컬에서 실행 순서
+# 1. `.env.local` 파일 설정
+# 2. 아래 명령어 실행
+npm install
+npm run dev
+```
+
 ## 배포
 
-[travel-point](https://travel-point-umber.vercel.app/ "travel-point")
+배포 주소 : [travel-point 사이트](https://travel-point-umber.vercel.app/ "travel-point")
 
 - `Next.js`
 - `TypeScript`

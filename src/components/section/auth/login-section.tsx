@@ -1,6 +1,6 @@
 'use client';
 // components/section/auth/login-section.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FieldError } from 'react-hook-form';
 import InputField from '@/components/section/auth/input-field';
@@ -24,7 +24,9 @@ interface IFormInput {
 }
 
 export default function LoginSection({ toggleForm }: LoginSectionProps) {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
 
@@ -36,6 +38,9 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
   }, [setValue]);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setLoading(true);
+    setError(null);
+
     if (data.rememberMe) {
       setCookie('rememberEmail', data.email, 7);
     } else {
@@ -58,10 +63,19 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
         console.log('Login successful:', result);
         router.back();
       } else {
+        setError(`Error: ${result.errorCode} - ${result.message}`);
         console.error('Login failed:', result.message);
       }
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('There was a problem with the fetch operation:', error.message);
+        setError(error.message);
+      } else {
+        console.error('Unexpected error', error);
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -99,7 +113,8 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
           <RememberMeCheckbox register={register} />
           <ForgotPasswordLink />
         </div>
-        <SubmitButton text="로그인하기" />
+        <SubmitButton text="로그인하기" loading={loading} />
+        {error && <p className="mt-2 text-center text-red-600">{error}</p>}
         <OauthOptions />
       </form>
     </>

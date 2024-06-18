@@ -1,11 +1,12 @@
+'use client';
 // components/section/auth/register-section.tsx
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Separator } from '@/components/ui/separator';
 import InputField from '@/components/section/auth/input-field';
 import SubmitButton from '@/components/section/auth/submit-button';
 import OauthOptions from '@/components/section/auth/oauth-options';
-import { registerApi } from '@/services/fetch-auth';
+import { registerApi, registerVerificationApi } from '@/services/fetch-auth';
 import { setCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';
@@ -22,19 +23,29 @@ interface IFormInput {
 }
 
 export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInput>();
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
   const [isVerificationStep, setIsVerificationStep] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const emailRef = useRef<string>('');
   const passwordRef = useRef<string>('');
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
 
+  useEffect(() => {
+    if (isVerificationStep) {
+      setValue('verificationCode', ''); // Clear the verificationCode field
+    }
+  }, [isVerificationStep, setValue]);
+
   const handleRegister: SubmitHandler<IFormInput> = async (data) => {
     try {
+      setLoading(true);
+      setError(null);
       emailRef.current = data.email;
       passwordRef.current = data.password;
-      // 이메일과 비밀번호를 이용해 임시 등록 처리
-      const result = await registerApi({ // 수정해야됨
+
+      const result = await registerApi({
         email: data.email,
         password: data.password,
       });
@@ -42,23 +53,36 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
       if (result.response) {
         setIsVerificationStep(true);
       } else {
+        setError(`Error: ${result.errorCode} - ${result.message}`);
         console.error('Register failed:', result.message);
       }
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('There was a problem with the fetch operation:', error.message);
+        setError(error.message);
+      } else {
+        console.error('Unexpected error', error);
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleVerification: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const result = await registerApi({ // 수정해야됨
+      setLoading(true);
+      setError(null);
+
+      const result = await registerVerificationApi({
         email: emailRef.current,
         password: passwordRef.current,
-        verificationCode: data.verificationCode,
+        verificationCode: data.verificationCode!,
       });
 
       if (result.response) {
-        const { accessToken, refreshToken, user } = result.result.token;
+        const { accessToken, refreshToken } = result.result.token;
+        const user = result.result.user;
         setCookie('accessToken', accessToken, 7);
         setCookie('refreshToken', refreshToken, 7);
         setCookie('user', JSON.stringify(user), 7);
@@ -66,10 +90,19 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
         console.log('Verification successful:', result);
         router.back();
       } else {
+        setError(`Error: ${result.errorCode} - ${result.message}`);
         console.error('Verification failed:', result.message);
       }
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('There was a problem with the fetch operation:', error.message);
+        setError(error.message);
+      } else {
+        console.error('Unexpected error', error);
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,15 +150,20 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
               watch={watch}
             />
             <Separator />
-            <SubmitButton text="회원가입" />
+            <SubmitButton text="회원가입" loading={loading} />
+            {error && <p className="mt-2 text-center text-red-600">{error}</p>}
             <OauthOptions />
           </form>
         </>
       ) : (
         <>
-          <p className="mt-2 text-center text-sm">
-            입력하신 이메일로 전송된 인증번호를 입력해주세요.
-          </p>
+          <div className='text-center text-sm'>
+            <p className="mt-2">
+              입력하신 이메일(<strong>{emailRef.current}</strong>)로
+            </p>
+            <p className=''>전송된 인증번호를 입력해주세요.</p>
+          </div>
+
           <form onSubmit={handleSubmit(handleVerification)} className="space-y-6">
             <InputField
               label="이메일 인증번호"
@@ -138,7 +176,8 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
               error={errors.verificationCode}
             />
             <Separator />
-            <SubmitButton text="인증하기" />
+            <SubmitButton text="인증하기" loading={loading} />
+            {error && <p className="mt-2 text-center text-red-600">{error}</p>}
           </form>
         </>
       )}
