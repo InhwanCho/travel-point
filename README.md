@@ -1,26 +1,61 @@
-
 # Travel-Point의 웹 프론트
 
-`Next.js`, `TypeScript`, `Tailwindcss`, `React-query`를 이용하여 개발하였습니다.
+## 배포
 
-## .env파일 설정
+[travel-point](https://travel-point-umber.vercel.app/ "travel-point")
 
-```.env-example
+- `Next.js`
+- `TypeScript`
+- `Tailwindcss`
+- `React-query`
+- `Zustand`
+
+## 폴더 구조
+
+```text
+root
+├── public
+├── prisma
+└── src
+    ├── app # 앱라우트
+    │   ├── @modal
+    │   ├── api
+    │   ├── auth
+    │   ├── destinations
+    │   │   └── [slug]
+    │   ├── festivals
+    │   │   └── [slug]
+    │   ├── mypage
+    │   ├── recommended
+    │   ├── regions
+    │   └── themes
+    ├── assets
+    ├── components
+    ├── config
+    ├── context
+    ├── data
+    ├── hooks
+    ├── libs
+    ├── services
+    ├── store
+    ├── styles
+    └── types
+```
+
+## 환경 변수 설정
+
+```text:.env
+# .env | .env.local
 # BASE_URL
 NEXT_PUBLIC_API_BASE_URL=
-
-# 관광데이터 api
-NEXT_PUBLIC_DATA_API_KEY=
 
 # naver blog search api
 NEXT_PUBLIC_NAVER_SEARCH_ID=
 NEXT_PUBLIC_NAVER_SEARCH_KEY=
 
-# kakao map api
+# kakao api
+NEXT_PUBLIC_KAKAO_ID=
 NEXT_PUBLIC_KAKAO_MAP_KEY=
-
-# llama3 api
-NEXT_PUBLIC_REPLICATE_API_TOKEN=
 
 # mysql - 관광데이터 id,ps
 NEXT_PUBLIC_API_USERNAME=

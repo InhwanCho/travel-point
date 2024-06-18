@@ -15,7 +15,7 @@ export default async function MyPage() {
   return (
     <main>
       <HeroSection page='mypage' title='마이페이지' subtitle='환영합니다' />
-      <PageLayout className='px-0 sm:px-6 xl:px-0'>
+      <PageLayout className='px-0 sm:px-6 xl:px-0' option='70dvh'>
         <Suspense fallback={<div>Loading...</div>}>
           <MyPageContent />
         </Suspense>

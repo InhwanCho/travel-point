@@ -1,6 +1,7 @@
 'use client';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { deleteCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -15,9 +16,7 @@ export default function MypageFooter() {
       // await deleteUser(); 미구현
       // 회원 탈퇴 후 로그아웃
       clearUser();
-      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      deleteCookie('accessToken', 'refreshToken', 'user');
       router.push('/');
     } catch (error) {
       console.error('Failed to delete user:', error);
@@ -27,9 +26,7 @@ export default function MypageFooter() {
   const handleLogout = async () => {
     try {
       clearUser();
-      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      deleteCookie('accessToken', 'refreshToken', 'user');
       router.push('/');
     } catch (error) {
       console.error('Failed to sign out:', error);

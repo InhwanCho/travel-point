@@ -14,7 +14,7 @@ interface NearbyProps extends MapProps {
 
 export default function Nearby({ latitude, longitude, count, areaCode, contentId, className }: NearbyProps) {
   const { data, isError, isLoading } = useFetchNearby(
-    { latitude: String(longitude), longitude: String(latitude), areaCode: areaCode, count: count, contentId: contentId });
+    { latitude: String(longitude), longitude: String(latitude), areaCode: areaCode, count: count, contentId: contentId, random: 'true' });
 
   return (
     <section className={cn('py-10 sm:py-16', className)}>

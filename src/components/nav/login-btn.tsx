@@ -9,6 +9,7 @@ import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useUserStore } from "@/store/userStore";
+import { getCookie, deleteCookie } from '@/libs/cookie';
 
 export default function LoginBtn() {
   const router = useRouter();
@@ -30,12 +31,6 @@ export default function LoginBtn() {
     fetchUser();
   }, [setUser]);
 
-  const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-  };
-
   const openModal = () => {
     router.push('/auth');
   };
@@ -47,9 +42,8 @@ export default function LoginBtn() {
 
   const handleLogout = () => {
     clearUser();
-    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    deleteCookie('accessToken', 'refreshToken', 'user');
+    setPopoverOpen(false);
     router.push('/');
   };
 

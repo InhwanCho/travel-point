@@ -1,6 +1,6 @@
 'use client';
 // components/section/auth/login-section.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FieldError } from 'react-hook-form';
 import InputField from '@/components/section/auth/input-field';
@@ -10,7 +10,7 @@ import ForgotPasswordLink from '@/components/section/auth/forget-password';
 import OauthOptions from '@/components/section/auth/oauth-options';
 import { loginApi } from '@/services/fetch-auth';
 import { useUserStore } from '@/store/userStore';
-import { setCookie } from '@/libs/cookie';
+import { setCookie, getCookie, deleteCookie } from '@/libs/cookie';
 import { useRouter } from 'next/navigation';
 
 interface LoginSectionProps {
@@ -20,14 +20,28 @@ interface LoginSectionProps {
 interface IFormInput {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export default function LoginSection({ toggleForm }: LoginSectionProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<IFormInput>();
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
 
+  useEffect(() => {
+    const savedEmail = getCookie('rememberEmail');
+    if (savedEmail) {
+      setValue('email', savedEmail);
+    }
+  }, [setValue]);
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    if (data.rememberMe) {
+      setCookie('rememberEmail', data.email, 7);
+    } else {
+      deleteCookie('rememberEmail');
+    }
+
     try {
       const result = await loginApi({
         email: data.email,
@@ -76,7 +90,7 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
           id="password"
           name="password"
           type="password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           register={register}
           required
           error={errors.password as FieldError}
