@@ -28,10 +28,8 @@ export async function deleteAccountApi(password: string) {
 }
 
 // 비밀번호 찾기 요청(인증 번호 요청)
-export async function findPasswordVeriApi(data: {
-  email: string;
-}) {
-  const url = "/api/password/reset-request";
+export async function findPasswordVeriApi(data: { email: string }) {
+  const url = "/api/password/reset-request/email";
   return fetchFromAuthApi(url, data, "POST");
 }
 
@@ -43,4 +41,16 @@ export async function findPasswordApi(data: {
 }) {
   const url = "/api/password/reset";
   return fetchFromAuthApi(url, data, "POST");
+}
+
+// 마이페이지 비밀번호 변경
+export async function changePasswordApi(
+  currentPassword: string,
+  newPassword: string
+) {
+  return await fetchFromAuthApi(
+    "/api/password/changePassword",
+    { currentPassword, newPassword },
+    "PUT"
+  );
 }

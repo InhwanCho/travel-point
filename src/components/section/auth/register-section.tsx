@@ -83,9 +83,9 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
       if (result.response) {
         const { accessToken, refreshToken } = result.result.token;
         const user = result.result.user;
-        setCookie('accessToken', accessToken, 7);
-        setCookie('refreshToken', refreshToken, 7);
-        setCookie('user', JSON.stringify(user), 7);
+        setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
+        setCookie({ name: 'refreshToken', value: refreshToken, days: 7, secure: true });
+        setCookie({ name: 'user', value: JSON.stringify(user), hours: 2, secure: true });
         setUser(user); // Zustand 스토어에 사용자 정보 저장
         console.log('Verification successful:', result);
         router.back();

@@ -55,7 +55,7 @@ export async function fetchFromAuthApi(
     method: method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: method === 'DELETE' ? `Bearer ${accessToken}` : "Basic " + btoa(`${username}:${password}`), 
+      Authorization: method === 'DELETE' || method === 'PUT' ? `Bearer ${accessToken}` : "Basic " + btoa(`${username}:${password}`), 
     },
     body: JSON.stringify(data),
   });

@@ -10,7 +10,7 @@ interface InputFieldProps {
   register: UseFormRegister<any>;
   required: boolean;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
-  watch?: (name: string) => string; // watch 함수 추가
+  watch?: (name: string) => string; 
   defaultValue?: string;
 }
 
