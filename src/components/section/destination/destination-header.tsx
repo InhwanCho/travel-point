@@ -6,25 +6,29 @@ import { Siren, Bookmark } from 'lucide-react';
 import { GoCopy } from 'react-icons/go';
 import { ToastProvider } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
+import { bookMarkDestination } from '@/services/fetch-auth';
+import { useUserStore } from '@/store/userStore';
 
 interface DestinationHeaderProps {
   title: string;
+  contentId?: string;
   location: string;
   tags?: string[];
 }
 
 const rating = 3.7;
 
-export default function DestinationHeader({ title, location, tags }: DestinationHeaderProps) {
+export default function DestinationHeader({ title, location, tags, contentId }: DestinationHeaderProps) {
 
   return (
     <ToastProvider>
-      <HeaderContent title={title} location={location} tags={tags}/>
+      <HeaderContent title={title} location={location} tags={tags} contentId={contentId} />
     </ToastProvider>
   );
 }
 
-function HeaderContent({ title, location, tags }: DestinationHeaderProps) {
+function HeaderContent({ title, location, tags, contentId }: DestinationHeaderProps) {
+  const user = useUserStore((state) => state.user);
   const { toast } = useToast();
 
   const handleCopyClick = async () => {
@@ -41,6 +45,20 @@ function HeaderContent({ title, location, tags }: DestinationHeaderProps) {
       });
     }
   };
+  const handleBookbark = () => {
+    if (!user) return toast({
+      title: '로그인이 필요합니다',
+    });
+
+    try {
+      bookMarkDestination(Number(user.id), Number(contentId));
+    } catch (err) {
+      toast({
+        title: '에러 발생',
+      });
+      console.log(err);
+    }
+  };
   return (
     <header className='py-8'>
       <Separator className='my-4' />
@@ -50,8 +68,11 @@ function HeaderContent({ title, location, tags }: DestinationHeaderProps) {
             <h2 className='sm:text-xl font-bold'>{title}</h2>
             <StarRating className='xsm:ml-1.5' rating={rating} numPeoPle={323} />
           </div>
+          {/* 북마크, 신고하기, url 저장 */}
           <nav className='flex space-x-2 sm:space-x-4'>
-            <div className='mini-icon'><Bookmark className='size-3.5 xsm:size-4' /></div>
+            <div className='mini-icon'>
+              <Bookmark className='size-3.5 xsm:size-4' onClick={handleBookbark} />
+            </div>
             <div className='mini-icon'><Siren className='size-3.5 xsm:size-4' /></div>
             <div className='mini-icon' onClick={handleCopyClick}>
               <GoCopy className='size-3.5 xsm:size-4' />

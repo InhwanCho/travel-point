@@ -74,9 +74,8 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
         const user = result.result.user;
         setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
         setCookie({ name: 'refreshToken', value: refreshToken, days: 7, secure: true });
-        setCookie({ name: 'user', value: JSON.stringify(user), days: 7 });
-        setUser(user); // Zustand 스토어에 사용자 정보 저장
-        console.log('Login successful:', result);
+        setCookie({ name: 'user', value: JSON.stringify(user), hours: 2 });        
+        setUser(user); // Zustand 스토어에 사용자 정보 저장        
         router.back();
       } else {
         setError(`Error: ${result.errorCode} - ${result.message}`);

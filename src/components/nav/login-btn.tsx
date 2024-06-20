@@ -64,7 +64,7 @@ export default function LoginBtn() {
       {user ? (
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger className='focus-visible:outline-none'>
-            <img src={user.image || '/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white size-[42px] min-w-[42px] rounded-full border outline-none' />
+            <img src={user.userImgUrl || '/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white size-[42px] min-w-[42px] rounded-full border outline-none' />
           </PopoverTrigger>
           <PopoverContent className='mt-2 mx-2 bg-slate-100/90 relative'>
             <PopoverClose className='absolute top-2.5 right-2.5 focus-visible:outline-none'>
@@ -72,7 +72,7 @@ export default function LoginBtn() {
             </PopoverClose>
             <div className='flex justify-center flex-col items-center space-y-4'>
               <p>{user.email}</p>
-              <img src={user.image || '/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full size-[72px] min-w-[72px]' />
+              <img src={user.userImgUrl || '/assets/image/characters/anonymous.png'} alt='character image' width={72} height={72} className='bg-white rounded-full size-[72px] min-w-[72px]' />
               <p>안녕하세요</p>
               <div className='flex justify-evenly w-full'>
                 <Button variant='outline' className='rounded-full' onClick={handleMyPageClick}>

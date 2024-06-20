@@ -7,7 +7,7 @@ export default function middleware(request: NextRequest) {
 
   // 토큰이 없으면 로그인 페이지로 리디렉션합니다.
   if (!token) {
-    const loginUrl = new URL('/auth', request.url);
+    const loginUrl = new URL('/', request.url);
     return NextResponse.redirect(loginUrl);
   }
 

@@ -54,3 +54,20 @@ export async function changePasswordApi(
     "PUT"
   );
 }
+
+// 이미지 업로드
+export async function uploadImage(imageUrl: string) {
+  return await fetchFromAuthApi("/api/uploadImage", { imageUrl }, "POST");
+}
+
+// 찜하기
+export async function bookMarkDestination(
+  memberId: number,
+  destinationId: number
+) {
+  return await fetchFromAuthApi(
+    "/api/api/favorites/add",
+    { memberId, destinationId },
+    "POST"
+  );
+}

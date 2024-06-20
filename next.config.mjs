@@ -8,8 +8,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/auth/:path*", // NextAuth 경로 예외 처리
-        destination: "/api/auth/:path*",
+        source: "/api/upload-image",
+        destination: "/api/upload-image",
       },
       {
         source: "/api/:path*",

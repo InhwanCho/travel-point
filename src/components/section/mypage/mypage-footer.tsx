@@ -21,7 +21,7 @@ interface IPasswordChangeInput {
 }
 
 export default function MypageFooter() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
   const { register: registerPasswordChange, handleSubmit: handlePasswordChangeSubmit, formState: { errors: passwordChangeErrors }, watch: watchPasswordChange } = useForm<IPasswordChangeInput>({ mode: 'onBlur' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

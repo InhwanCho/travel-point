@@ -51,12 +51,17 @@ export async function fetchFromAuthApi(
   method: string = "POST"
 ) {
   const accessToken = getCookie('accessToken');
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
   const response = await fetch(url, {
     method: method,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: method === 'DELETE' || method === 'PUT' ? `Bearer ${accessToken}` : "Basic " + btoa(`${username}:${password}`), 
-    },
+    headers: headers,
     body: JSON.stringify(data),
   });
 
@@ -70,4 +75,3 @@ export async function fetchFromAuthApi(
 
   return responseData;
 }
-
