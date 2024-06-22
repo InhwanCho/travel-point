@@ -60,14 +60,60 @@ export async function uploadImage(imageUrl: string) {
   return await fetchFromAuthApi("/api/uploadImage", { imageUrl }, "POST");
 }
 
-// 찜하기
+// 찜하기 확인
+export async function isBookmarked(memberId: number, destinationId: number) {
+  return await fetchFromAuthApi("/api/favorites/isFavorite", { memberId, destinationId }, "GET", 
+    `?memberId=${memberId}&destinationId=${destinationId}`
+  );
+}
+
+// 찜 추가하기
 export async function bookMarkDestination(
   memberId: number,
   destinationId: number
 ) {
   return await fetchFromAuthApi(
-    "/api/api/favorites/add",
+    "/api/favorites/add",
     { memberId, destinationId },
-    "POST"
+    "POST",
+    `?memberId=${memberId}&destinationId=${destinationId}`
+  );
+}
+
+// 마이페이지 찜하기 확인
+export async function checkBookmarkbyId(
+  memberId: number,
+  destinationId: number
+) {
+  return await fetchFromAuthApi(
+    "/api/favorites/member",
+    { memberId, destinationId },
+    "GET",
+    `/${memberId}`
+  );
+}
+
+// 찜하기 1개 삭제
+export async function deleteBookmarkbyId(
+  memberId: number,
+  destinationId: number
+) {
+  return await fetchFromAuthApi(
+    "/api/favorites/delete",
+    { memberId, destinationId },
+    "DELETE",
+    `?memberId=${memberId}&destinationId=${destinationId}`
+  );
+}
+
+// 찜하기 전체 삭제
+export async function deleteBookmarkAll(
+  memberId: number,  
+) {
+  return await fetchFromAuthApi(
+    "/api/favorites/deleteAll",
+    { memberId },
+    "DELETE",
+    `/${memberId}`
   );
 }

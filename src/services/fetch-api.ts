@@ -47,23 +47,29 @@ export async function fetchFromApi(
 // services/fetch-auth.ts
 export async function fetchFromAuthApi(
   url: string,
-  data: Record<string, any>,
-  method: string = "POST"
+  data: Record<string, any> | null = null,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "POST",
+  params?: string
 ) {
-  const accessToken = getCookie('accessToken');
+  const accessToken = getCookie("accessToken");
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
 
   if (accessToken) {
-    headers['Authorization'] = `Bearer ${accessToken}`;
+    headers["Authorization"] = `Bearer ${accessToken}`;
   }
 
-  const response = await fetch(url, {
+  const fetchOptions: RequestInit = {
     method: method,
     headers: headers,
-    body: JSON.stringify(data),
-  });
+  };
+
+  if (method !== "GET" && data) {
+    fetchOptions.body = JSON.stringify(data);
+  }
+
+  const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
 
   const responseData = await response.json();
 

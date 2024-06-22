@@ -32,7 +32,7 @@ export default function DestinationContent({ slug }: { slug: string }) {
       ) : (
         data && (
           <>
-            <DestinationHeader title={data.title} location={data.location} tags={[data.cat2, data.cat3]} contentId={slug} />
+            <DestinationHeader title={data.title} location={data.location} tags={[data.cat2, data.cat3]} contentId={slug} destinationId={data.destinationId}/>
             <DestinationBody data={data} />
           </>
         )

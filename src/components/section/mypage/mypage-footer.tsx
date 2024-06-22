@@ -48,6 +48,7 @@ export default function MypageFooter() {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
         deleteCookie('user');
+        alert("회원탈퇴 되었습니다.");
         router.push('/');
       } else {
         setError(`Error: ${result.errorCode} - ${result.message}`);

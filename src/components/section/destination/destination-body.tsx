@@ -102,7 +102,7 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
             <DestinationInfo details={destinationDetails} contentTypeId={data.contentTypeId} />            
             <DestinationComment />
             <Nearby count='4' contentId={data.contentId} latitude={Number(data.mapY)} longitude={Number(data.mapX)}/>
-            <DestinationBlog title={data.title} />
+            {/* <DestinationBlog title={data.title} /> */}
           </Suspense>
         </main>
         <Suspense fallback={null}>

@@ -1,12 +1,12 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import StarRating from '@/components/common/star-rating';
 import { Siren, Bookmark } from 'lucide-react';
 import { GoCopy } from 'react-icons/go';
 import { ToastProvider } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
-import { bookMarkDestination } from '@/services/fetch-auth';
+import { bookMarkDestination, isBookmarked, deleteBookmarkbyId } from '@/services/fetch-auth';
 import { useUserStore } from '@/store/userStore';
 
 interface DestinationHeaderProps {
@@ -14,21 +14,23 @@ interface DestinationHeaderProps {
   contentId?: string;
   location: string;
   tags?: string[];
+  destinationId?: string;
 }
 
 const rating = 3.7;
 
-export default function DestinationHeader({ title, location, tags, contentId }: DestinationHeaderProps) {
+export default function DestinationHeader({ title, location, tags, contentId, destinationId }: DestinationHeaderProps) {
 
   return (
     <ToastProvider>
-      <HeaderContent title={title} location={location} tags={tags} contentId={contentId} />
+      <HeaderContent title={title} location={location} tags={tags} contentId={contentId} destinationId={destinationId} />
     </ToastProvider>
   );
 }
 
-function HeaderContent({ title, location, tags, contentId }: DestinationHeaderProps) {
+function HeaderContent({ title, location, tags, contentId, destinationId }: DestinationHeaderProps) {
   const user = useUserStore((state) => state.user);
+  const [isBookmarkedState, setIsBookmarkedState] = useState(false);
   const { toast } = useToast();
 
   const handleCopyClick = async () => {
@@ -45,20 +47,56 @@ function HeaderContent({ title, location, tags, contentId }: DestinationHeaderPr
       });
     }
   };
-  const handleBookbark = () => {
-    if (!user) return toast({
-      title: '로그인이 필요합니다',
-    });
+
+  useEffect(() => {
+    const checkBookmark = async () => {
+      if (user && destinationId) {
+        try {
+          const response = await isBookmarked(Number(user.id), Number(destinationId));
+          setIsBookmarkedState(response.result);
+        } catch (error) {
+          console.error('Error checking bookmark status:', error);
+        }
+      }
+    };
+    checkBookmark();
+  }, [user, destinationId]);
+
+  const handleBookmark = async () => {
+    if (!user) {
+      toast({
+        title: '로그인이 필요합니다',
+      });
+      return;
+    }
+
+    if (!destinationId) {
+      console.log('destinationId 없음');
+      return;
+    }
 
     try {
-      bookMarkDestination(Number(user.id), Number(contentId));
+      if (isBookmarkedState) {
+        await deleteBookmarkbyId(Number(user.id), Number(destinationId));
+        setIsBookmarkedState(false);
+        toast({
+          title: '북마크 해제되었습니다',
+        });
+      } else {
+        await bookMarkDestination(Number(user.id), Number(destinationId));
+        setIsBookmarkedState(true);
+        toast({
+          title: '북마크 추가되었습니다',
+        });
+      }
     } catch (err) {
       toast({
         title: '에러 발생',
       });
-      console.log(err);
+      console.error(err);
     }
   };
+
   return (
     <header className='py-8'>
       <Separator className='my-4' />
@@ -71,7 +109,10 @@ function HeaderContent({ title, location, tags, contentId }: DestinationHeaderPr
           {/* 북마크, 신고하기, url 저장 */}
           <nav className='flex space-x-2 sm:space-x-4'>
             <div className='mini-icon'>
-              <Bookmark className='size-3.5 xsm:size-4' onClick={handleBookbark} />
+              <Bookmark
+                className={`size-3.5 xsm:size-4 cursor-pointer ${isBookmarkedState ? 'text-yellow-500 fill-current' : 'text-gray-500'}`}
+                onClick={handleBookmark}
+              />
             </div>
             <div className='mini-icon'><Siren className='size-3.5 xsm:size-4' /></div>
             <div className='mini-icon' onClick={handleCopyClick}>

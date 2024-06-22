@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 
 interface LoginSectionProps {
   toggleForm: () => void;
+  isModal?: boolean;
 }
 
 interface IFormInput {
@@ -32,7 +33,7 @@ interface IResetPasswordInput {
   confirmPassword: string;
 }
 
-export default function LoginSection({ toggleForm }: LoginSectionProps) {
+export default function LoginSection({ toggleForm, isModal }: LoginSectionProps) {
   const { register, handleSubmit, setValue, formState: { errors: loginErrors } } = useForm<IFormInput>({ mode: 'onBlur' });
   const { register: registerForgot, handleSubmit: handleSubmitForgot, formState: { errors: forgotPasswordErrors } } = useForm<IForgotPasswordInput>({ mode: 'onBlur' });
   const { register: registerReset, handleSubmit: handleSubmitReset, formState: { errors: resetPasswordErrors } } = useForm<IResetPasswordInput>({ mode: 'onBlur' });
@@ -74,9 +75,10 @@ export default function LoginSection({ toggleForm }: LoginSectionProps) {
         const user = result.result.user;
         setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
         setCookie({ name: 'refreshToken', value: refreshToken, days: 7, secure: true });
-        setCookie({ name: 'user', value: JSON.stringify(user), hours: 2 });        
-        setUser(user); // Zustand 스토어에 사용자 정보 저장        
-        router.back();
+        setCookie({ name: 'user', value: JSON.stringify(user), hours: 2 });
+        setUser(user); // Zustand 스토어에 사용자 정보 저장                
+
+        isModal ? router.back() : router.push('/');
       } else {
         setError(`Error: ${result.errorCode} - ${result.message}`);
         console.error('Login failed:', result.message);

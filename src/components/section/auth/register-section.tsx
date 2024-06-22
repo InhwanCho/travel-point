@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 
 interface RegisterSectionProps {
   toggleForm: () => void;
+  isModal?: boolean;
 }
 
 interface IFormInput {
@@ -22,7 +23,7 @@ interface IFormInput {
   verificationCode?: string;
 }
 
-export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
+export default function RegisterSection({ toggleForm, isModal }: RegisterSectionProps) {
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<IFormInput>({ mode: 'onBlur' });
   const [isVerificationStep, setIsVerificationStep] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -87,8 +88,9 @@ export default function RegisterSection({ toggleForm }: RegisterSectionProps) {
         setCookie({ name: 'refreshToken', value: refreshToken, days: 7, secure: true });
         setCookie({ name: 'user', value: JSON.stringify(user), hours: 2, secure: true });
         setUser(user); // Zustand 스토어에 사용자 정보 저장
-        console.log('Verification successful:', result);
-        router.back();
+        // console.log('Verification successful:', result);
+
+        isModal ? router.back() : router.push('/');
       } else {
         setError(`Error: ${result.errorCode} - ${result.message}`);
         console.error('Verification failed:', result.message);
