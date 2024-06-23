@@ -43,8 +43,9 @@ export async function fetchFromApi(
   return response.json();
 }
 
-// 공통 POST API 요청 함수
+// 공통 API 요청 함수
 // services/fetch-auth.ts
+
 export async function fetchFromAuthApi(
   url: string,
   data: Record<string, any> | null = null,
@@ -71,11 +72,17 @@ export async function fetchFromAuthApi(
 
   const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
 
-  const responseData = await response.json();
+  let responseData;
+  try {
+    responseData = await response.json();
+  } catch (error) {
+    responseData = { message: 'JSON parsing error' };
+  }
 
   if (!response.ok) {
+    console.error(`API call failed: ${url}`, responseData);
     throw new Error(
-      `API call failed with status: ${response.status} - ${responseData.message}`
+      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
     );
   }
 
