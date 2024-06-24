@@ -65,3 +65,12 @@ export async function getReviewsByDestinationRateAsc(destinationId: number) {
     "GET"
   );
 }
+
+// 마이페이지 내가 쓴 리뷰 조회
+export async function getMyReviews(memberId: number) {
+  return await fetchFromAuthApi(
+    `/api/reviews/members/${memberId}`,
+    null,
+    "GET"
+  );
+}

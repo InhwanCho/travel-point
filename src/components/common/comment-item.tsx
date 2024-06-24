@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoMdHeartEmpty, IoMdTrash, IoMdCreate } from "react-icons/io";
 import { PiSirenFill } from "react-icons/pi";
-import { cn } from '@/libs/utils';
+import { cn, maskEmail } from '@/libs/utils';
 import StarRating from '@/components/common/star-rating';
 import { modifyReview, deleteReview } from '@/services/fetch-review';
 import { useToast } from '@/components/ui/use-toast';
@@ -40,7 +40,7 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
-  
+
   const handleEdit = async () => {
     try {
       const reviewData: Record<string, any> = {
@@ -105,10 +105,12 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
               <StarRating rating={comment.rate} />
             </span>
             <div className='flex sm:items-start gap-x-3'>
-              <p className='text-xs'>{comment.memberEmail}</p>
-              <p className='text-xs hidden xsm:flex'>{comment.modifyDate.slice(0,10)}</p>
+              <p className='text-xs'>{maskEmail(comment.memberEmail)}</p>
+              <p className='text-xs hidden xsm:flex'>
+                <span className='text-[11px] mr-2'>|</span> {new Date(comment.modifyDate).toLocaleDateString()}
+              </p>
             </div>
-            <p className='text-xs flex xsm:hidden'>{comment.modifyDate.slice(0,10)}</p>
+            <p className='text-xs flex xsm:hidden'>{new Date(comment.modifyDate).toLocaleDateString()}</p>
           </div>
           <div className='flex gap-2 sm:gap-3 pr-1.5'>
             <PiSirenFill className='size-4 cursor-pointer' />

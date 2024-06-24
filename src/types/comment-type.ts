@@ -14,3 +14,14 @@ export interface Comment {
   createDate: string;
   destination: DestinationDetailType;
 }
+
+export interface MyReviewType {
+  id: number;
+  content: string;
+  createDate: string;
+  imageUrl: string;
+  likeCount: number;
+  rate: number;
+  destination: DestinationDetailType
+  member: User
+}

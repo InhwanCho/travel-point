@@ -80,7 +80,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
       const res = await createReview(reviewData);
       if (!res.response) return toast({
         title: '리뷰 등록 실패',
-        description: '여행지 당 리뷰는 아이디에 1개씩 등록 가능합니다.',
+        description: '여행지 당 하나의 리뷰만 등록할 수 있습니다. 이미 등록된 리뷰가 있습니다.',
       });
       toast({
         title: '리뷰 등록 성공',
@@ -158,7 +158,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
           <CommentGuidelines />
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className='flex w-full'>
-          <label className='size-20 float-left relative flex justify-center items-center flex-col border-slate-300 border-y border-l bg-white' htmlFor='input-img'>
+          <label className='size-20 float-left relative flex justify-center items-center flex-col border-slate-300 border-y border-l bg-white cursor-pointer' htmlFor='input-img'>
             <input
               id='input-img'
               type="file"
@@ -185,7 +185,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
               }}
             ></textarea>
           </div>
-          <div className='size-20 float-right flex justify-center items-center bg-[#333333]/90'>
+          <div className={`size-20 float-right flex justify-center items-center bg-[#333333]/90 ${loading? 'pointer-events-none' : 'cursor-pointer'}`}>
             {loading ? (
               <LiaSpinnerSolid className="animate-spin-slow size-5 mr-1.5 text-slate-500" />
             ) : (
