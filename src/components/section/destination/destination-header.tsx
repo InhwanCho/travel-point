@@ -4,10 +4,10 @@ import { Separator } from '@/components/ui/separator';
 import StarRating from '@/components/common/star-rating';
 import { Siren, Bookmark } from 'lucide-react';
 import { GoCopy } from 'react-icons/go';
-import { ToastProvider } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { bookMarkDestination, isBookmarked, deleteBookmarkbyId } from '@/services/fetch-auth';
 import { useUserStore } from '@/store/userStore';
+import { getRatingsByDestination, getReviewCountByDestination } from '@/services/fetch-review';
 
 interface DestinationHeaderProps {
   title: string;
@@ -17,20 +17,11 @@ interface DestinationHeaderProps {
   destinationId?: string;
 }
 
-const rating = 3.7;
-
 export default function DestinationHeader({ title, location, tags, contentId, destinationId }: DestinationHeaderProps) {
-
-  return (
-    <ToastProvider>
-      <HeaderContent title={title} location={location} tags={tags} contentId={contentId} destinationId={destinationId} />
-    </ToastProvider>
-  );
-}
-
-function HeaderContent({ title, location, tags, contentId, destinationId }: DestinationHeaderProps) {
   const user = useUserStore((state) => state.user);
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+  const [numPeople, setNumPeople] = useState<number>(0);
   const { toast } = useToast();
 
   const handleCopyClick = async () => {
@@ -59,7 +50,23 @@ function HeaderContent({ title, location, tags, contentId, destinationId }: Dest
         }
       }
     };
+
+    const fetchRatingsAndReviewCount = async () => {
+      if (destinationId) {
+        try {
+          const ratingsResponse = await getRatingsByDestination(Number(destinationId));
+          setRating(ratingsResponse.result.averageRating);
+
+          const reviewCountResponse = await getReviewCountByDestination(Number(destinationId));
+          setNumPeople(reviewCountResponse.result);
+        } catch (error) {
+          console.error('Error fetching ratings and review count:', error);
+        }
+      }
+    };
+
     checkBookmark();
+    fetchRatingsAndReviewCount();
   }, [user, destinationId]);
 
   const handleBookmark = async () => {
@@ -104,13 +111,13 @@ function HeaderContent({ title, location, tags, contentId, destinationId }: Dest
         <div className='flex justify-between'>
           <div className='flex xsm:gap-2  xsm:flex-row flex-col'>
             <h2 className='sm:text-xl font-bold'>{title}</h2>
-            <StarRating className='xsm:ml-1.5' rating={rating} numPeoPle={323} />
+            <StarRating className='xsm:ml-1.5' rating={rating} numPeople={numPeople} />
           </div>
           {/* 북마크, 신고하기, url 저장 */}
           <nav className='flex space-x-2 sm:space-x-4'>
             <div className='mini-icon'>
               <Bookmark
-                className={`size-3.5 xsm:size-4 cursor-pointer ${isBookmarkedState ? 'text-yellow-500 fill-current' : 'text-gray-500'}`}
+                className={`size-3.5 xsm:size-4 cursor-pointer ${isBookmarkedState ? 'text-blue-600/95 fill-current' : 'text-gray-500'}`}
                 onClick={handleBookmark}
               />
             </div>

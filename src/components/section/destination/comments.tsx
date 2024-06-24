@@ -1,22 +1,11 @@
 'use client';
 import CommentItem from '@/components/common/comment-item';
+import { Comment } from '@/types/comment-type';
 import { Plus } from 'lucide-react';
 import React, { useState } from 'react';
 
-interface Comment {
-  id: number;
-  content: string;
-  rate: number;
-  user: string;
-  date: string;
-  imageUrl?: string;
-  likes: number;
-  memberEmail: string;
-  userId: number; // 추가된 userId 필드
-}
-
 interface CommentsProps {
-  comments: Comment[];
+  comments : Comment[];
   fetchComments: () => Promise<void>;
 }
 
@@ -33,7 +22,7 @@ export default function Comments({ comments, fetchComments }: CommentsProps) {
       <div className='border-t-2 flex flex-col'>
         <ul>
           {comments.slice(0, visibleComments).map((comment) => (
-            <CommentItem key={comment.id} comment={comment} fetchComments={fetchComments} />
+            <CommentItem key={comment.id} comment={comment} fetchComments={fetchComments} className='last:border-b'/>
           ))}
         </ul>
         {comments.length > visibleComments && (

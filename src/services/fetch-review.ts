@@ -1,7 +1,12 @@
 import { fetchFromAuthApi } from "@/services/fetch-api";
 
 // 리뷰 생성
-export async function createReview(reviewData: { content: string; rate: number; destinationId: number; imageUrl: string }) {
+export async function createReview(reviewData: {
+  content: string;
+  rate: number;
+  destinationId: number;
+  imageUrl: string;
+}) {
   return await fetchFromAuthApi("/api/reviews", reviewData, "POST");
 }
 
@@ -26,21 +31,18 @@ export async function deleteReview(id: number) {
   return await fetchFromAuthApi(`/api/reviews/delete/${id}`, null, "DELETE");
 }
 
-// 특정 목적지의 총 리뷰 갯수 조회
-export async function getReviewCountByDestination(destinationId: number) {
+// 특정 목적지의 별점 평점 조회
+export async function getRatingsByDestination(destinationId: number) {
   return await fetchFromAuthApi(
-    `/api/reviews/destination/${destinationId}/count`,
+    `/api/reviews/destination/${destinationId}/ratings`,
     null,
     "GET"
   );
 }
-
-
-
-// 특정 목적지의 별점 통계 조회
-export async function getRatingsByDestination(destinationId: number) {
+// 특정 목적지의 총 리뷰 갯수 조회
+export async function getReviewCountByDestination(destinationId: number) {
   return await fetchFromAuthApi(
-    `/api/reviews/destination/${destinationId}/ratings`,
+    `/api/reviews/destination/${destinationId}/count`,
     null,
     "GET"
   );

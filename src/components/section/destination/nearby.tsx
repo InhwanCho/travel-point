@@ -18,7 +18,7 @@ export default function Nearby({ latitude, longitude, count, areaCode, contentId
 
   return (
     <section className={cn('py-10 sm:py-16', className)}>
-      <Title className='border-b'>주변 여행지</Title>
+      <Title className='border-b'>주변 여행지 추천</Title>
       <CardLayout className='gap-6'>
         {data && data.map((item, i) => (
           <DestinationCard key={i} contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />

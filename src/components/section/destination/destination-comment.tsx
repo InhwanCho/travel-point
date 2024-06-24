@@ -8,7 +8,7 @@ import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { useUserStore } from '@/store/userStore';
 import { LiaSpinnerSolid } from 'react-icons/lia';
 import { createReview, getReviewsByDestination } from '@/services/fetch-review';
-import { ToastAction, ToastProvider } from '@/components/ui/toast';
+import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
@@ -136,7 +136,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
   };
 
   return (
-    <ToastProvider>
+    <>
       <Title className='pt-8 border-t'>여행 후기</Title>
       <div className="bg-slate-100/90 relative rounded p-4">
         <div className="flex justify-between items-center pb-2">
@@ -210,6 +210,6 @@ export default function DestinationComment({ destinationId }: { destinationId: s
         )}
       </div>
       <Comments comments={comments} fetchComments={fetchComments} />
-    </ToastProvider>
+    </>
   );
 }

@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import InputField from '@/components/section/auth/input-field';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { deleteAccountApi, changePasswordApi } from '@/services/fetch-auth';
+import { useToast } from '@/components/ui/use-toast';
 
 interface IFormInput {
   password: string;
@@ -30,6 +31,7 @@ export default function MypageFooter() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const clearUser = useUserStore((state) => state.clearUser);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleDeleteUser: SubmitHandler<IFormInput> = async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -48,7 +50,10 @@ export default function MypageFooter() {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
         deleteCookie('user');
-        alert("회원탈퇴 되었습니다.");
+        toast({
+          title: "회원 탈퇴 완료",
+          description: "회원 탈퇴가 성공적으로 처리되었습니다. 이용해 주셔서 감사합니다.",
+        });
         router.push('/');
       } else {
         setError(`Error: ${result.errorCode} - ${result.message}`);

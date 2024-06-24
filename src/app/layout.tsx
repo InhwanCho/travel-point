@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { fontSpoqaHanSansNeo } from "@/data/data";
 import MobileNav from "@/components/nav/mobile-nav";
 import { metadataLayout } from "@/config/metadata";
+import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = metadataLayout;
 
@@ -32,12 +33,14 @@ export default function RootLayout({
         <body className={cn('min-h-dvh antialiased', fontSpoqaHanSansNeo.className)}>
           <KbarLayout >
             <QueryProvider>
-              {modal}
-              <SiteHeader />
-              {children}
-              <SiteFooter />
-              <MobileNav />
-              <Toaster />
+              <ToastProvider>
+                {modal}
+                <SiteHeader />
+                {children}
+                <SiteFooter />
+                <MobileNav />
+                <Toaster />
+              </ToastProvider>
             </QueryProvider>
           </KbarLayout>
         </body>

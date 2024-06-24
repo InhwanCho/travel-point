@@ -1,13 +1,6 @@
 // stores/userStore.ts
+import { User } from "@/types/user-type";
 import { create } from "zustand";
-
-interface User {
-  id: string;
-  email: string;
-  userImgUrl?: string;
-  username?: string;
-  createDate?: Date;
-}
 
 interface UserStore {
   user: User | null;

@@ -20,20 +20,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
+import { Comment } from '@/types/comment-type';
 
 interface CommentItemProps {
   className?: string;
-  comment: {
-    id: number;
-    content: string;
-    rate: number;
-    user: string;
-    memberEmail: string;
-    date: string;
-    imageUrl?: string;
-    likes: number;
-    userId: number; // 추가된 userId 필드
-  };
+  comment: Comment;
   fetchComments: () => Promise<void>;
 }
 
@@ -49,7 +40,7 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
-
+  
   const handleEdit = async () => {
     try {
       const reviewData: Record<string, any> = {
@@ -65,6 +56,8 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
           toast({ title: '이미지 업로드 실패', description: '이미지 업로드 중 오류가 발생했습니다.' });
           return;
         }
+      } else {
+        reviewData.imageUrl = comment.imageUrl;
       }
 
       await modifyReview(comment.id, reviewData);
@@ -103,31 +96,32 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
   return (
     <li className={`${cn('border-t relative list-none', className)}`}>
       <div className='absolute top-0 left-0'>
-        <img src={'/assets/image/characters/m1.png'} alt='character image' width={46} height={46} />
+        <img src={comment.user.userImgUrl} alt='character image' width={46} height={46} />
       </div>
       <div className='w-full py-2 pl-[50px]'>
         <div className='flex justify-between'>
-          <div className='flex flex-col sm:flex-row gap-x-3 text-sm text-slate-600'>
+          <div className='flex flex-col sm:flex-row gap-x-3 gap-y-0.5 text-sm text-slate-600'>
             <span className='sm:pl-1 flex items-center'>
               <StarRating rating={comment.rate} />
             </span>
             <div className='flex sm:items-start gap-x-3'>
-              <p>{comment.memberEmail}</p>
-              <p>{comment.date}</p>
+              <p className='text-xs'>{comment.memberEmail}</p>
+              <p className='text-xs hidden xsm:flex'>{comment.modifyDate.slice(0,10)}</p>
             </div>
+            <p className='text-xs flex xsm:hidden'>{comment.modifyDate.slice(0,10)}</p>
           </div>
           <div className='flex gap-2 sm:gap-3 pr-1.5'>
-            <PiSirenFill className='size-4' />
+            <PiSirenFill className='size-4 cursor-pointer' />
             <span className='flex items-start'>
-              <IoMdHeartEmpty className='size-4' />
-              <span className='text-xs mx-1'>({comment.likes || 0})</span>
+              <IoMdHeartEmpty className='size-4 cursor-pointer' />
+              <span className='text-xs mx-1'>({0})</span>
             </span>
             {user && user.email === comment.memberEmail && (
               <>
                 <IoMdCreate className='size-4 cursor-pointer' onClick={handleEditToggle} />
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <button><IoMdTrash className='size-4 cursor-pointer' /></button>
+                    <button className='flex '><IoMdTrash className='size-4 cursor-pointer' /></button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
@@ -148,7 +142,7 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
             <div>
               <textarea
                 ref={textAreaRef}
-                className='w-full border p-2'
+                className='w-full border p-2 rounded-sm text-sm'
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 style={{ overflow: 'hidden' }}
@@ -166,10 +160,10 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
                   <img width={420} height={260} src={comment.imageUrl} alt='댓글 이미지' className='max-h-[260px]' />
                 </div>
               )}
-              <button onClick={handleEdit} className='bg-blue-500 text-white px-4 py-2 mt-2 rounded'>
+              <button onClick={handleEdit} className='bg-blue-500 text-white px-4 py-2 mt-2 rounded text-sm'>
                 수정 완료
               </button>
-              <button onClick={handleEditToggle} className='bg-gray-500 text-white px-4 py-2 mt-2 ml-2 rounded'>
+              <button onClick={handleEditToggle} className='bg-gray-500 text-white px-4 py-2 mt-2 ml-2 rounded text-sm'>
                 취소
               </button>
             </div>
