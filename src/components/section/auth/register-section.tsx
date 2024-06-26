@@ -85,7 +85,7 @@ export default function RegisterSection({ toggleForm, isModal }: RegisterSection
         const { accessToken, refreshToken } = result.result.token;
         const user = result.result.user;
         setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
-        setCookie({ name: 'refreshToken', value: refreshToken, days: 7, secure: true });
+        setCookie({ name: 'refreshToken', value: refreshToken, days: 1, secure: true });
         setCookie({ name: 'user', value: JSON.stringify(user), hours: 2, secure: true });
         setUser(user); // Zustand 스토어에 사용자 정보 저장
         // console.log('Verification successful:', result);

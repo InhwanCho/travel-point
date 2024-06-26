@@ -209,7 +209,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
           </div>
         )}
       </div>
-      <Comments comments={comments} fetchComments={fetchComments} />
+      <Comments comments={comments} fetchComments={fetchComments} destinationId={destinationId}/>
     </>
   );
 }

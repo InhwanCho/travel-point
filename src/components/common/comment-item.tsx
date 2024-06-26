@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useRef, useEffect } from 'react';
-import { IoMdHeartEmpty, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { IoMdHeartEmpty, IoMdTrash, IoMdCreate, IoMdHeart } from "react-icons/io";
 import { PiSirenFill } from "react-icons/pi";
 import { cn, maskEmail } from '@/libs/utils';
 import StarRating from '@/components/common/star-rating';
@@ -21,18 +21,22 @@ import {
 import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
 import { Comment } from '@/types/comment-type';
+import { fetchFromAuthApi } from '@/services/fetch-api';
 
 interface CommentItemProps {
   className?: string;
   comment: Comment;
   fetchComments: () => Promise<void>;
+  destinationId: string;
 }
 
-export default function CommentItem({ className, comment, fetchComments }: CommentItemProps) {
+export default function CommentItem({ className, comment, fetchComments, destinationId }: CommentItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
   const [editRating, setEditRating] = useState(comment.rate);
   const [editImage, setEditImage] = useState<File | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(comment.likeCount);
   const { toast } = useToast();
   const user = useUserStore((state) => state.user);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -86,6 +90,19 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
     }
   };
 
+  // 백엔드 수정 해야됨.
+  const handleLike = async () => {
+    try {
+      const response = await fetchFromAuthApi(`/review-likes/${comment.id}/like`, null, 'POST');      
+      if (response) {
+        setIsLiked(!isLiked);
+        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+      }
+    } catch (error) {
+      toast({ title: '좋아요 실패', description: '좋아요 처리 중 오류가 발생했습니다.' });
+    }
+  };
+
   useEffect(() => {
     if (isEditing && textAreaRef.current) {
       textAreaRef.current.style.height = 'auto';
@@ -114,9 +131,13 @@ export default function CommentItem({ className, comment, fetchComments }: Comme
           </div>
           <div className='flex gap-2 sm:gap-3 pr-1.5'>
             <PiSirenFill className='size-4 cursor-pointer' />
-            <span className='flex items-start'>
-              <IoMdHeartEmpty className='size-4 cursor-pointer' />
-              <span className='text-xs mx-1'>({0})</span>
+            <span className='flex items-start' onClick={handleLike}>
+              {isLiked ? (
+                <IoMdHeart className='size-4 cursor-pointer text-red-600' />
+              ) : (
+                <IoMdHeartEmpty className='size-4 cursor-pointer' />
+              )}
+              <span className='text-xs mx-1'>({likeCount})</span>
             </span>
             {user && user.email === comment.memberEmail && (
               <>

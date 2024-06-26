@@ -8,10 +8,10 @@ export interface Comment {
   destinationId: number;
   imageUrl: string;
   memberEmail: string;
-  reviewCount: number;
+  likeCount: number;
   modifyDate: string;
-  user: User;
   createDate: string;
+  user: User;
   destination: DestinationDetailType;
 }
 

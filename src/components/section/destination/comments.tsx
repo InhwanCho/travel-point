@@ -7,9 +7,10 @@ import React, { useState } from 'react';
 interface CommentsProps {
   comments : Comment[];
   fetchComments: () => Promise<void>;
+  destinationId:string;
 }
 
-export default function Comments({ comments, fetchComments }: CommentsProps) {
+export default function Comments({ comments, fetchComments,destinationId }: CommentsProps) {
   const [visibleComments, setVisibleComments] = useState(2);
 
   const showMoreComments = () => {
@@ -22,7 +23,7 @@ export default function Comments({ comments, fetchComments }: CommentsProps) {
       <div className='border-t-2 flex flex-col'>
         <ul>
           {comments.slice(0, visibleComments).map((comment) => (
-            <CommentItem key={comment.id} comment={comment} fetchComments={fetchComments} className='last:border-b'/>
+            <CommentItem key={comment.id} comment={comment} fetchComments={fetchComments} destinationId={destinationId} className='last:border-b'/>
           ))}
         </ul>
         {comments.length > visibleComments && (
