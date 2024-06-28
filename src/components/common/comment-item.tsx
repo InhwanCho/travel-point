@@ -4,7 +4,7 @@ import { IoMdHeartEmpty, IoMdTrash, IoMdCreate, IoMdHeart } from "react-icons/io
 import { PiSirenFill } from "react-icons/pi";
 import { cn, maskEmail } from '@/libs/utils';
 import StarRating from '@/components/common/star-rating';
-import { modifyReview, deleteReview } from '@/services/fetch-review';
+import { modifyReview, deleteReview, getLike } from '@/services/fetch-review';
 import { useToast } from '@/components/ui/use-toast';
 import { useUserStore } from '@/store/userStore';
 
@@ -21,7 +21,6 @@ import {
 import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
 import { Comment } from '@/types/comment-type';
-import { fetchFromAuthApi } from '@/services/fetch-api';
 
 interface CommentItemProps {
   className?: string;
@@ -90,13 +89,12 @@ export default function CommentItem({ className, comment, fetchComments, destina
     }
   };
 
-  // 백엔드 수정 해야됨.
   const handleLike = async () => {
     try {
-      const response = await fetchFromAuthApi(`/review-likes/${comment.id}/like`, null, 'POST');      
-      if (response) {
+      const response = await getLike(comment.id);
+      if (response.result) {
         setIsLiked(!isLiked);
-        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);        
       }
     } catch (error) {
       toast({ title: '좋아요 실패', description: '좋아요 처리 중 오류가 발생했습니다.' });

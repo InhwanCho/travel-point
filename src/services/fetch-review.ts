@@ -74,3 +74,12 @@ export async function getMyReviews(memberId: number) {
     "GET"
   );
 }
+
+// 리뷰 좋아요
+export async function getLike(commentId: Number) {
+  return await fetchFromAuthApi(
+    `/api/review-likes/${commentId}/like`,
+    commentId,
+    "POST"
+  );
+}

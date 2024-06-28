@@ -4,7 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RecentDestinationsTab from "@/components/section/mypage/recent-destination-tab";
 import RecommendationTab from "@/components/section/mypage/recommandation-tab";
 import BookmarkTab from "@/components/section/mypage/bookmark-tab";
-import { getMyReviews } from "@/services/fetch-review";
 import ReviewTab from "./review-tab";
 
 // 탭 섹션을 렌더링하는 함수 
