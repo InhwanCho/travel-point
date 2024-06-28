@@ -21,6 +21,7 @@ import {
 import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
 import { Comment } from '@/types/comment-type';
+import { placeholderImageBase64 } from '@/data/data';
 
 interface CommentItemProps {
   className?: string;
@@ -94,7 +95,7 @@ export default function CommentItem({ className, comment, fetchComments, destina
       const response = await getLike(comment.id);
       if (response.result) {
         setIsLiked(!isLiked);
-        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);        
+        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
       }
     } catch (error) {
       toast({ title: '좋아요 실패', description: '좋아요 처리 중 오류가 발생했습니다.' });
@@ -178,7 +179,13 @@ export default function CommentItem({ className, comment, fetchComments, destina
               <input type="file" accept="image/*" onChange={handleImageChange} />
               {comment.imageUrl && !editImage && (
                 <div className='py-2'>
-                  <img width={420} height={260} src={comment.imageUrl} alt='댓글 이미지' className='max-h-[260px]' />
+                  <img
+                    width={420}
+                    height={260}
+                    src={comment.imageUrl}
+                    alt='댓글 이미지'
+                    className='max-h-[260px]'
+                  />
                 </div>
               )}
               <button onClick={handleEdit} className='bg-blue-500 text-white px-4 py-2 mt-2 rounded text-sm'>
@@ -193,7 +200,14 @@ export default function CommentItem({ className, comment, fetchComments, destina
               <p className='text-sm'>{comment.content}</p>
               {comment.imageUrl && (
                 <div className='py-2'>
-                  <img width={420} height={260} src={comment.imageUrl} alt='댓글 이미지' className='max-h-[260px]' />
+                  <img
+                    width={420}
+                    height={260}
+                    src={comment.imageUrl}
+                    alt='댓글 이미지'
+                    className='max-h-[260px]'
+                    onError={(e) => (e.currentTarget.src = placeholderImageBase64)}
+                  />
                 </div>
               )}
             </>
