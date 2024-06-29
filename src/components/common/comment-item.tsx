@@ -4,7 +4,7 @@ import { IoMdHeartEmpty, IoMdTrash, IoMdCreate, IoMdHeart } from "react-icons/io
 import { PiSirenFill } from "react-icons/pi";
 import { cn, maskEmail } from '@/libs/utils';
 import StarRating from '@/components/common/star-rating';
-import { modifyReview, deleteReview, getLike } from '@/services/fetch-review';
+import { modifyReview, deleteReview, getLiked, checkLiked } from '@/services/fetch-review';
 import { useToast } from '@/components/ui/use-toast';
 import { useUserStore } from '@/store/userStore';
 
@@ -92,7 +92,7 @@ export default function CommentItem({ className, comment, fetchComments, destina
 
   const handleLike = async () => {
     try {
-      const response = await getLike(comment.id);
+      const response = await getLiked(comment.id);
       if (response.result) {
         setIsLiked(!isLiked);
         setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
@@ -108,6 +108,21 @@ export default function CommentItem({ className, comment, fetchComments, destina
       textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
     }
   }, [isEditing, editContent]);
+
+  useEffect(() => {
+    const fetchIsLiked = async () => {
+      try {
+        const response = await checkLiked(comment.id);
+        if (response) {
+          setIsLiked(response.result);
+        }
+      } catch (error) {
+        console.error('Failed to fetch liked status:', error);
+      }
+    };
+
+    fetchIsLiked();
+  }, [comment.id]);
 
   return (
     <li className={`${cn('border-t relative list-none', className)}`}>

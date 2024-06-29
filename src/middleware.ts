@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { fetchFromAuthApi } from '@/services/fetch-api'; // fetchFromAuthApi 경로를 맞춰주세요
+import { fetchFromAuthApi } from '@/services/fetch-api';
 import { deleteCookie, setCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
 

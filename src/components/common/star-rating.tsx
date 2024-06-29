@@ -31,7 +31,7 @@ export default function StarRating({ rating, numPeople, className, isLoading }: 
         }
       </div>
       {isLoading ? <span className='text-[12px]'>(0)</span> :
-        numPeople && <span className='text-[12px]'>({numPeople})</span>}
+        Number(numPeople) > 0 && <span className='text-[12px]'>({numPeople})</span>}
     </div>
   );
 }
