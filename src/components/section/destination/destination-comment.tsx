@@ -12,12 +12,12 @@ import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
+import { Comment } from '@/types/comment-type';
 
 interface IFormInput {
   comment: string;
   image?: FileList;
 }
-
 
 export default function DestinationComment({ destinationId }: { destinationId: string }) {
   const { register, handleSubmit, setValue, formState: { errors }, trigger, clearErrors, reset } = useForm<IFormInput>();
@@ -26,7 +26,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState<number>(5);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const user = useUserStore((state) => state.user);
   const { toast } = useToast();
   const router = useRouter();
@@ -209,7 +209,7 @@ export default function DestinationComment({ destinationId }: { destinationId: s
           </div>
         )}
       </div>
-      <Comments comments={comments} fetchComments={fetchComments} destinationId={destinationId}/>
+      <Comments comments={comments} setComments={setComments} fetchComments={fetchComments} destinationId={destinationId}/>
     </>
   );
 }

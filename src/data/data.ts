@@ -70,7 +70,7 @@ export const pageColors = {
   },
   destination: {
     bg: "bg-blue-200",
-    ring: "ring-0",
+    ring: "ring-blue-200/80",
   },
 } as const;
 

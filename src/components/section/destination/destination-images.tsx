@@ -20,6 +20,7 @@ interface DestinationCarouselProps {
 export default function DestinationCarousel({ images, title }: DestinationCarouselProps) {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
     dragFree: true,
@@ -48,6 +49,22 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  },[]);
+
+  if (loading) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full aspect-[16/11] animate-pulse">
+          <div className="w-full h-full bg-gray-300"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Carousel
@@ -61,7 +78,7 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
               <div className="relative w-full h-full">
                 <img
                   src={`${src}/firstimageLarge`}
-                  alt={title && title + index || '여행지 이미지'}
+                  alt={title ? `${title} ${index}` : '여행지 이미지'}
                   width={800}
                   height={550}
                   className="object-cover w-full aspect-[16/11]"
@@ -90,7 +107,7 @@ export default function DestinationCarousel({ images, title }: DestinationCarous
                 alt={'여행지 썸네일 이미지'}
                 width={96}
                 height={64}
-                className={`object-cover w-full aspect-[16/11]`}
+                className="object-cover w-full aspect-[16/11]"
               />
             </div>
           </div>

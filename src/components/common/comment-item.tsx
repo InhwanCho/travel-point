@@ -120,9 +120,10 @@ export default function CommentItem({ className, comment, fetchComments, destina
         console.error('Failed to fetch liked status:', error);
       }
     };
-
-    fetchIsLiked();
-  }, [comment.id]);
+    if (user) {
+      fetchIsLiked();
+    }
+  }, [comment.id, user]);
 
   return (
     <li className={`${cn('border-t relative list-none', className)}`}>

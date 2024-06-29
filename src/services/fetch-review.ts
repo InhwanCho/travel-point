@@ -39,6 +39,7 @@ export async function getRatingsByDestination(destinationId: number) {
     "GET"
   );
 }
+
 // 특정 목적지의 총 리뷰 갯수 조회
 export async function getReviewCountByDestination(destinationId: number) {
   return await fetchFromAuthApi(
@@ -74,6 +75,7 @@ export async function getMyReviews(memberId: number) {
     "GET"
   );
 }
+
 
 // 리뷰 좋아요
 export async function getLiked(commentId: Number) {
