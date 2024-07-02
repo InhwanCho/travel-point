@@ -83,12 +83,11 @@ export default function RegisterSection({ toggleForm, isModal }: RegisterSection
       });
 
       if (result.response) {
-        const { accessToken, refreshToken } = result.result.token;
+        const accessToken = result.result.accessToken;        
         const user = jwtDecode(accessToken);
         if (user) {
           console.log(user);
           setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
-          setCookie({ name: 'refreshToken', value: refreshToken, days: 1, secure: true });
           setUser(user);
         }
 

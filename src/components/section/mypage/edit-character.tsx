@@ -25,7 +25,7 @@ export default function EditCharacter() {
     if (selectedImage) {
       try {
         const responseData = await uploadImage(selectedImage);
-        
+        console.log(responseData);
         if (responseData.response) {
           toast({
             title: "변경되었습니다.",
