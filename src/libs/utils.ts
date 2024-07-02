@@ -2,6 +2,8 @@ import { CATEGORIES } from "@/data/data";
 import { CategoryName } from "@/types/categoriy-types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import jwt from 'jsonwebtoken';
+import { AccessUserType, User } from "@/types/user-type";
 
 // 클래스 merge
 export function cn(...inputs: ClassValue[]) {
@@ -127,3 +129,26 @@ export function maskEmail(email: string) {
   )}${localPart.slice(-1)}`;
   return `${maskedLocalPart}@${domain}`;
 }
+
+export const jwtDecode = (token: string): User | null => {
+  try {
+    const decoded = jwt.decode(token) as AccessUserType | null;
+
+    if (!decoded) {
+      return null;
+    }
+
+    const user: User = {
+      id: decoded.id.toString(), // string으로 변환
+      email: decoded.email,
+      role: decoded.auth, // auth를 role로 매핑
+      userImgUrl: decoded.userImgUrl,
+      createDate: new Date(decoded.createDate).toISOString(), // string으로 변환
+    };
+
+    return user;
+  } catch (error) {
+    console.error('Failed to decode JWT:', error);
+    return null;
+  }
+};

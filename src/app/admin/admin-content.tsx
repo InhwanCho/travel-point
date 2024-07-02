@@ -34,10 +34,13 @@ export function AdminContent() {
 
     fetchReports();
   }, []);
-  if (user?.role !== "admin") {
-    router.push('/');
-  }
-
+  // if (user?.role !== "ADMIN") {
+  //   router.push('/');
+  // }
+  const temReports = [
+    { "reason": '신고 이유1', "details": '신고 내용1' },
+    { "reason": '신고 이유2', "details": '신고 내용2' }
+  ];
   return (
     <section>
       <div className='flex flex-col justify-center items-center my-8 sm:my-14'>
@@ -45,9 +48,10 @@ export function AdminContent() {
           <img src={user.userImgUrl} alt={`${user.username}'s profile`} className="rounded-full w-24 h-24" />
         ) : (
           <img src={'/assets/image/characters/anonymous.png'} alt='character image' width={128} height={128} className='rounded-full border' />
-        )}
+        )}        
         <div>{user && user.username}</div>
         <div>{user && user.email}</div>
+        
       </div>
       <div>
         {loading ? (
@@ -66,6 +70,12 @@ export function AdminContent() {
         ) : (
           <p>No reports found</p>
         )}
+        {temReports.map((report, index) => (
+          <li key={index} className="border p-4 mb-2 list-none">
+            <h3 className="font-semibold">Reason: {report.reason}</h3>
+            <p>Details: {report.details}</p>
+          </li>
+        ))}
       </div>
     </section>
   );

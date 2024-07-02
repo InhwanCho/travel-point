@@ -7,3 +7,12 @@ export interface User {
   username?: string;
   createDate?: string;
 }
+
+export interface AccessUserType {
+  id: number;
+  email: string;
+  auth: string;
+  userImgUrl: string;
+  createDate: number;
+  exp: number;
+}

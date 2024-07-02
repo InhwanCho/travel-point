@@ -9,13 +9,13 @@ export default function SocialLoginButton({ provider }: { provider: 'Naver' | 'G
   const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // 폼 제출 방지
     if (provider === 'Google') {
-      window.location.href = '';
+      return;
     } else if (provider === 'Naver') {
-      window.location.href = '';
+      const naverLoginUrl = `http://localhost:8080/login/oauth2/code/naver`;
+      router.push(naverLoginUrl);
     } else {
-      window.location.href = '';
+      return;
     }
-    
   };
 
 

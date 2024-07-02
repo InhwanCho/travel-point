@@ -10,6 +10,7 @@ import { loginApi, findPasswordVeriApi, findPasswordApi } from '@/services/fetch
 import { useUserStore } from '@/store/userStore';
 import { setCookie, getCookie, deleteCookie } from '@/libs/cookie';
 import { useRouter } from 'next/navigation';
+import { jwtDecode } from '@/libs/utils';
 
 interface LoginSectionProps {
   toggleForm: () => void;
@@ -72,11 +73,12 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
 
       if (result.response) {
         const { accessToken, refreshToken } = result.result.token;
-        const user = result.result.user;
-        setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
-        setCookie({ name: 'refreshToken', value: refreshToken, days: 1, secure: true });
-        setCookie({ name: 'user', value: JSON.stringify(user), hours: 2, secure: true });
-        setUser(user); // Zustand 스토어에 사용자 정보 저장                
+        const user = jwtDecode(accessToken);
+        if (user) {
+          setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
+          setCookie({ name: 'refreshToken', value: refreshToken, days: 1, secure: true });
+          setUser(user);
+        }
 
         isModal ? router.back() : router.push('/');
       } else {

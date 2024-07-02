@@ -30,7 +30,7 @@ export default async function middleware(request: NextRequest) {
     } catch (error) {
       console.error('Token refresh failed:', error);
       // Refresh Token 갱신 실패 시 쿠키 삭제 및 로그인 페이지로 리디렉션
-      deleteCookie('accessToken', 'refreshToken', 'user');
+      deleteCookie('accessToken', 'refreshToken');
       clearUser();
       const loginUrl = new URL('/', request.url);
       return NextResponse.redirect(loginUrl);
