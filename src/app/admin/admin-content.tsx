@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import { checkReports } from "@/services/fetch-admin";
-/* eslint-disable @next/next/no-img-element */
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +20,7 @@ export function AdminContent() {
     const fetchReports = async () => {
       try {
         const response = await checkReports();
+        console.log(response);
         if (response.response) {
           setReports(response.result);
         } else {
@@ -70,12 +71,12 @@ export function AdminContent() {
         ) : (
           <p>No reports found</p>
         )}
-        {temReports.map((report, index) => (
+        {/* {temReports.map((report, index) => (
           <li key={index} className="border p-4 mb-2 list-none">
             <h3 className="font-semibold">Reason: {report.reason}</h3>
             <p>Details: {report.details}</p>
           </li>
-        ))}
+        ))} */}
       </div>
     </section>
   );

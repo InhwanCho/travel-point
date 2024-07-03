@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { setCookie, getCookie } from '@/libs/cookie';
+import { setCookie, getCookie, hasCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
 import { fetchFromAuthApi } from '@/services/fetch-api';
 import { useQuery } from '@tanstack/react-query';
@@ -25,8 +25,10 @@ export const useAuth = () => {
 };
 
 const fetchUserData = async () => {
-  const refreshToken = getCookie('refreshToken');
-  if (refreshToken) {
+  const refreshToken = hasCookie('refreshToken');
+  console.log(refreshToken);
+  const accessToken = hasCookie('accessToken');
+  if (refreshToken && !accessToken) {
     const response = await fetchFromAuthApi('/refresh', { refreshToken }, 'POST');
     if (response.response) {
       const newAccessToken = response.result.accessToken;
@@ -46,12 +48,33 @@ const fetchUserData = async () => {
   }
 };
 
-export const AuthProvider = ({ children }: {children: React.ReactNode;}) => {
-  const [token, setToken] = useState<string | null>(getCookie('accessToken'));
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [token, setToken] = useState<string | null>(null);
   const [tokenExpiry, setTokenExpiry] = useState<number | null>(null);
   const setUser = useUserStore((state) => state.setUser);
   const clearUser = useUserStore((state) => state.clearUser);
   const router = useRouter();
+
+  useEffect(() => {
+    // 클라이언트 측에서만 실행
+    const storedToken = getCookie('accessToken');
+    if (storedToken) {
+      setToken(storedToken);
+      const user = jwtDecode(storedToken);
+      if (user) {
+        setCookie({ name: 'accessToken', value: storedToken, hours: 2, secure: true });
+        setUser(user);
+      }
+    } else {
+      const refreshToken = getCookie('refreshToken');
+      if (refreshToken) {
+        refetch();
+      } else {
+        clearUser();
+        router.push('/auth');
+      }
+    }
+  }, [setUser, clearUser, router]);
 
   const { refetch } = useQuery({
     queryKey: ['refreshToken'],

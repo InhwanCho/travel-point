@@ -76,8 +76,7 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
         const user = jwtDecode(accessToken);
         if (user) {
           console.log(user);
-          setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
-          // setCookie({ name: 'refreshToken', value: refreshToken, days: 1, secure: true });
+          setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });          
           setUser(user);
         }
 

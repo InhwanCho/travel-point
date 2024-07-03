@@ -12,6 +12,7 @@ import MobileNav from "@/components/nav/mobile-nav";
 import { metadataLayout } from "@/config/metadata";
 import { ToastProvider } from "@/components/ui/toast";
 import { lazy } from "react";
+import { AuthProvider } from "@/context/auth-context";
 
 export const metadata: Metadata = metadataLayout;
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <body className={cn('min-h-dvh antialiased', fontSpoqaHanSansNeo.className)}>
           <KbarLayout >
             <QueryProvider>
+              {/* <AuthProvider> */}
               <ToastProvider>
                 {modal}
                 <SiteHeader />
@@ -43,6 +45,7 @@ export default function RootLayout({
                 <MobileNav />
                 <Toaster />
               </ToastProvider>
+              {/* </AuthProvider> */}
             </QueryProvider>
           </KbarLayout>
         </body>
