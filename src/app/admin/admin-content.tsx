@@ -6,8 +6,29 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Report {
-  reason: string;
-  details: string;
+  id: number;
+  content: string;
+  createDate: string;
+  reportType: string;
+  member: {
+    id: number;
+    email: string;
+    username: string | null;
+    userImgUrl: string;
+  };
+  review: {
+    id: number;
+    content: string;
+    createDate: string;
+    modifyDate: string;
+    likeCount: number;
+    imageUrl: string;
+    rate: number;
+    destination: {
+      destinationId: number;
+      location: string;
+    };
+  };
 }
 
 export function AdminContent() {
@@ -16,6 +37,7 @@ export function AdminContent() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
   useEffect(() => {
     const fetchReports = async () => {
       try {
@@ -35,13 +57,11 @@ export function AdminContent() {
 
     fetchReports();
   }, []);
+
   // if (user?.role !== "ADMIN") {
   //   router.push('/');
   // }
-  const temReports = [
-    { "reason": '신고 이유1', "details": '신고 내용1' },
-    { "reason": '신고 이유2', "details": '신고 내용2' }
-  ];
+
   return (
     <section>
       <div className='flex flex-col justify-center items-center my-8 sm:my-14'>
@@ -52,7 +72,6 @@ export function AdminContent() {
         )}        
         <div>{user && user.username}</div>
         <div>{user && user.email}</div>
-        
       </div>
       <div>
         {loading ? (
@@ -61,22 +80,25 @@ export function AdminContent() {
           <p>Error: {error}</p>
         ) : reports.length > 0 ? (
           <ul>
-            {reports.map((report, index) => (
-              <li key={index} className="border p-4 mb-2">
-                <h3 className="font-semibold">Reason: {report.reason}</h3>
-                <p>Details: {report.details}</p>
+            {reports.map((report) => (
+              <li key={report.id} className="border p-4 mb-2">
+                <h3 className="font-semibold">Reason: {report.reportType}</h3>
+                <p>Details: {report.content}</p>
+                <div className="mt-2">
+                  <h4 className="font-semibold">Review:</h4>
+                  <p>{report.review.content}</p>
+                  {report.review.imageUrl && (
+                    <img src={report.review.imageUrl} alt="Review image" className="mt-2" />
+                  )}
+                  <p>Location: {report.review.destination.location}</p>
+                  <p>Rate: {report.review.rate}</p>
+                </div>
               </li>
             ))}
           </ul>
         ) : (
           <p>No reports found</p>
         )}
-        {/* {temReports.map((report, index) => (
-          <li key={index} className="border p-4 mb-2 list-none">
-            <h3 className="font-semibold">Reason: {report.reason}</h3>
-            <p>Details: {report.details}</p>
-          </li>
-        ))} */}
       </div>
     </section>
   );

@@ -76,25 +76,24 @@ export default function RegisterSection({ toggleForm, isModal }: RegisterSection
       setLoading(true);
       setError(null);
 
-      const result = await registerVerificationApi({
+      const response = await registerVerificationApi({
         email: emailRef.current,
         password: passwordRef.current,
         verificationCode: data.verificationCode!,
       });
 
-      if (result.response) {
-        const accessToken = result.result.accessToken;        
+      if (response.response) {
+        const accessToken = response.result.accessToken;        
         const user = jwtDecode(accessToken);
         if (user) {
-          console.log(user);
           setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
           setUser(user);
         }
 
         isModal ? router.back() : router.push('/');
       } else {
-        setError(`Error: ${result.errorCode} - ${result.message}`);
-        console.error('Verification failed:', result.message);
+        setError(`Error: ${response.errorCode} - ${response.message}`);
+        console.error('Verification failed:', response.message);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {

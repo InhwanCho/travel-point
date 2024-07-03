@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Camera, X } from 'lucide-react';
 import Title from '@/components/common/title';
-import Comments from '@/components/section/destination/comments';
-import { CommentGuidelines, ImageUploadGuidelines } from '@/components/section/destination/comment-guide-lines';
 import { FaRegStar, FaStar } from 'react-icons/fa6';
 import { useUserStore } from '@/store/userStore';
 import { LiaSpinnerSolid } from 'react-icons/lia';
@@ -13,6 +11,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { uploadImageToCF } from '@/services/img-upload-to-cf';
 import { Comment } from '@/types/comment-type';
+import { CommentGuidelines, ImageUploadGuidelines } from '@/components/section/comment/comment-guide-lines';
+import Comments from '@/components/section/comment/comments';
 
 interface IFormInput {
   comment: string;

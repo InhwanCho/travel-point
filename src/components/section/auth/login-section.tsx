@@ -66,24 +66,23 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
     }
 
     try {
-      const result = await loginApi({
+      const response = await loginApi({
         email: data.email,
         password: data.password,
       });
 
-      if (result.response) {
-        const accessToken = result.result.accessToken;        
+      if (response.response) {
+        const accessToken = response.result.accessToken;
         const user = jwtDecode(accessToken);
         if (user) {
-          console.log(user);
-          setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });          
+          setCookie({ name: 'accessToken', value: accessToken, hours: 2, secure: true });
           setUser(user);
         }
 
         isModal ? router.back() : router.push('/');
       } else {
-        setError(`Error: ${result.errorCode} - ${result.message}`);
-        console.error('Login failed:', result.message);
+        setError(`Error: ${response.errorCode} - ${response.message}`);
+        console.error('Login failed:', response.message);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {

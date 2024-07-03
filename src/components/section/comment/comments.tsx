@@ -1,10 +1,11 @@
 'use client';
-import CommentItem from '@/components/common/comment-item';
+
 import { Comment } from '@/types/comment-type';
 import { Plus } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { getReviewsByDestinationRateDesc, getReviewsByDestinationRateAsc } from '@/services/fetch-review';
 import { useFilterStore } from '@/store/reviewStore';
+import CommentItem from '@/components/section/comment/comment-item';
 
 interface CommentsProps {
   comments: Comment[];
