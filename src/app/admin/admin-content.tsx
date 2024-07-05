@@ -36,7 +36,7 @@ export function AdminContent() {
         const fetchReports = async () => {
           try {
             const response = await checkReports();
-            if (response.response) {
+            if (response.response) {              
               setReports(response.result);
             } else {
               setError(response.message || 'Failed to fetch reports');
@@ -101,7 +101,7 @@ export function AdminContent() {
               <p className="text-sm">신고 내용: {report.content}</p>
               <Separator className="my-2" />
               <section>
-                <Link href={`/destination/${report.review.destinationId}`}>
+                <Link href={`/destinations/${report.review.destination.contentId}`}>
                   <span className="font-semibold">여행지: </span>{report.review.destination.title}
                 </Link>
                 <div className="mt-2 space-y-1.5">
