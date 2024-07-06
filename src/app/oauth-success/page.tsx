@@ -4,6 +4,7 @@ import { useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from '@/libs/utils';
 import { setCookie } from '@/libs/cookie';
+import { LiaSpinnerSolid } from 'react-icons/lia';
 
 const OauthSuccess = () => {
   const setUser = useUserStore((state) => state.setUser);
@@ -24,8 +25,11 @@ const OauthSuccess = () => {
   }, [router, setUser]);
 
   return (
-    <div>
-      <h1>Logging in...</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100/80">
+      <div className="text-center">
+        <LiaSpinnerSolid className="animate-spin-slow text-6xl mb-4" />
+        <span className="text-xl font-semibold">로그인 중...</span>
+      </div>
     </div>
   );
 };

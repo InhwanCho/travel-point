@@ -80,7 +80,7 @@ export function AdminContent() {
 
   return (
     <section>
-      <div className='flex flex-col justify-center items-center my-8 sm:my-14'>
+      <div className='flex flex-col justify-center items-center my-8 sm:my-14 space-y-4'>
         {user && user.userImgUrl ? (
           <img src={user.userImgUrl} alt={`${user.username}'s profile`} className="rounded-full w-24 h-24" />
         ) : (
@@ -88,7 +88,7 @@ export function AdminContent() {
         )}
         <div>{user && user.username}</div>
         <div>{user && user.email}</div>
-      </div>
+      </div>      
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
         {loading ? (
           <p>Loading...</p>
