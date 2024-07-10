@@ -58,6 +58,7 @@ export function AdminContent() {
   const deleteWithReview = async (id: number) => {
     try {
       const res = await deleteReview(id);
+      console.log(res);
       if (res) {
         setReports(reports.filter(report => report.review.id !== id));
       } else {

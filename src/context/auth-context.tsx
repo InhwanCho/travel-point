@@ -43,8 +43,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       if (await hasRefreshToken()) {
-        const a = refetch();
-        console.log(a);
+        refetch();
+        
       } else {
         clearUser();
         router.push('/auth');
