@@ -56,7 +56,7 @@ export default function RestaurantRank({ location }: RestaurantRankProps) {
 
   return (
     <section className="py-8">
-      <Title className='border-b pb-4'>{city} 주변 맛집 랭킹</Title>
+      <Title className='border-b pb-4'>{province} {city} 주변 맛집 랭킹</Title>
       <ul className="divide-y divide-gray-200 mt-4">
         {currentData.map((restaurant) => (
           <li key={restaurant.id} className="py-4">

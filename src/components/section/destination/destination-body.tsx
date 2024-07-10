@@ -80,7 +80,7 @@ export default function DestinationBody({ data, isLoading, isError }: Destinatio
     { label: '주소', value: data.location },
     { label: '문의 및 안내', value: data.tel },
     { label: '시간', value: data.use_time },
-    { label: '주차', value: data.parking },
+    { label: '주차', value: data.parking.replace('<br>', ' ') },
     // { label: '이용요금', value: data.?? },
     // { label: '행사내용', value: data.destinationDescription },
   ].filter(detail => detail.value);
