@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { setCookie } from '@/libs/cookie';
 import { useUserStore } from '@/store/userStore';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { jwtDecode } from '@/libs/utils';
 import { hasRefreshToken, newAccessToken } from '@/services/fetch-auth';
 
@@ -43,45 +43,43 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       if (await hasRefreshToken()) {
-        refetch();
-        
-      } else {
-        clearUser();
-        router.push('/auth');
+        try {
+          await refetch();
+        } catch (error) {
+          console.log('Refresh token not found, proceeding without login');
+          clearUser();
+        }
       }
     };
-
     checkAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setUser, clearUser, router]);
+  }, []); // useEffect가 한 번만 실행되도록 빈 배열을 사용
 
-  const { refetch } = useQuery({
+  const { refetch }: UseQueryResult<{ token: string; tokenExpiry: number; user: any }, Error> = useQuery({
     queryKey: ['refreshToken'],
     queryFn: fetchUserData,
     enabled: false,
+    retry: false,
   });
 
   useEffect(() => {
     const refreshUserData = async () => {
       try {
-        const data = await refetch();
-        if (data.data) {
-          setToken(data.data.token);
-          setTokenExpiry(data.data.tokenExpiry);
-          if (data.data.user) {
-            setUser(data.data.user);
+        const { data } = await refetch();
+        if (data) {
+          setToken(data.token);
+          setTokenExpiry(data.tokenExpiry);
+          if (data.user) {
+            setUser(data.user);
           } else {
             clearUser();
-            router.push('/auth');
           }
         } else {
           clearUser();
-          router.push('/auth');
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
         clearUser();
-        router.push('/auth');
       }
     };
 
@@ -91,12 +89,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (tokenExpiry) {
       const timeout = setTimeout(() => {
-        refetch();
+        refetch().catch((error) => {
+          if (error.message.includes('TokenNotFound')) {
+            console.warn('Refresh token not found, proceeding without login');
+          } else {
+            console.error('Error refreshing token:', error);
+            clearUser();
+          }
+        });
       }, tokenExpiry - Date.now() - 60 * 1000);
 
       return () => clearTimeout(timeout);
     }
-  }, [tokenExpiry, refetch]);
+  }, [tokenExpiry, refetch, clearUser]);
 
   return (
     <AuthContext.Provider value={{ token, setToken, tokenExpiry, setTokenExpiry }}>
@@ -104,11 +109,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-// export const useAuth = () => {
-//   const context = useContext(AuthContext);
-//   if (!context) {
-//     throw new Error('useAuth must be used within an AuthProvider');
-//   }
-//   return context;
-// };
