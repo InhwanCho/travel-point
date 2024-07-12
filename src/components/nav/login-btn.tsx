@@ -11,6 +11,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useUserStore } from "@/store/userStore";
 import { getCookie, deleteCookie } from '@/libs/cookie';
 import { jwtDecode } from "@/libs/utils";
+import { deleteRefreshToken } from "@/services/fetch-auth";
 
 export default function LoginBtn() {
   const router = useRouter();
@@ -40,7 +41,9 @@ export default function LoginBtn() {
     router.push(`/mypage`);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // const a = await deleteRefreshToken();
+    // console.log(a);
     clearUser();
     deleteCookie('accessToken', 'refreshToken');
     setPopoverOpen(false);
