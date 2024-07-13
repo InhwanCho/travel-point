@@ -42,12 +42,18 @@ export default function LoginBtn() {
   };
 
   const handleLogout = async () => {
-    // const a = await deleteRefreshToken();
-    // console.log(a);
-    clearUser();
-    deleteCookie('accessToken', 'refreshToken');
-    setPopoverOpen(false);
-    router.push('/');
+    try {
+      const logout = await deleteRefreshToken();
+      if (logout.response) {
+        clearUser();
+        deleteCookie('accessToken');
+        // deleteCookie('refreshToken');
+        setPopoverOpen(false);
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Failed to sign out:', error);
+    }
   };
 
   if (loading) {

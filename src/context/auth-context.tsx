@@ -38,68 +38,64 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [tokenExpiry, setTokenExpiry] = useState<number | null>(null);
   const setUser = useUserStore((state) => state.setUser);
   const clearUser = useUserStore((state) => state.clearUser);
-  const router = useRouter();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      if (await hasRefreshToken()) {
-        try {
-          await refetch();
-        } catch (error) {
-          console.log('Refresh token not found, proceeding without login');
-          clearUser();
-        }
-      }
-    };
-    checkAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // useEffect가 한 번만 실행되도록 빈 배열을 사용
 
   const { refetch }: UseQueryResult<{ token: string; tokenExpiry: number; user: any }, Error> = useQuery({
-    queryKey: ['refreshToken'],
+    queryKey: ['accessToken'],
     queryFn: fetchUserData,
     enabled: false,
     retry: false,
   });
 
   useEffect(() => {
-    const refreshUserData = async () => {
+    const checkAuth = async () => {
       try {
-        const { data } = await refetch();
-        if (data) {
-          setToken(data.token);
-          setTokenExpiry(data.tokenExpiry);
-          if (data.user) {
-            setUser(data.user);
+        const refreshToken = await hasRefreshToken();
+        if (refreshToken.result.message === 'Refresh token not found') {
+          clearUser();
+          return;
+        }
+
+        if (refreshToken.result.message === 'Refresh token is valid') {
+          const { data } = await refetch();
+          if (data) {
+            setToken(data.token);
+            setTokenExpiry(data.tokenExpiry);
+            if (data.user) {
+              setUser(data.user);
+            } else {
+              clearUser();
+            }
           } else {
             clearUser();
           }
-        } else {
-          clearUser();
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error checking auth:', error);
         clearUser();
       }
     };
 
-    refreshUserData();
-  }, [refetch, setUser, clearUser, router]);
+    checkAuth();
+  }, [clearUser, refetch, setUser]);
 
   useEffect(() => {
     if (tokenExpiry) {
-      const timeout = setTimeout(() => {
-        refetch().catch((error) => {
-          if (error.message.includes('TokenNotFound')) {
-            console.warn('Refresh token not found, proceeding without login');
-          } else {
-            console.error('Error refreshing token:', error);
-            clearUser();
-          }
-        });
-      }, tokenExpiry - Date.now() - 60 * 1000);
+      const timeLeft = tokenExpiry - Date.now();
+      if (timeLeft <= 60 * 1000) { // 1분 이하일 때만 갱신
+        const timeout = setTimeout(() => {
+          refetch().catch((error) => {
+            if (error.message.includes('TokenNotFound')) {
+              console.warn('Refresh token not found, proceeding without login');
+              clearUser();
+            } else {
+              console.error('Error refreshing token:', error);
+              clearUser();
+            }
+          });
+        }, timeLeft);
 
-      return () => clearTimeout(timeout);
+        return () => clearTimeout(timeout);
+      }
     }
   }, [tokenExpiry, refetch, clearUser]);
 
@@ -108,4 +104,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };

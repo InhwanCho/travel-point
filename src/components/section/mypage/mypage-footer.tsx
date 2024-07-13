@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import InputField from '@/components/section/auth/input-field';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { deleteAccountApi, changePasswordApi } from '@/services/fetch-auth';
+import { deleteAccountApi, changePasswordApi, deleteRefreshToken } from '@/services/fetch-auth';
 import { useToast } from '@/components/ui/use-toast';
 
 interface IFormInput {
@@ -48,7 +48,7 @@ export default function MypageFooter() {
       if (result.response) {
         clearUser();
         deleteCookie('accessToken');
-        deleteCookie('refreshToken');        
+        deleteCookie('refreshToken');
         toast({
           title: "회원 탈퇴 완료",
           description: "회원 탈퇴가 성공적으로 처리되었습니다. 이용해 주셔서 감사합니다.",
@@ -84,7 +84,7 @@ export default function MypageFooter() {
 
       if (result.response) {
         setPasswordChangeSuccess('비밀번호가 성공적으로 변경되었습니다.');
-        setDialogOpen(true);        
+        setDialogOpen(true);
       } else {
         setPasswordChangeError(`Error: ${result.errorCode} - ${result.message}`);
         setDialogOpen(true); // Error 시 다이얼로그를 유지함
@@ -103,10 +103,13 @@ export default function MypageFooter() {
 
   const handleLogout = async () => {
     try {
-      clearUser();
-      deleteCookie('accessToken');
-      deleteCookie('refreshToken');      
-      router.push('/');
+      const logout = await deleteRefreshToken();
+      if (logout.response) {
+        clearUser();
+        deleteCookie('accessToken');
+        // deleteCookie('refreshToken');
+        router.push('/');
+      }
     } catch (error) {
       console.error('Failed to sign out:', error);
     }
