@@ -1,7 +1,7 @@
 'use client';
 
 import Title from '@/components/common/title';
-import { Separator } from '@/components/ui/separator';
+import { IoIosRestaurant } from "react-icons/io";
 import React, { useState, useEffect } from 'react';
 
 export interface Restaurant {
@@ -70,7 +70,11 @@ export default function RestaurantRank({ location }: RestaurantRankProps) {
   }
   return (
     <section className="py-8">
-      <Title className="border-b pb-4 text-lg font-bold">{province} {city} 맛집 랭킹</Title>
+      <Title className="border-b pb-4 text-lg font-bold">
+        {province} {city} 맛집 랭킹
+        <IoIosRestaurant className='ml-1.5 size-7' />
+      </Title>
+
       <ul className="mt-2 px-4">
         {currentData.map((restaurant) => (
           <li key={restaurant.id} className="py-4 px-2 transition hover:bg-gray-100 rounded-lg short-border-b">
