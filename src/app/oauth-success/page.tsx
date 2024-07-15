@@ -24,16 +24,10 @@ export default function OauthSuccess() {
 
           try {
             const response = await requestRefreshToken();
-            alert(response+'1');
-            if (!response.ok) {
-              alert(response+'2');
-              throw new Error('Failed to request refresh token');
-            }
-            // 성공적으로 refresh token 요청 처리
-            alert(response+'3');
-            console.log('Refresh token requested successfully');            
-          } catch (error) {            
-            console.error(error);
+            // 응답에서 필요한 데이터가 있을 경우 처리
+            console.log('Refresh token requested successfully:', response);
+          } catch (error) {
+            console.error('Failed to request refresh token:', error);
           }
 
           router.push('/');
