@@ -1,3 +1,4 @@
+import { getCookie } from "@/libs/cookie";
 import { fetchFromAuthApi } from "@/services/fetch-api";
 
 // 로그인 API 요청 함수
@@ -137,5 +138,41 @@ export async function hasRefreshToken() {
 
 // Oauth인 경우 refreshToken 요청
 export async function requestRefreshToken() {
-  return await fetchFromAuthApi("/api/request-refresh-token", null, "GET");
+  const url = "/api/request-refresh-token";
+  const accessToken = getCookie("accessToken");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (accessToken) {
+    headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+
+  const fetchOptions: RequestInit = {
+    method: "GET",
+    headers: headers,
+  };
+
+  const response = await fetch(url, fetchOptions);
+
+  let responseData;
+  try {
+    responseData = await response.json();
+  } catch (error) {
+    if (response.status === 200) {
+      // 응답 본문이 없을 경우 빈 객체 반환
+      responseData = {};
+    } else {
+      responseData = { message: 'JSON parsing error' };
+    }
+  }
+
+  if (!response.ok) {
+    console.error(`API call failed: ${url}`, responseData);
+    throw new Error(
+      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
+    );
+  }
+
+  return responseData;
 }
