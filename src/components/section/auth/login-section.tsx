@@ -81,7 +81,11 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
 
         isModal ? router.back() : router.push('/');
       } else {
-        setError(`Error: ${response.errorCode} - ${response.message}`);
+        if (response.message === '유효하지 않은 자격 증명입니다.') {
+          setError(`아이디 혹은 비밀번호가 틀렸습니다.`);
+        } else {
+          setError(`Error: ${response.message}`);
+        }
         console.error('Login failed:', response.message);
       }
     } catch (error: unknown) {

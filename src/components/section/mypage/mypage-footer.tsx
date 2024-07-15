@@ -32,6 +32,7 @@ export default function MypageFooter() {
   const clearUser = useUserStore((state) => state.clearUser);
   const router = useRouter();
   const { toast } = useToast();
+  const user = useUserStore((state) => state.user);
 
   const handleDeleteUser: SubmitHandler<IFormInput> = async (data) => {
     if (data.password !== data.confirmPassword) {

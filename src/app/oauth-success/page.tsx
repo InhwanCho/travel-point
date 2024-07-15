@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { jwtDecode } from '@/libs/utils';
 import { setCookie } from '@/libs/cookie';
 import { LiaSpinnerSolid } from 'react-icons/lia';
+import { requestRefreshToken } from '@/services/fetch-auth';
 
 export default function OauthSuccess() {
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
 
   useEffect(() => {
-    const handleOauthSuccess = () => {
+    const handleOauthSuccess = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
 
@@ -20,6 +21,18 @@ export default function OauthSuccess() {
         if (user) {
           setCookie({ name: 'accessToken', value: token, hours: 2, secure: true });
           setUser(user);
+
+          try {
+            const response = await requestRefreshToken();
+            if (!response.ok) {
+              throw new Error('Failed to request refresh token');
+            }
+            // 성공적으로 refresh token 요청 처리
+            console.log('Refresh token requested successfully');            
+          } catch (error) {
+            console.error(error);
+          }
+
           router.push('/');
         } else {
           console.error('Failed to decode token');

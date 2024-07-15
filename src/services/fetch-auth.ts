@@ -3,7 +3,7 @@ import { fetchFromAuthApi } from "@/services/fetch-api";
 // 로그인 API 요청 함수
 export async function loginApi(data: { email: string; password: string }) {
   const url = "/api/loginForm";
-  return fetchFromAuthApi(url, data,"POST");
+  return fetchFromAuthApi(url, data, "POST");
 }
 
 // 회원가입 API 요청 함수
@@ -133,4 +133,9 @@ export async function newAccessToken() {
 // refreshToken 확인하기
 export async function hasRefreshToken() {
   return await fetchFromAuthApi("/api/refreshToken/exists", null, "GET");
+}
+
+// Oauth인 경우 refreshToken 요청
+export async function requestRefreshToken() {
+  return await fetchFromAuthApi("/api/request-refresh-token", null, "GET");
 }
