@@ -24,12 +24,15 @@ export default function OauthSuccess() {
 
           try {
             const response = await requestRefreshToken();
+            alert(response+'1');
             if (!response.ok) {
+              alert(response+'2');
               throw new Error('Failed to request refresh token');
             }
             // 성공적으로 refresh token 요청 처리
+            alert(response+'3');
             console.log('Refresh token requested successfully');            
-          } catch (error) {
+          } catch (error) {            
             console.error(error);
           }
 
