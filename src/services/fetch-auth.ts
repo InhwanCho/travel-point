@@ -157,7 +157,16 @@ export async function requestRefreshToken() {
 
   let responseData;
   try {
-    responseData = await response.json();
+    responseData = await response.text(); // 응답 본문을 텍스트로 받아오기
+    if (!responseData) {
+      responseData = {}; // 응답 본문이 없으면 빈 객체 반환
+    } else {
+      try {
+        responseData = JSON.parse(responseData); // 텍스트를 JSON으로 파싱
+      } catch (e) {
+        responseData = { message: responseData }; // 파싱 실패 시 텍스트 그대로 사용
+      }
+    }
   } catch (error) {
     if (response.status === 200) {
       // 응답 본문이 없을 경우 빈 객체 반환
