@@ -153,6 +153,9 @@ export async function requestRefreshToken() {
     headers: headers,
   };
 
+  console.log("Sending request to:", url);
+  console.log("Request headers:", headers);
+
   const response = await fetch(url, fetchOptions);
 
   let responseData;
