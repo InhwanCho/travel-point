@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import { jwtDecode } from '@/libs/utils';
 import { setCookie } from '@/libs/cookie';
 import { LiaSpinnerSolid } from 'react-icons/lia';
-import { requestRefreshToken } from '@/services/fetch-api';
-
+import { requestRefreshToken } from '@/services/fetch-auth';
 
 export default function OauthSuccess() {
   const setUser = useUserStore((state) => state.setUser);

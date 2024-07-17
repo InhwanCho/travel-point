@@ -89,59 +89,59 @@ export async function fetchFromAuthApi(
   return responseData;
 }
 
-export async function requestRefreshToken() {
-  const url = "/api/request-refresh-token";
-  const accessToken = getCookie("accessToken");
+// export async function requestRefreshToken() {
+//   const url = "/api/request-refresh-token";
+//   const accessToken = getCookie("accessToken");
   
-  // 동적으로 속성을 추가할 수 있도록 타입을 확장합니다.
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
+//   // 동적으로 속성을 추가할 수 있도록 타입을 확장합니다.
+//   const headers: Record<string, string> = {
+//     "Content-Type": "application/json",
+//   };
 
-  if (accessToken) {
-    headers["Authorization"] = `Bearer ${accessToken}`;
-  }
+//   if (accessToken) {
+//     headers["Authorization"] = `Bearer ${accessToken}`;
+//   }
 
-  const fetchOptions: RequestInit = {
-    method: "GET",
-    headers: headers,
-  };
+//   const fetchOptions: RequestInit = {
+//     method: "GET",
+//     headers: headers,
+//   };
 
-  console.log("Sending request to:", url);
-  console.log("Request headers:", headers);
+//   console.log("Sending request to:", url);
+//   console.log("Request headers:", headers);
 
-  const response = await fetch(url, fetchOptions);
+//   const response = await fetch(url, fetchOptions);
 
-  let responseData;
-  try {
-    responseData = await response.text();
-    if (!responseData) {
-      responseData = {};
-    } else {
-      try {
-        responseData = JSON.parse(responseData);
-      } catch (e) {
-        responseData = { message: responseData };
-      }
-    }
-  } catch (error) {
-    if (response.status === 200) {
-      responseData = {};
-    } else {
-      responseData = { message: 'JSON parsing error' };
-    }
-  }
+//   let responseData;
+//   try {
+//     responseData = await response.text();
+//     if (!responseData) {
+//       responseData = {};
+//     } else {
+//       try {
+//         responseData = JSON.parse(responseData);
+//       } catch (e) {
+//         responseData = { message: responseData };
+//       }
+//     }
+//   } catch (error) {
+//     if (response.status === 200) {
+//       responseData = {};
+//     } else {
+//       responseData = { message: 'JSON parsing error' };
+//     }
+//   }
 
-  if (!response.ok) {
-    console.error(`API call failed: ${url}`, responseData);
-    throw new Error(
-      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
-    );
-  }
+//   if (!response.ok) {
+//     console.error(`API call failed: ${url}`, responseData);
+//     throw new Error(
+//       `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
+//     );
+//   }
 
-  // 새로 발급받은 refreshToken을 쿠키에서 가져오기
-  const newRefreshToken = getCookie('refreshToken');
-  console.log("New Refresh Token:", newRefreshToken);
+//   // 새로 발급받은 refreshToken을 쿠키에서 가져오기
+//   const newRefreshToken = getCookie('refreshToken');
+//   console.log("New Refresh Token:", newRefreshToken);
 
-  return responseData;
-}
+//   return responseData;
+// }
