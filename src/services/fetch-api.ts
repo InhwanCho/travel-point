@@ -49,8 +49,7 @@ export async function fetchFromAuthApi(
   url: string,
   data: Record<string, any> | null = null,
   method: "GET" | "POST" | "PUT" | "DELETE" = "POST",
-  params?: string,
-  includeCredentials: boolean = false // Oauth인 경우 외부 쿠키 저장
+  params?: string
 ) {
   const accessToken = getCookie("accessToken");
   const headers: Record<string, string> = {
@@ -66,15 +65,49 @@ export async function fetchFromAuthApi(
     headers: headers,
   };
 
-  if (includeCredentials) {
-    fetchOptions.credentials = 'include';
-  }
-
   if (method !== "GET" && data) {
     fetchOptions.body = JSON.stringify(data);
   }
 
   const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
+
+  let responseData;
+  try {
+    responseData = await response.json();
+  } catch (error) {
+    responseData = { message: 'JSON parsing error' };
+  }
+
+  if (!response.ok) {
+    console.error(`API call failed: ${url}`, responseData);
+    throw new Error(
+      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
+    );
+  }
+
+  return responseData;
+}
+
+// Oauth 보안 쿠키 저장용
+export async function fetchdWithCredentials(
+  url: string,
+) {
+  const accessToken = getCookie("accessToken");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (accessToken) {
+    headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+
+  const fetchOptions: RequestInit = {
+    method: "GET",
+    headers: headers,
+    credentials: 'include', 
+  };
+
+  const response = await fetch(url, fetchOptions);
 
   let responseData;
   try {
