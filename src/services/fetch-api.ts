@@ -88,9 +88,11 @@ export async function fetchFromAuthApi(
   return responseData;
 }
 
-// Oauth 보안 쿠키 저장용
 export async function fetchdWithCredentials(
   url: string,
+  data: Record<string, any> | null = null,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "POST",
+  params?: string
 ) {
   const accessToken = getCookie("accessToken");
   const headers: Record<string, string> = {
@@ -102,12 +104,16 @@ export async function fetchdWithCredentials(
   }
 
   const fetchOptions: RequestInit = {
-    method: "GET",
+    method: method,
     headers: headers,
-    credentials: 'include', 
+    credentials: 'include', // Include credentials (cookies) in the request
   };
 
-  const response = await fetch(url, fetchOptions);
+  if (method !== "GET" && data) {
+    fetchOptions.body = JSON.stringify(data);
+  }
+
+  const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
 
   let responseData;
   try {
