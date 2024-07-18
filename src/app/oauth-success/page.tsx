@@ -24,7 +24,7 @@ export default function OauthSuccess() {
           setUser(user);
 
           try {
-            const data = await fetchFromAuthApi('/api/request-refresh-token');
+            const data = await fetchFromAuthApi('/api/request-refresh-token',null,"GET");
             // const response = await requestRefreshToken();
             // 응답에서 필요한 데이터가 있을 경우 처리
             console.log('Refresh token requested successfully:', data);
