@@ -6,7 +6,7 @@ import { jwtDecode } from '@/libs/utils';
 import { setCookie } from '@/libs/cookie';
 import { LiaSpinnerSolid } from 'react-icons/lia';
 import { requestRefreshToken } from '@/services/fetch-auth';
-import { fetchFromAuthApi } from '@/services/fetch-api';
+import { fetchdWithCredentials } from '@/services/fetch-api';
 
 export default function OauthSuccess() {
   const setUser = useUserStore((state) => state.setUser);
@@ -24,7 +24,7 @@ export default function OauthSuccess() {
           setUser(user);
 
           try {
-            const data = await fetchFromAuthApi('/api/request-refresh-token',null,"GET");
+            const data = await fetchdWithCredentials('/api/request-refresh-token');
             // const response = await requestRefreshToken();
             // 응답에서 필요한 데이터가 있을 경우 처리
             console.log('Refresh token requested successfully:', data);
