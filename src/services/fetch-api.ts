@@ -90,9 +90,6 @@ export async function fetchFromAuthApi(
 
 export async function fetchdWithCredentials(
   url: string,
-  data: Record<string, any> | null = null,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
-  params?: string
 ) {
   const accessToken = getCookie("accessToken");
   const headers: Record<string, string> = {
@@ -104,16 +101,12 @@ export async function fetchdWithCredentials(
   }
 
   const fetchOptions: RequestInit = {
-    method: method,
+    method: "GET",
     headers: headers,
     credentials: 'include', // Include credentials (cookies) in the request
   };
 
-  if (method !== "GET" && data) {
-    fetchOptions.body = JSON.stringify(data);
-  }
-
-  const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
+  const response = await fetch(url, fetchOptions);
 
   let responseData;
   try {
