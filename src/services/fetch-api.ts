@@ -91,7 +91,7 @@ export async function fetchFromAuthApi(
 export async function fetchdWithCredentials(
   url: string,
   data: Record<string, any> | null = null,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "POST",
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   params?: string
 ) {
   const accessToken = getCookie("accessToken");
