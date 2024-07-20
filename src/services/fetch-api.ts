@@ -103,7 +103,7 @@ export async function fetchdWithCredentials(
   const fetchOptions: RequestInit = {
     method: "GET",
     headers: headers,
-    credentials: 'include', // Include credentials (cookies) in the request
+    credentials: 'include',
   };
 
   const response = await fetch(url, fetchOptions);
