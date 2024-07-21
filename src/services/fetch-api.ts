@@ -102,7 +102,7 @@ export async function fetchdWithCredentials(
   }
 
   const fetchOptions: RequestInit = {
-    method: "GET",
+    method,
     headers: headers,
     credentials: 'include',
   };
