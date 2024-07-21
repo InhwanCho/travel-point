@@ -44,6 +44,7 @@ export default function LoginBtn() {
   const handleLogout = async () => {
     try {
       const logout = await deleteRefreshToken();
+      console.log(logout);
       if (logout.response) {
         clearUser();
         deleteCookie('accessToken');
