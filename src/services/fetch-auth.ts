@@ -29,7 +29,7 @@ export async function deleteAccountApi(password: string) {
 
 export async function deleteRefreshToken(){
   const url ="/api/logout";
-  return fetchdWithCredentials("POST", url);
+  return fetchdWithCredentials(url);
 }
 
 // // 로그아웃(refreshToken삭제)

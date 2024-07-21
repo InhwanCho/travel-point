@@ -23,7 +23,7 @@ export default function OauthSuccess() {
           setUser(user);
 
           try {
-            const response = await fetchdWithCredentials("GET", '/api/request-refresh-token');
+            const response = await fetchdWithCredentials('/api/request-refresh-token');
             // 응답에서 필요한 데이터가 있을 경우 처리
             console.log('Refresh token requested successfully:', response);
           } catch (error) {

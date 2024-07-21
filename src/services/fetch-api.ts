@@ -89,7 +89,6 @@ export async function fetchFromAuthApi(
 }
 
 export async function fetchdWithCredentials(
-  method: string="GET",
   url: string,
 ) {
   const accessToken = getCookie("accessToken");
@@ -102,7 +101,7 @@ export async function fetchdWithCredentials(
   }
 
   const fetchOptions: RequestInit = {
-    method,
+    method: "GET",
     headers: headers,
     credentials: 'include',
   };
