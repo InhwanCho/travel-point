@@ -89,6 +89,7 @@ export async function fetchFromAuthApi(
 }
 
 export async function fetchdWithCredentials(
+  method: string="GET",
   url: string,
 ) {
   const accessToken = getCookie("accessToken");
