@@ -58,6 +58,7 @@ export default function RegionArticle({ region, count }: RegionArticleProps) {
         ) : (
           data && reversedDestinations.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).map((item: DestinationType, i: number) => (
             <DestinationCard key={i}
+              data-test={`main-${region}-${currentPage}`}
               priority={i === 0 ? true : false}
               contentId={item.contentId} imageSrc={item.firstImage} location={item.location} title={item.title} description={item.destinationDescription} />
           ))
