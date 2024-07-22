@@ -61,7 +61,7 @@ describe("메인페이지 600이하 테스트", () => {
 
   context("데스크탑 화면 테스트", () => {
     beforeEach(() => {
-      cy.viewport(1440, 900);
+      cy.viewport("macbook-16");
     });
     it("UI 테스트", () => {
       cy.getDataTest("logo").should("be.visible");

@@ -48,7 +48,7 @@ export default function LoginBtn() {
       if (logout.response) {
         clearUser();
         deleteCookie('accessToken');
-        // deleteCookie('refreshToken');
+        deleteCookie('refreshToken');
         setPopoverOpen(false);
         router.push('/');
       }
