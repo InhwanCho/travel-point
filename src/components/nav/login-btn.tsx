@@ -74,7 +74,7 @@ export default function LoginBtn() {
       {user ? (
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger className='focus-visible:outline-none'>
-            <img src={user.userImgUrl || '/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white size-[42px] min-w-[42px] rounded-full border outline-none' />
+            <img data-test="navbar-user-image" src={user.userImgUrl || '/assets/image/characters/anonymous.png'} alt='character image' width={42} height={42} className='bg-white size-[42px] min-w-[42px] rounded-full border outline-none' />
           </PopoverTrigger>
           <PopoverContent className='mt-2 mx-2 bg-slate-100/90 relative'>
             <PopoverClose className='absolute top-2.5 right-2.5 focus-visible:outline-none'>
@@ -90,15 +90,15 @@ export default function LoginBtn() {
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" className='rounded-full'>로그 아웃</Button>
+                    <Button data-test="main-logout-btn" variant="outline" className='rounded-full'>로그 아웃</Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>정말로 로그아웃을 하겠습니까?</AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>아니오</AlertDialogCancel>
-                      <AlertDialogAction className='bg-red-600/80 hover:bg-red-600' onClick={handleLogout}>예</AlertDialogAction>
+                      <AlertDialogCancel data-test="main-logout-no">아니오</AlertDialogCancel>
+                      <AlertDialogAction data-test="main-logout-yes" className='bg-red-600/80 hover:bg-red-600' onClick={handleLogout}>예</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -107,7 +107,7 @@ export default function LoginBtn() {
           </PopoverContent>
         </Popover>
       ) : (
-        <button onClick={openModal} data-test="login-btn"
+        <button onClick={openModal} data-test="nav-login-btn"
           className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
           Login
         </button>
