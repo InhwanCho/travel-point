@@ -48,7 +48,7 @@ export default function LoginBtn() {
       if (logout.response) {
         clearUser();
         deleteCookie('accessToken');
-        deleteCookie('refreshToken');
+        // deleteCookie('refreshToken');
         setPopoverOpen(false);
         router.push('/');
       }
@@ -62,8 +62,8 @@ export default function LoginBtn() {
       <div
         className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[6px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
         <div className="flex items-center">
-          <LiaSpinnerSolid className="animate-spin-slow size-5 mr-1.5 text-slate-500" />
-          <span className="text-[10px]">Loading...</span>
+          <LiaSpinnerSolid className="animate-spin-slow size-4 sm:size-5 mr-1.5 text-slate-500" />
+          <span className="text-[8px] md:text-[10px]">Loading...</span>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function LoginBtn() {
           </PopoverContent>
         </Popover>
       ) : (
-        <button onClick={openModal}
+        <button onClick={openModal} data-test="login-btn"
           className='sm:mx-0 flex border-[0.5px] border-slate-200/60 cursor-pointer items-center rounded-lg py-[9px] px-3 text-xs bg-secondary transition-colors hover:bg-slate-200/80'>
           Login
         </button>

@@ -70,7 +70,7 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
         email: data.email,
         password: data.password,
       });
-
+      console.log(response);
       if (response.response) {
         const accessToken = response.result.accessToken;
         const user = jwtDecode(accessToken);
@@ -263,6 +263,7 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <InputField
+          data-test="loginpage-email-input"
           label="이메일 주소"
           id="email"
           name="email"
@@ -273,6 +274,7 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
           error={loginErrors.email}
         />
         <InputField
+          data-test="loginpage-password-input"
           label="비밀번호"
           id="password"
           name="password"
@@ -288,8 +290,8 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
             비밀번호를 잊으셨나요?
           </button>
         </div>
-        <SubmitButton text="로그인하기" loading={loading} />
-        {error && <p className="mt-2 text-center text-red-600">{error}</p>}
+        <SubmitButton data-test="loginpage-login-btn" text="로그인하기" loading={loading} />
+        {error && <p data-test="loginpage-error" className="mt-2 text-center text-red-600">{error}</p>}
         <OauthOptions />
       </form>
     </>

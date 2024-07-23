@@ -70,18 +70,20 @@ export async function fetchFromAuthApi(
   }
 
   const response = await fetch(params ? `${url}${params}` : url, fetchOptions);
-
+  console.log(response);
   let responseData;
   try {
     responseData = await response.json();
   } catch (error) {
-    responseData = { message: 'JSON parsing error' };
+    responseData = { message: "JSON parsing error" };
   }
 
   if (!response.ok) {
     console.error(`API call failed: ${url}`, responseData);
     throw new Error(
-      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
+      `API call failed with status: ${response.status} - ${
+        responseData.message || "Unknown error"
+      }`
     );
   }
 
@@ -103,7 +105,7 @@ export async function fetchdWithCredentials(
   const fetchOptions: RequestInit = {
     method: "GET",
     headers: headers,
-    credentials: 'include',
+    credentials: "include",
   };
 
   const response = await fetch(url, fetchOptions);
@@ -112,13 +114,15 @@ export async function fetchdWithCredentials(
   try {
     responseData = await response.json();
   } catch (error) {
-    responseData = { message: 'JSON parsing error' };
+    responseData = { message: "JSON parsing error" };
   }
 
   if (!response.ok) {
     console.error(`API call failed: ${url}`, responseData);
     throw new Error(
-      `API call failed with status: ${response.status} - ${responseData.message || 'Unknown error'}`
+      `API call failed with status: ${response.status} - ${
+        responseData.message || "Unknown error"
+      }`
     );
   }
 
