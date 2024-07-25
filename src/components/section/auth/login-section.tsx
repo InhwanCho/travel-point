@@ -292,7 +292,7 @@ export default function LoginSection({ toggleForm, isModal }: LoginSectionProps)
         </div>
         <SubmitButton data-test="loginpage-login-btn" text="로그인하기" loading={loading} />
         {error && <p data-test="loginpage-error" className="mt-2 text-center text-red-600">{error}</p>}
-        <OauthOptions />
+        {/* <OauthOptions /> */}
       </form>
     </>
   );

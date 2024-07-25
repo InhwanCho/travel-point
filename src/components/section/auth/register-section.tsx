@@ -158,7 +158,7 @@ export default function RegisterSection({ toggleForm, isModal }: RegisterSection
             <Separator />
             <SubmitButton text="회원가입" loading={loading} />
             {error && <p className="mt-2 text-center text-red-600">{error}</p>}
-            <OauthOptions />
+            {/* <OauthOptions /> */}
           </form>
         </>
       ) : (
