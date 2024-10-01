@@ -26,10 +26,11 @@ export function useFetchDestination({
   areaName,
   count,
   page,
-  random
+  random,
+  sortby,
 }: FetchDestinationProps) {
   return useQuery<DestinationResultType, Error>({
-    queryKey: ["destinationData", { areaName, count, page, random }],
+    queryKey: ["destinationData", { areaName, count, page, random, sortby }],
     queryFn: ({ queryKey }) =>
       fetchDestination(queryKey[1] as FetchDestinationProps),
   });

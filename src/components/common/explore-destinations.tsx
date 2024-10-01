@@ -93,6 +93,8 @@ export default function ExploreDestinations({
     router.push(`${pathname}?${params.toString()}#mainSection`);
   };
 
+  
+
 
   return (
     <section id="mainSection">
@@ -122,24 +124,27 @@ export default function ExploreDestinations({
           <Separator />
         </>
       ) : page === 'festivals' ? ''
-        : page === 'regions' ? (
-          <>
-            <Separator />
-            <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
-              <li
-                onClick={() => handleThemeChange('all')}
-                className={`cursor-pointer font-medium ${pageColors.regions.ring} ring rounded-full ring-offset-2 px-1.5`}
-              >
-                전체
-              </li>
-              <li className={`font-medium rounded-full ring-offset-2 px-1.5`}>
-                후기순
-              </li>
-
-            </div>
-            <Separator />
-          </>
-        )
+        : page === 'regions' ? ''
+        // (
+        //   <>
+        //     <Separator />
+        //     <div className="flex h-5 items-center space-x-3 xsm:space-x-5 text-xs xsm:text-sm m-3 pl-1 list-none text-nowrap">
+        //       <li
+        //         onClick={() => handleThemeChange('all')}
+        //         className={`cursor-pointer font-medium ${pageColors.regions.ring} ring rounded-full ring-offset-2 px-1.5`}
+        //       >
+        //         전체
+        //       </li>
+        //       <li
+        //         onClick={() => {}}
+        //         className={`cursor-pointer font-medium rounded-full ring-offset-2 px-1.5`}
+        //       >
+        //         후기순
+        //       </li>
+        //     </div>
+        //     <Separator />
+        //   </>
+        // )
 
           : ''
       }
